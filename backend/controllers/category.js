@@ -57,12 +57,12 @@ exports.updateCategory = async (req  ,res) => {
 exports.showAllCategories = async (req ,res) => { 
 
     try { 
-        const CategoryDetails = await Category.find({ } , {name : true , description : true,})
+        const categoryDetails = await Category.find({ } , {name : true , description : true,})
 
         return res.status(200).json( { 
             success : true , 
-            message : "fetched all Categorys successfully"
-            ,CategoryDetails
+            message : "fetched all Categorys successfully",
+            categoryDetails
         })
 
     }catch(err) { 

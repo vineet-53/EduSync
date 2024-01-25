@@ -7,7 +7,7 @@ const {auth , isAdmin , isStudent , isInstructor} = require('../middlewares/auth
 
 router.post('/createCategory' ,auth, isAdmin, createCategory) ;
 router.post('/updateCategoryPageDetails',  auth, isAdmin,updateCategory) ;
-router.get('/showAllCategories' , auth, isAdmin,showAllCategories) ;
+router.get('/showAllCategories' , showAllCategories) ;
 router.post('/getCategoryPageDetails', auth, isAdmin, getCategoryPageDetails); 
 // course
 router.post("/createCourse" , auth , isInstructor ,createCourse); 

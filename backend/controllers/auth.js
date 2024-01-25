@@ -74,16 +74,16 @@ exports.signup = async (req ,res) => {
         })
     }
 }
-exports.signIn = async ( req , res ) => { 
+exports.login = async ( req , res ) => { 
     try  { 
-        const  {email  ,password ,role} = req.body ;
+        const  {email  ,password ,accountType : role} = req.body ;
         if(!email || !password || !role ) { 
             throw new Error("Please fill all credenticals")
         }
         // find the user with email 
         const userDoc  = await User.findOne({email}); 
         if(!userDoc) { 
-            throw new Error("User Not present in db")
+            throw new Error("User Not Found")
         }
         if(userDoc.accountType !== role) { 
             throw new Error("account type not match")
@@ -168,7 +168,7 @@ exports.changePassword =async(req ,res) => {
     }
 
 }
-exports.sendotp = async (req, res) => {
+exports.sendOTP = async (req, res) => {
     try {
         // input data
         const { email } = req.body

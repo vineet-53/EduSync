@@ -1,4 +1,4 @@
-export const HomePageExplore = [
+export  const HomePageExplore = [
     {
         tag: 'Free',
         courses : [
@@ -18,7 +18,7 @@ export const HomePageExplore = [
                 heading : "Responsive Web design",
                 description : "This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes",
                 level : 'Beginner',
-                lessionNumber : 6
+                lessionNumber : 12
             },
         ]
     },
@@ -35,7 +35,7 @@ export const HomePageExplore = [
                 heading : "CSS",
                 description : "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques",
                 level : 'Beginner',
-                lessionNumber : 6
+                lessionNumber : 8
             },
             {
                 heading : "Responsive ",

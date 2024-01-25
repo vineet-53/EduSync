@@ -26,6 +26,7 @@ app.use(fileUpload({
     preserveExtension : true,
 
 }))
+
 // routes
 app.use("/api/v1" , rootRoutes)
 app.use("/api/v1/auth" , authRoutes) 
