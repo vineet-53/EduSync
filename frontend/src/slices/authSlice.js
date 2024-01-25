@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import {getItemFromLocalStorage} from "../utils/localStorage"
 const initialState ={  
     signupData : null,
-    token : localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null, 
+    token : getItemFromLocalStorage("token"),
     loading : false, 
 }
 

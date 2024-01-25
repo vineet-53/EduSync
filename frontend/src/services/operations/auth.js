@@ -2,7 +2,7 @@ import apiConnector from "../apiConnector"
 import {authEndpoints} from "../endpointsAPI"
 import {toast} from "react-hot-toast"
 import {setLoading, setSignupData , setToken} from "../../slices/authSlice"
-import {setUser} from "../../slices/profleSlice"
+import {setUser} from "../../slices/profileSlice"
 export const  login  =  (loginData, navigate  ) => async (dispatch) =>  { 
         const toastId = toast.loading("Loading...")
         dispatch(setLoading(true))
