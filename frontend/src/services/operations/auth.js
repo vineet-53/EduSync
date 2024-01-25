@@ -73,3 +73,5 @@ export const signup = (signupData ,  otp , navigate) => async (dispatch)=> {
     dispatch(setLoading(true))
     toast.dismiss(toastId)
 }
+
+

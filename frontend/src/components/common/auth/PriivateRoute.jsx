@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 const PrivateRoute = ({children}) =>  { 
     const {token} = useSelector(state => state.auth)
-    if(token !== null) { 
+    const { user }= useSelector(state => state.profile)
+    if(token !== null && user !== null) { 
         // return children
         return children
     }

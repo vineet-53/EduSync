@@ -1,11 +1,9 @@
 import React , {useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { useFormContext } from '../../../contexts/form/FormProvider';
 
 const InputPassword = (props) => {
     const {labelName  , forgotPassword , inputcss , placeholder , id  , value , handleEvent} = props
     const [isPasswordVisible , setPasswordVisible ] = useState(false);
-    const {setPassword , setConfirmPassword} = useFormContext()
     return (
         <li className='relative flex flex-col gap-2  text-richblack-100'>
 
@@ -23,7 +21,7 @@ const InputPassword = (props) => {
                 forgotPassword ? (
                 <>
                     <div className="w-max right-0 absolute bottom-[-2rem]">
-                        <Link to="">
+                        <Link to="/forgot-password">
                             Forgot Password
                         </Link>
                     </div>

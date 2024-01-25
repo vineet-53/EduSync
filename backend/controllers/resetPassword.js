@@ -5,7 +5,7 @@ const {passwordHash } = require('../utilities/password');
 
 exports.resetPasswordToken = async ( req , res ) => { 
     try  { 
-        const {email} = req.user || req.body; 
+        const {email} = req.body; 
         if(!email) { 
             throw "missing email"
         }
@@ -25,7 +25,7 @@ exports.resetPasswordToken = async ( req , res ) => {
         if(!updatedUser){  
             throw "Email not register in Study notion"
         }
-        const url = `http://localhost:${process.env.PORT || 8000}/update-password/${token}`
+        const url = `http://localhost:${process.env.FRONTEND_PORT || 5173}/update-password/${token}`
         // send url to the email 
         await sendMail(email , "Password reset link" , `<a href=${url}> reset link </a>`)
         return res.status(200).json({ 
@@ -44,9 +44,9 @@ exports.resetPasswordToken = async ( req , res ) => {
 
 exports.resetPassword  = async(req ,res) => { 
     try { 
-        const { password , confirmPassword } = req.body; 
-        const  token = req.params.token
-        // const email = req.user.email || req.body.email
+        // data
+        const { password , confirmPassword ,token } = req.body; 
+        // validate
         if(!password || !confirmPassword) { 
             throw new Error("missing all details")
         }   

@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 import OpenRoute from "./components/common/auth/OpenRoute"
 import PrivateRoute from "./components/common/auth/PriivateRoute"
 import Dashboard from './pages/Dashboard'
+import ResetPassword from './pages/ResetPassword'
+import UpdatePassword from './pages/UpdatePassword'
 const Layout = ({children}) => { 
   return <>
     <Navbar/> 
@@ -48,11 +50,21 @@ function App() {
               <VerifyEmail />
             </OpenRoute>
             } /> 
+            <Route  path= {"/forgot-password"} element={
+             <OpenRoute>
+              <ResetPassword />
+            </OpenRoute>
+            } /> 
             
             <Route  path= {"/dashboard/my-profile"} element={
-             <PrivateRoute> 
-              <Dashboard />
-            </PrivateRoute>
+              <PrivateRoute> 
+                <Dashboard />
+              </PrivateRoute>
+            } /> 
+            <Route  path= {"/update-password/:token"} element={
+              <OpenRoute> 
+                <UpdatePassword />
+              </OpenRoute>
             } /> 
             
 

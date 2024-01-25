@@ -47,4 +47,5 @@ export const courseEndpoints = {
   
   export const rootEndpoints = { 
     RESET_PASSWORD_TOKEN_API : API_VERSION +  "/reset-password-token",  
+    UPDATE_PASSWORD : API_VERSION + "/update-password"
   }

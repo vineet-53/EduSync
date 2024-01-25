@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom"
 import { FaArrowLeftLong } from "react-icons/fa6";
-export default function Template({title , children , subTitle }) {
+export default function Template({title , children , subTitle , email }) {
   return (
     <div className='flex bg-custom-primary w-screen h-screen items-center justify-center'>
 
@@ -9,7 +9,8 @@ export default function Template({title , children , subTitle }) {
             <div className='flex flex-col gap-3'>   
                 <div className='text-2xl lg:text-3xl font-bold text-richblack-5'>{title}</div>
                 <div className='text-sm lg:text-base'>
-                    {subTitle}
+                    <p>{subTitle}</p>
+                    <p>{email}</p>
                 </div>
             </div>
             <div className='flex flex-col gap-3'>

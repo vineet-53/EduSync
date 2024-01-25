@@ -34,7 +34,7 @@ const LoginForm = () => {
                         {/* password  below forgot password*/}
                         <InputPassword 
                             labelName = "Enter Password"
-                            forgotPassword = {false}
+                            forgotPassword = {true}
                             inputcss = "w-full"
                             placeholder= 'Enter Password'
                             id="password"
