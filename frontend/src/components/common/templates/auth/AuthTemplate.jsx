@@ -1,7 +1,7 @@
 import React from 'react';
-import { Login , Signup , Frame} from "../../../assets/index"
-import FormTitle from '../form/Title';
-const UserAuthTemplate = ({ children , login = false , signup = false }) => {
+import { Login , Signup , Frame} from "../../../../assets/index"
+import FormTitle from '../../form/Title';
+const AuthTemplate = ({ children , login = false , signup = false }) => {
     return (
         <div className='flex  bg-custom-primary min-h-screen pt-10 px-22 lg:justify-evenly'>
         <div className='lg:w-3/6 mx-auto w-4/5 md:max-w-[480px] flex  flex-col gap-5 lg:px-10 '>
@@ -20,4 +20,4 @@ const UserAuthTemplate = ({ children , login = false , signup = false }) => {
     );
 }
 
-export default UserAuthTemplate;
+export default AuthTemplate;

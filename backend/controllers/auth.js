@@ -1,17 +1,14 @@
-const otpGenerator = require('otp-generator')
 const User = require('../models/User')
 const  Otp =  require("../models/Otp")
-const {generateOtp , verifyOtp} = require('../utilities/otp')
+const {generateOtp } = require('../utilities/otp')
 const jwt = require('jsonwebtoken');
-const {sendMail} = require('../utilities/sendMail')
 const {passwordCompare , passwordHash } = require('../utilities/password'); 
-const crypto = require('crypto')
 const Profile = require('../models/Profile')
 
 exports.signup = async (req ,res) => { 
     try { 
         // get all details 
-        const { firstName , lastName , password ,confirmPassword , email , accountType , otp}  = req.body ;
+        const { firstName , lastName , password ,confirmPassword , email , accountType , otp , phoneNumber}  = req.body ;
         // validate details 
         if(!firstName || !lastName || !password ||!confirmPassword || !email || !accountType || !otp) { 
             throw new Error("missing properties")
@@ -38,7 +35,7 @@ exports.signup = async (req ,res) => {
             gender : null , 
             dob : "" , 
             about : null , 
-            contactNumber : null
+            contactNumber : phoneNumber
         })
 
         // create user with given details 
@@ -61,8 +58,8 @@ exports.signup = async (req ,res) => {
         // return response success
         return res.status(200).json({ 
             success : true,  
-            message : "User created in db successfully"
-            ,userDoc
+            message : "User Signed In successfully",
+            userDoc
         })
 
 
@@ -76,17 +73,14 @@ exports.signup = async (req ,res) => {
 }
 exports.login = async ( req , res ) => { 
     try  { 
-        const  {email  ,password ,accountType : role} = req.body ;
-        if(!email || !password || !role ) { 
-            throw new Error("Please fill all credenticals")
+        const  {email  ,password } = req.body ;
+        if(!email || !password  ) { 
+            throw new Error("Please fill all details")
         }
         // find the user with email 
         const userDoc  = await User.findOne({email}); 
         if(!userDoc) { 
             throw new Error("User Not Found")
-        }
-        if(userDoc.accountType !== role) { 
-            throw new Error("account type not match")
         }
         await passwordCompare(password , userDoc.password)
         // create a session for the user 

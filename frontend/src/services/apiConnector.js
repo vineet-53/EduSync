@@ -1,5 +1,5 @@
 import axios from "axios"
-const apiConnector =  async (url , method = "GET" , body = null  , headers = {}) => {
+const apiConnector =  async (method ,  url , body = null  , headers = {}) => {
      try{  
         const response = await axios({ 
             method , 

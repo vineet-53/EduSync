@@ -9,7 +9,9 @@ const courseSlice = createSlice({
     name : "Course",  
     initialState,  
     reducers : { 
-        setLoading : (state ,action) => state.loading = action.payload
+        setLoading : (state ,action) =>{ 
+            state.loading = action.payload
+        }
     }
 })
 

@@ -8,7 +8,7 @@ const Input = (props) => {
             {labelName ? <label htmlFor={id}>{labelName}
             <span className='text-pink-400'> *</span>
             </label>  : ""  }
-            <input className={'bg-custom-tertiary text-white  px-4 py-2 rounded-md ' + inputcss } value = {value} type={`${type ? type : "text"}`} id={id} placeholder={placeholder} onChange={handleEvent}  />
+            <input className={'bg-custom-tertiary text-white  px-4 py-2 rounded-md ' + inputcss } value = {value} type={`${type ? type : "text"}`} id={id} placeholder={placeholder} onChange={handleEvent} maxLength={id === "phone" ? 10 : ""} />
         </li>
     );
 }

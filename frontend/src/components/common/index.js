@@ -10,11 +10,11 @@ import Title from "./form/Title"
 import Navbar from "./navbar/Navbar"
 import NavbarButton from "./navbar/NavbarButton"
 import PrimaryButton from "./PrimaryButton"
-import Template from "./templates/Template"
-import UserAuthTemplate from "./templates/UserAuthTemplate"
+import Template from "./templates/verifyEmail/Template"
+import AuthTemplate from "./templates/auth/AuthTemplate"
 
 export {
-    Footer, Button, Input, InputPassword, SubmitButton, Navbar, NavbarButton, PrimaryButton, Template, UserAuthTemplate, Title,
+    Footer, Button, Input, InputPassword, SubmitButton, Navbar, NavbarButton, PrimaryButton, Template, AuthTemplate, Title,
     Primary,
     Wrapper,
     Secondary,
