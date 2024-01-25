@@ -2,7 +2,7 @@
 
 * app in which instructor upload their courses 
 
-* students can purchanse the course 
+* students can purchase the course 
 
 # Learnings from this project 
 
@@ -12,9 +12,11 @@
 
 * File Structure 
 
-* Clean code (i did my 100% )
+* Clean code (i did my 100% and i am trying to adapt good practices if have any kindly suggest me. )
 
 * PostMan and Handling API Requests
+
+
 
 
 
