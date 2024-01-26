@@ -3,15 +3,19 @@ import {authEndpoints} from "../endpointsAPI"
 import {toast} from "react-hot-toast"
 import {setLoading, setSignupData , setToken} from "../../slices/authSlice"
 import {setUser} from "../../slices/profileSlice"
-export const  login  =  (loginData, navigate  ) => async (dispatch) =>  { 
+import { setItemToLocalStorage } from "../../utils/localStorage"
+export const  login  =  (email , password, navigate  ) => async (dispatch) =>  { 
         const toastId = toast.loading("Loading...")
         dispatch(setLoading(true))
       try {
-        const response = await apiConnector("post", authEndpoints.LOGIN_API, {...loginData})
+        const response = await apiConnector("post", authEndpoints.LOGIN_API, {
+          email , 
+          password
+        })
   
         console.log("LOGIN API RESPONSE............", response)
   
-        if (!response.data.success) {
+        if (!response.data.success || response.status !== 200) {
           throw new Error(response.data.message)
         }
   
@@ -21,12 +25,11 @@ export const  login  =  (loginData, navigate  ) => async (dispatch) =>  {
           ? response.data.user.image
           : `https://ui-avatars.com/api/?name=${response.data.user.firstName}+${response.data.user.lastName}`
         dispatch(setUser({ ...response.data.user, image: userImage }))
-        
-        localStorage.setItem("token", JSON.stringify(response.data.token))
-        localStorage.setItem("user", JSON.stringify(response.data.user))
+        setItemToLocalStorage("token" , response.data.token)
+        setItemToLocalStorage("user" , response.data.user)
         navigate("/dashboard/my-profile")
       } catch (error) {
-        console.log("LOGIN API ERROR............", error)
+        console.log("LOGIN API ERROR............", error )
         toast.error("Login Failed")
       }finally { 
         dispatch(setLoading(false))

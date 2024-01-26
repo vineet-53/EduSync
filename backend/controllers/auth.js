@@ -2,8 +2,9 @@ const User = require('../models/User')
 const  Otp =  require("../models/Otp")
 const {generateOtp } = require('../utilities/otp')
 const jwt = require('jsonwebtoken');
-const {passwordCompare , passwordHash } = require('../utilities/password'); 
+const { passwordHash } = require('../utilities/password'); 
 const Profile = require('../models/Profile')
+const bcrypt = require('bcrypt')
 
 exports.signup = async (req ,res) => { 
     try { 
@@ -78,18 +79,20 @@ exports.login = async ( req , res ) => {
             throw new Error("Please fill all details")
         }
         // find the user with email 
-        const userDoc  = await User.findOne({email}); 
+        const userDoc  = await User.findOne({email : email }); 
         if(!userDoc) { 
             throw new Error("User Not Found")
         }
-        await passwordCompare(password , userDoc.password)
+        const result = await bcrypt.compare(password , userDoc.password )
+        if(!result) { 
+            throw new Error("Password not Matched")
+        }
         // create a session for the user 
         const JWT_SECRET = process.env.JWT_SECRET
         // create a jwt with header payload signature 
         const JWT_PAYLOAD = { 
             userId: userDoc._id , 
             email , 
-            
         }
         const token = jwt.sign(JWT_PAYLOAD , JWT_SECRET , {expiresIn : "5h"})
         // store in the browser cookies 
@@ -101,9 +104,7 @@ exports.login = async ( req , res ) => {
         // save in cookie
         res.cookie('token', token , cookieOptions)
         userDoc.active = true;
-         
         await userDoc.save()
-
         return res.status(200).json({ 
             success : true,  
             message : "token generated redirecting user",  

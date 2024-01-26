@@ -49,10 +49,8 @@ const userSchema = mongoose.Schema({
   }, 
   token : { 
     type :String, 
+    expires: 5 * 60, 
   }, 
-  resetPasswordExpires :{ 
-    type :Number, 
-  },
   accountType: {
     type: String,
     enum: ["Instructor", "Student", "Admin"],

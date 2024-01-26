@@ -34,10 +34,11 @@ export const updatePassword = async (password, confirmPassword, token, navigate)
             throw new Error(response.data.message)
         }
         toast.success("Password updated Successfully")
-        console.log('Password updated successfully REDIRECTING TO LOGIN')
+        console.log('Password updated successfully ')
+        navigate("/login")
     } catch (err) {
         console.log(err.message)
-        toast.error("Error Updating PASSWORD")
+        toast.error(err.response.data.message || err.message || "Error Updating PASSWORD")
     }
     toast.dismiss(toastId)
 }

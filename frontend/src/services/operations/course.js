@@ -8,3 +8,8 @@ export const fetchALlCatalogs = async () => {
         console.error(err.message)
     }
 }
+
+
+export const getCatalog = (id) => async dispatch => { 
+    
+}

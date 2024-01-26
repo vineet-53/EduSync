@@ -13,7 +13,7 @@ const LoginForm = () => {
     const handleLoginForm = async (e) =>  { 
         e.preventDefault()
 
-        dispatch(login( {email , password },navigate))
+        dispatch(login( email , password,navigate))
     }
 
     return (<>
@@ -28,7 +28,6 @@ const LoginForm = () => {
                             inputcss ="w-full"
                             id ="email"
                             type = "email"
-                            value ={email}
                             handleEvent = {e => setEmail(e.target.value)}
                             />
                         {/* password  below forgot password*/}
@@ -38,7 +37,6 @@ const LoginForm = () => {
                             inputcss = "w-full"
                             placeholder= 'Enter Password'
                             id="password"
-                            value={password}
                             handleEvent = {e => setPassword(e.target.value)}
                             />
                         {/* sign button */}

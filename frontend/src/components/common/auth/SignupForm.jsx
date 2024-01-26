@@ -37,6 +37,16 @@ const SignupForm = () => {
             return
         }
         
+        if(/^[0-9]\d{8}[0-9]$/.test(phoneNumber)){ 
+            toast.error("Phone Number Invalid")
+            return
+        }
+
+        if(/^[(\w\d\W)+]+@[\w+]+\.[\w+]+$/i.test(email)){ 
+            toast.error("Email Invalid")
+            return
+        }
+        
         // send otp to the user 
         dispatch(setSignupData({ 
             accountType,
@@ -71,7 +81,6 @@ const SignupForm = () => {
                             inputcss ="w-full"
                             placeholder = "Enter First Name"
                             id ="firstName"
-                            value ={firstName}
                             handleEvent ={e => setFirstName(e.target.value)}
                             />
                         <Input 
@@ -79,7 +88,6 @@ const SignupForm = () => {
                             inputcss ="w-full"
                             placeholder = "Enter Last Name"
                             id ="lastName"
-                            value = {lastName}
                             handleEvent={e => setLastName(e.target.value)}
                         />
                     </div>
@@ -91,7 +99,6 @@ const SignupForm = () => {
                         id ="email"
                         type = "email"
                         handleEvent={e => setEmail(e.target.value)}
-                        value ={email}
                     />
                     <div className='list-none text-richblack-100 flex flex-col lg:gap-3'>
 
@@ -112,7 +119,6 @@ const SignupForm = () => {
                                 placeholder ="Enter Phone Number "
                                 inputcss = "w-full"
                                 id = "phone"
-                                value ={phoneNumber}
                                 handleEvent={e => setPhoneNumber(e.target.value)}
                             />
                         </div>

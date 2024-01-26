@@ -6,7 +6,7 @@ export const getItemFromLocalStorage = (item) => {
     return null
 }
 
-export const setItemToLocalStorage = (kye , value) => { 
+export const setItemToLocalStorage = (key , value) => { 
     localStorage.setItem(key , JSON.stringify(value))
 }
 

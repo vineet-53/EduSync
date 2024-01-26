@@ -15,7 +15,6 @@ const Navbar = () => {
     }
     const getAllCatalog = async ()  => { 
         const data = await fetchALlCatalogs()
-        console.log(data)
         if(data.status === 200)
             setCatalogs(data.data.categoryDetails)
     }

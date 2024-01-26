@@ -17,7 +17,6 @@ exports.resetPasswordToken = async ( req , res ) => {
             { email: email },
 			{
                 token: token,
-				resetPasswordExpires: Date.now() + 3600000,
 			},
 			{ new: true }
         );
@@ -56,17 +55,18 @@ exports.resetPassword  = async(req ,res) => {
         
         // find the user with token
         const user   = await User.findOne({token : token})
+        if(password === user.password)  { 
+            throw new Error("Old Password Couldn't be set")
+        }
         if(!user){ 
             throw new Error("User not registered")
         }
-        // check the token is in user or not
+        if(!user.token) { 
+            throw new Error("reset token expired")
+        }
         if(user.token !== token){ 
             throw new Error("token not matched")
         }
-        if(user.resetPasswordDuration < Date.now()) { 
-            throw new Error("reset token expired")
-        }
-        
         // hash password
         user.password = await passwordHash(password , 10)
         // save user 
@@ -74,13 +74,13 @@ exports.resetPassword  = async(req ,res) => {
 
         return res.status(200).json({ 
             success : true , 
-            message : "password reset successfully"
-            ,user 
+            message : "password reset successfully",
+            user 
         })
 
 
     }catch(err) { 
-        return res.status(400).json( { 
+        return res.status(401).json( { 
             message : err.message, 
             success  : false ,
         })
