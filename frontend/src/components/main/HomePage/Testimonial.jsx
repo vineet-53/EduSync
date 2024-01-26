@@ -1,7 +1,5 @@
 import React from 'react';
-import Title from './Title';
-import SubTitle from './SubTitle';
-
+import { Title , SubTitle } from '../index';
 const  Testimonial = (props) => {
     const {userName , rating, review ,courseName , userImage} = props
     return (

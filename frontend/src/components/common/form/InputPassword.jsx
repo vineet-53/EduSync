@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";
 const InputPassword = (props) => {
+    
     const {labelName  , forgotPassword , inputcss , placeholder , id  , value , handleEvent} = props
     const [isPasswordVisible , setPasswordVisible ] = useState(false);
     return (
@@ -25,7 +26,7 @@ const InputPassword = (props) => {
                         <Link to="/forgot-password">
                             Forgot Password
                         </Link>
-                    </div>
+                    </div> st
                 </>) : 
                 ""
             

@@ -8,14 +8,14 @@ import ImageContainer from "./HomePage/ImageContainer.jsx"
 import Line from "./HomePage/Line.jsx"
 import ReviewSlider from "./HomePage/ReviewSlider.jsx"
 import SecondaryButton from "./HomePage/SecondaryButton.jsx"
-import SubTitle from "./HomePage/SubTitle.jsx"
+import SubTitle from "../common/SubTitle.jsx"
 import Tab from "./HomePage/Tab.jsx"
 import TabContainer from "./HomePage/TabContainer.jsx"
 import Testimonial from "./HomePage/Testimonial.jsx"
-import Title from "./HomePage/Title.jsx"
+import Title from "../common/Title.jsx"
 import TypeAnimationBox from "./HomePage/TypeAnimationBox.jsx"
 import ExpBanner from "./HomePage/ExpBanner.jsx"
-
+import Image from "./AboutPage/Image.jsx"
 export {
     Card,
     CodeBlock,
@@ -32,4 +32,5 @@ export {
     Testimonial,
     Title,
     TypeAnimationBox,ExpBanner,
+    Image,
 }

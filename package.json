@@ -1,5 +1,1 @@
-{ 
-    "scripts": {
-        "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" "
-    }
-}
+{"scripts":{"dev":"concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" "},"dependencies":{"react-hook-form":"^7.49.3"}}

@@ -1,5 +1,5 @@
 import React from 'react';
-import HighLightedText from './HighLightedText';
+import HighLightedText from '../main/HomePage/HighLightedText';
 const Title = ({beforeSpanText , spanText , afterSpanText , titlecss , spanTextcss}) => {
     return (
         <h2 className={`font-bold  text-4xl tracking-wide ${titlecss}`}>
