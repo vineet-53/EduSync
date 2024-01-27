@@ -18,8 +18,6 @@ const Layout = ({children}) => {
   </>
 }
 function App() {
-  const {token} = useSelector(state => state.auth)
-  const user = JSON.parse(localStorage.getItem('token')) || null
   return (
         <>
           <Routes > 
@@ -58,7 +56,7 @@ function App() {
             
             <Route  path= {"/dashboard/my-profile"} element={
               <PrivateRoute> 
-                <Dashboard />
+                <Layout><Dashboard /></Layout>
               </PrivateRoute>
             } /> 
             <Route  path= {"/update-password/:token"} element={

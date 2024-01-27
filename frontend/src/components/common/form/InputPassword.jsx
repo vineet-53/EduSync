@@ -26,7 +26,7 @@ const InputPassword = (props) => {
                         <Link to="/forgot-password">
                             Forgot Password
                         </Link>
-                    </div> st
+                    </div> 
                 </>) : 
                 ""
             

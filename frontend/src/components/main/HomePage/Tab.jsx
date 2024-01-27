@@ -1,13 +1,13 @@
-import React from 'react';
+import React , {useState} from 'react';
 
 const Tab = (props) => {
-    const {tabcss , title , titlecss  , handleClickedTab , handleClickedTabData , data} = props
-
+    const {tabcss , title , titlecss  , handleOnclick , activeTab , handleActiveTab  } = props
+   
     return (
-        <button onClick={(event) => { 
-            handleClickedTab(event) 
-            handleClickedTabData (data)
-        }} className={`transition-all duration-500 scroll-smooth h-full lg:px-8 lg:py-2 rounded-full cursor-pointer ${tabcss} ${titlecss}`}>
+        <button onClick={async e => { 
+            handleOnclick(e)
+            handleActiveTab(title)
+        }} className={`transition-all duration-800 scroll-smooth h-full lg:px-8 lg:py-2 rounded-full cursor-pointer text-pure-greys-100 ${tabcss} ${titlecss} ${title === activeTab ? "bg-custom-primary": ""}`}>
                 {title}
         </button>
     );

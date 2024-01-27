@@ -4,6 +4,8 @@ export default function Dashboard() {
   const { user } = useSelector(state => state.profile)
 
   return (
-    <></>
+    <>
+    
+    </>
   )
 }
