@@ -65,11 +65,6 @@ export default function FormTemplate({handleForm}) {
             <textarea className="bg-custom-tertiary text-pure-greys-5 px-3 py-2 rounded-md focus:outline-2 border-none focus:outline-white w-full h-[130px]" name="message" id="message" placeholder='Enter Message' {...register("message" , {required : true})}>
             </textarea>
         </div>
-
-
-        {/* <PrimaryButton isActive = {true } buttoncss ="text-center w-full">
-            Send Message
-        </PrimaryButton> */}
         <button type="submit" className='bg-yellow-100 hover:bg-yellow-50 text-black text-center py-3  rounded-md'>
             Send Message
         </button>
