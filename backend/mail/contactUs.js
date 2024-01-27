@@ -1,7 +1,7 @@
 exports.contactUsEmail = (
     email,
     firstname,
-    lastname,
+    lastname = "",
     message,
     phoneNo   ,
     countrycode
