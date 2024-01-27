@@ -30,6 +30,7 @@ export const courseEndpoints = {
 export const authEndpoints = {
   SIGN_UP_API: API_VERSION + "/auth/signup",
   LOGIN_API: API_VERSION + "/auth/login",
+  LOGOUT : API_VERSION + "/auth/logout", 
   SEND_OTP_API: API_VERSION + "/auth/sendotp",
   CHANGE_ACCOUNT_TYPE_API: API_VERSION + "/auth/changeAccountType",
 }

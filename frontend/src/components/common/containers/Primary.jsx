@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Primary({children}) {
   return (
-    <div className='bg-custom-primary min-h-screen w-full box-border'>{children}</div>
+    <div className='bg-custom-primary min-h-screen w-full '>{children}</div>
   )
 }

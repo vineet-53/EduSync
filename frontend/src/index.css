@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html{ 
+  overflow-x: hidden;
+}
 /* HTML: <div class="loader"></div> */
 .loader {
     font-weight: bold;

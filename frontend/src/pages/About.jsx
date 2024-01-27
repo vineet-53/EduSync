@@ -142,7 +142,7 @@ export default function About() {
       </section>
 
 
-      <section className='flex justify-center'>
+      <section className='flex justify-center lg:pb-[5rem]'>
         
           <ContactForm 
             title = "Get in Touch"

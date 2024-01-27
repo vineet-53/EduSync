@@ -10,7 +10,6 @@ import ReviewSlider from "./HomePage/ReviewSlider.jsx"
 import SecondaryButton from "./HomePage/SecondaryButton.jsx"
 import SubTitle from "../common/SubTitle.jsx"
 import Tab from "./HomePage/Tab.jsx"
-import TabContainer from "./HomePage/TabContainer.jsx"
 import Testimonial from "./HomePage/Testimonial.jsx"
 import Title from "../common/Title.jsx"
 import TypeAnimationBox from "./HomePage/TypeAnimationBox.jsx"
@@ -28,7 +27,6 @@ export {
     SecondaryButton,
     SubTitle,
     Tab,
-    TabContainer,
     Testimonial,
     Title,
     TypeAnimationBox,ExpBanner,

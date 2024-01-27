@@ -1,9 +1,10 @@
 import apiConnector from "../apiConnector"
 import {authEndpoints} from "../endpointsAPI"
-import {toast} from "react-hot-toast"
+import {ToastBar, toast} from "react-hot-toast"
 import {setLoading, setSignupData , setToken} from "../../slices/authSlice"
 import {setUser} from "../../slices/profileSlice"
 import { setItemToLocalStorage } from "../../utils/localStorage"
+
 export const  login  =  (email , password, navigate  ) => async (dispatch) =>  { 
         const toastId = toast.loading("Loading...")
         dispatch(setLoading(true))
@@ -27,6 +28,7 @@ export const  login  =  (email , password, navigate  ) => async (dispatch) =>  {
         dispatch(setUser({ ...response.data.user, image: userImage }))
         setItemToLocalStorage("token" , response.data.token)
         setItemToLocalStorage("user" , response.data.user)
+
         navigate("/dashboard/my-profile")
       } catch (error) {
         console.log("LOGIN API ERROR............", error )
@@ -75,6 +77,21 @@ export const signup = (signupData ,  otp , navigate) => async (dispatch)=> {
     }
     dispatch(setLoading(true))
     toast.dismiss(toastId)
+}
+
+export const logout  =  (email ,navigate) => async (dispatch) => { 
+    try { 
+      const response = await apiConnector("post" , authEndpoints.LOGOUT , {email})
+      localStorage.clear()
+      // clear the user and token from redux store 
+      dispatch(setToken(null))
+      dispatch(setUser(null))
+      toast.success(response.data.message)
+      navigate("/")
+  }catch(err) { 
+    console.log("LOGOUT FAILED ----> " ,err)
+    toast.error("Logout Failed")
+  }
 }
 
 

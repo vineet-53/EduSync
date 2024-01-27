@@ -94,11 +94,10 @@ exports.login = async ( req , res ) => {
             userId: userDoc._id , 
             email , 
         }
-        const token = jwt.sign(JWT_PAYLOAD , JWT_SECRET , {expiresIn : "5h"})
+        const token = await jwt.sign(JWT_PAYLOAD , JWT_SECRET , {expiresIn : "5h"})
         // store in the browser cookies 
         const cookieOptions  = {
             maxAge: 5 * 3600, 
-            path : '/',
             httpOnly: true,       
         }
         // save in cookie
@@ -224,6 +223,32 @@ exports.sendOTP = async (req, res) => {
     }catch(err) { 
         return res.status(401).json({ 
             success : false,  
+            message : err.message
+        })
+    }
+  }
+
+  exports.logout = async (req ,res ) => { 
+    try { 
+        const {email} = req.body 
+        if(!email) { 
+            throw new Error("Please Send all details")
+
+        }
+        // remove token from cookies 
+        res.cookies?.token && res.clearCookie('token')
+        // mark user active false 
+        const user= await User.findOne({email})
+        user.active = false; 
+        user.save()
+        return res.status(200).json({ 
+            success : true, 
+            message : "Logout Successfully"
+        })
+
+    }catch(err) { 
+        return res.status(401).json({ 
+            success : false, 
             message : err.message
         })
     }
