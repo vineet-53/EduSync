@@ -1,4 +1,4 @@
-import { setLoading, setProfile, setUser } from "../../slices/profileSlice"
+import { setLoading, setProfile, setUser, setUserImage } from "../../slices/profileSlice"
 import { profileEndpoints } from "../endpointsAPI"
 import apiConnector from "../apiConnector"
 import { toast } from "react-hot-toast"
@@ -34,14 +34,16 @@ export const updateProfile = (token , data) => async (dispatch) => {
 }
 export const updateProfilePicture = (token , data) => async (dispatch) => {
     dispatch(setLoading(true))
-    const toastId = toast.loading("Fetching user details")
+    const toastId = toast.loading("Updating Profile Picture")
     try {
-        console.log(data)
-        const response = await apiConnector("put", profileEndpoints.UPDATE_PROFILE_PICTURE_API, { ...data }, {
+        const image = data[0]
+        const response = await apiConnector("put", profileEndpoints.UPDATE_PROFILE_PICTURE_API, {image }, {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`
         })
         console.log(response)
+        dispatch(setUserImage(response.data.user.image))
+        toast.success("Updated User Image Successfully")
     } catch (err) {
         console.log(err.message)
     }

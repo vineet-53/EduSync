@@ -1,18 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { HiOutlineUpload } from "react-icons/hi";
 import IconButton from "../../../components/common/IconButton"
 import { useForm } from 'react-hook-form';
+import { updateProfilePicture } from '../../../services/operations/profile';
 
 export default function UpdateProfile() {
-    const {user} = useSelector(state => state.profile)
-    const {register , handleSubmit , formState : {errors}} = useForm({ 
-        defaultValues : { 
-            image : ""
-        }
-    }) 
-    function updateProfilePictureForm (data){ 
-        console.log(data)
+    const { user } = useSelector(state => state.profile)
+    const dispatch = useDispatch()
+    const [imageName, setImageName] = useState("Select")
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            image: ""
+        }, 
+    })
+    function updateProfilePictureForm(data) {
+        dispatch(updateProfilePicture(user.token, data.image))
     }
     return (
         <div className='flex items-center gap-2' >
@@ -21,8 +24,8 @@ export default function UpdateProfile() {
                 <p className='text-base md:text-xl text-white'>Change Profile Picture</p>
                 <form onSubmit={handleSubmit(updateProfilePictureForm)} className='flex gap-2'>
                     <label className='bg-richblack-600 px-4 py-2 rounded-md text-richblack-100 cursor-pointer ' htmlFor="file-upload" >
-                        <input type="file" id="file-upload" {...register("image",  {required : true})} className='hidden' />
-                        Select
+                        <input type="file" id="file-upload" {...register("image", { required: true , onChange : e => setImageName(e.target.files[0].name) })} className='hidden' />
+                        {imageName}
                     </label>
                     <IconButton isActive={true} >
                         <span className=''>Upload</span>

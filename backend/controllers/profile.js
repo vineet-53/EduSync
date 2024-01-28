@@ -144,8 +144,8 @@ exports.updateProfilePicture = async (req, res) => {
         await user.save()
         return res.status(200).json({
             success: true,
-            message: "updated user profile image"
-            , user
+            message: "updated user profile image", 
+            user
         })
     } catch (err) {
         return res.status(400).json({

@@ -64,7 +64,24 @@ export default function MobileDashboard({ handleNav }) {
                     </button>
                 </div>
                 {
-                    modalData && <ConfirmationModal />
+                    modalData && <div className='w-full grid place-content-center absolute top-0 min-h-screen backdrop-blur'>
+                        <div className='flex gap-4 flex-col bg-custom-primary py-5 px-4 rounded-md'>
+                            <div className=''>
+                                <p className='font-bold text-2xl text-white'>{modalData.text1}</p>
+                                <p className=' text-base text-pure-greys-200 font-semibold'> {modalData.text2}</p>
+                            </div>
+                            <div className='flex gap-4'>
+                                <IconButton onClick={modalData.button1Handler} isActive={true} >
+                                    {modalData.button1Text}
+                                </IconButton>
+
+                                <IconButton onClick={modalData.button2Handler} isActive={false}>
+                                    {modalData.button2Text}
+                                </IconButton>
+
+                            </div>
+                        </div>
+                    </div>
                 }
             </nav >
         </>
