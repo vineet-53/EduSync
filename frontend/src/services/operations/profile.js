@@ -23,7 +23,9 @@ export const updateProfile = (token , data) => async (dispatch) => {
             "Authorization": `Bearer ${token}`
         } )
         console.log(response)
+
         dispatch(setProfile(response.data.updatedProfileDetails))
+        toast.success("Updated Profile Details ")
     } catch (err) {
         console.log(err.message)
     }

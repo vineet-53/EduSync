@@ -9,19 +9,13 @@ import { logout } from "../../../services/operations/auth"
 import { VscSettingsGear, VscSignOut } from 'react-icons/vsc';
 import { useConfirmationModalContext } from '../../../contexts/ConfirmationModalProvider';
 import IconButton from "../../common/IconButton"
+import ConfirmationModal from '../../common/ConfirmationModal';
 export default function MobileDashboard({ handleNav }) {
     const { confirmationModal: modalData, setConfirmationModal } = useConfirmationModalContext()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const modalRef = useRef()
     const { user } = useSelector(state => state.profile)
-    const handleClickedOutsideModal = (e) => {
-        if (modalRef.current && !modalRef.current.contains(e.target)) {
-            handleNav()
-            setConfirmationModal(null)
-        }
-    }
-    document.addEventListener('mousedown', handleClickedOutsideModal)
+
     return (
         <>
             <nav className='absolute w-full bg-custom-tertiary text-custom-secondary backdrop-blur h-full pt-10'>
@@ -52,12 +46,17 @@ export default function MobileDashboard({ handleNav }) {
                 <div>
                     <button onClick={() => {
                         setConfirmationModal({
-                            text1: "Are You Sure ?"
-                            , text2: "You will be Logged Out Of Your Account."
+                            text1: "Are You Sure",
+                            text2: "This will Logout You from Account."
                             , button1Text: "Logout"
-                            , button2Text: "Cancel"
-                            , button1Handler: e => dispatch(logout(user.email, navigate))
-                            , button2Handler: e => setConfirmationModal(null)
+                            , button2Text: "Cancel",
+                            button1Handler: () => {
+                                dispatch(logout(user.email, navigate))
+
+                            },
+                            button2Handler: () => {
+                                setConfirmationModal(null)
+                            }
                         })
                     }} className={`py-2 px-4 flex items-center gap-3 w-full`}>
                         <span><VscSignOut /></span>
@@ -65,24 +64,7 @@ export default function MobileDashboard({ handleNav }) {
                     </button>
                 </div>
                 {
-                    modalData
-                    &&
-                    <div ref={modalRef} className='absolute bg-custom-primary px-4 py-4 rounded-md left-[50%] translate-x-[-50%] w-[300px] -translate-y-16 flex flex-col gap-6'>
-                        <div className=''>
-                            <p className='font-bold text-3xl text-white'>{modalData.text1}</p>
-                            <p className='mt-2 text-xl text-pure-greys-200 font-semibold'> {modalData.text2}</p>
-                        </div>
-                        <div className='flex gap-2'>
-                            <IconButton onClick={() => dispatch(logout(user.email, navigate))} isActive={true} >
-                                {modalData.button1Text}
-                            </IconButton>
-
-                            <IconButton onClick={() => setConfirmationModal(null)} isActive={false}>
-                                {modalData.button2Text}
-                            </IconButton>
-
-                        </div>
-                    </div>
+                    modalData && <ConfirmationModal />
                 }
             </nav >
         </>

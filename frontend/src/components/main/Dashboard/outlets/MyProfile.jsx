@@ -3,7 +3,6 @@ import Section from '../../../common/Section'
 import { useSelector } from 'react-redux'
 import IconButton from "../../../common/IconButton"
 import { useNavigate } from 'react-router-dom'
-import { getUserProfile } from '../../../../services/operations/profile'
 import PersonalDiv from '../PersonalDiv'
 import Title from '../Title'
 export default function MyProfile() {
