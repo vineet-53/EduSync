@@ -79,11 +79,11 @@ exports.login = async ( req , res ) => {
             throw new Error("Please fill all details")
         }
         // find the user with email 
-        const userDoc  = await User.findOne({email : email }); 
-        if(!userDoc) { 
+        const user  = await User.findOne({email : email }).populate("profile").exec(); 
+        if(!user) { 
             throw new Error("User Not Found")
         }
-        const result = await bcrypt.compare(password , userDoc.password )
+        const result = await bcrypt.compare(password , user.password )
         if(!result) { 
             throw new Error("Password not Matched")
         }
@@ -91,26 +91,23 @@ exports.login = async ( req , res ) => {
         const JWT_SECRET = process.env.JWT_SECRET
         // create a jwt with header payload signature 
         const JWT_PAYLOAD = { 
-            userId: userDoc._id , 
+            userId: user._id , 
             email , 
         }
-        const token = await jwt.sign(JWT_PAYLOAD , JWT_SECRET , {expiresIn : "5h"})
+        const token = jwt.sign(JWT_PAYLOAD , JWT_SECRET , {expiresIn : "1d"})
         // store in the browser cookies 
-        const cookieOptions  = {
-            maxAge: 5 * 3600, 
-            httpOnly: true,       
-        }
+        res.cookie("token", token , {httpOnly : true , maxAge : 90000} )
+        user.token = token
+        user.active = true;
+        await user.save()
         // save in cookie
-        res.cookie('token', token , cookieOptions)
-        userDoc.active = true;
-        await userDoc.save()
         return res.status(200).json({ 
             success : true,  
             message : "token generated redirecting user",  
             token , 
-            user : userDoc
+            user ,
         })
-
+        
     }catch( err ) { 
         return res.status(400).json( { 
             message : err.message , 
@@ -233,17 +230,16 @@ exports.sendOTP = async (req, res) => {
         const {email} = req.body 
         if(!email) { 
             throw new Error("Please Send all details")
-
         }
-        // remove token from cookies 
-        res.cookies?.token && res.clearCookie('token')
+        res.cookies?.token ? res.clearCookie('token') : true
         // mark user active false 
         const user= await User.findOne({email})
+        user.token = null
         user.active = false; 
         user.save()
         return res.status(200).json({ 
             success : true, 
-            message : "Logout Successfully"
+            message : "Logout Successfully",
         })
 
     }catch(err) { 

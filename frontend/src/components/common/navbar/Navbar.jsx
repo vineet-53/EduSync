@@ -3,17 +3,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
 import { NavbarLinks } from '../../../data/navbar-links';
-import {fetchALlCatalogs} from "../../../services/operations/course"
+import {fetchALLCatalogs} from "../../../services/operations/course"
 import NavbarButton from './NavbarButton';
 import {LogoFullLight} from "../../../assets/index"
 import { IoCartOutline } from "react-icons/io5";
-import {logout} from "../../../services/operations/auth"
-import { RxCross1 } from "react-icons/rx";
 const Navbar = () => {
     const auth = useSelector(state => state.auth)
     const location = useLocation()
-    const navigate =useNavigate()
-    const dispatch = useDispatch()
     const [catalogs , setCatalogs] = useState([])
     const {user} =useSelector(state => state.profile)
     const [accoutDropDown , setAccountDropDown] = useState(false)
@@ -21,13 +17,11 @@ const Navbar = () => {
         return path === location.pathname
     }
     const getAllCatalog = async ()  => { 
-        const data = await fetchALlCatalogs()
-        if(data.status === 200)
-            setCatalogs(data.data.categoryDetails)
+        const data = await fetchALLCatalogs()
+        if(!data.data.success)
+            return
+        setCatalogs(data.data.categoryDetails)
     }
-    const handleLogout = async () => { 
-        dispatch(logout(user.email , navigate))
-   }
    const handleAccountOptions = e => { 
     setAccountDropDown(!accoutDropDown)
    }
@@ -76,10 +70,10 @@ const Navbar = () => {
 
                     {
                         auth.token !== null && <div> 
-                            <p>user is defined</p>
-                        </div>
+                            <p className='hidden lg:flex text-white font-bold text-xl'>Logged in Navbar</p>
+                        </div> 
                     }
-                    <div className='flex w-[160px] gap-2 items-center '>
+                    <div className='flex  gap-4 items-center '>
                         {/* login signup button */}
                         { 
                             auth.token === null ? (
@@ -105,16 +99,9 @@ const Navbar = () => {
                                 <div>
                                     <IoCartOutline className='text-white cursor-pointer' size={20}/>
                                 </div>
-                                <div className='relative ' >
+                                <Link to="/dashboard/my-profile">
                                     <img src={user.image} className='rounded-full w-[30px] cursor-pointer' onClick={handleAccountOptions} />
-                                    { 
-                                        accoutDropDown && <div className='hidden lg:flex text-white flex-col gap-2 absolute bg-custom-primary px-2 py-2 top-[140%] rounded-md'>
-                                        <Link to="/dashboard/my-profile">Profile</Link>
-                                        <button onClick={handleLogout}>Logout</button>
-                                        </div>
-                                    }
-                                    
-                                </div>
+                                </Link>
                                 {/* profile */}
                                     
                             </>

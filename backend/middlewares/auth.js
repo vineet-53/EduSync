@@ -6,7 +6,7 @@ const User = require('../models/User');
 exports.auth = async(req ,res ,next) =>{  
         // extract userPayload if token present 
         try { 
-            const token =req.header("Authorization").replace("Bearer ", "") || req.cookies.token || req.body
+            const token =req.header("Authorization").replace("Bearer ", "") || req.cookies.token 
             if(!token){ 
                 throw new Error ("token missing")
             }

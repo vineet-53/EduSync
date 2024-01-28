@@ -82,6 +82,7 @@ export const signup = (signupData ,  otp , navigate) => async (dispatch)=> {
 export const logout  =  (email ,navigate) => async (dispatch) => { 
     try { 
       const response = await apiConnector("post" , authEndpoints.LOGOUT , {email})
+      console.log(response)
       localStorage.clear()
       // clear the user and token from redux store 
       dispatch(setToken(null))

@@ -11,9 +11,8 @@ const profileSchema = new Schema( {
     }, 
 
     about : {
-        type : String,  
+        type : String ,  
         maxlength : 100, 
-
     }, 
     contactNumber :  {
         type : Number , 

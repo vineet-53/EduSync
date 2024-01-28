@@ -1,39 +1,43 @@
-import React from 'react'
-import {useSelector} from "react-redux"
-import { Primary, Wrapper } from '../components/common'
-import SubSection from "../components/main/Dashboard/SubSection.jsx"
+import React, { useState } from 'react'
+import { useSelector } from "react-redux"
+import { Primary } from '../components/common'
+import { Outlet } from 'react-router-dom'
+import Sidebar from '../components/main/Dashboard/Sidebar'
+import ConfirmationModalProvider from "../contexts/ConfirmationModalProvider"
+import { FiMenu } from "react-icons/fi";
+import MobileDashboard from '../components/main/Dashboard/MobileDashboard'
 export default function Dashboard() {
-  const { user } = useSelector(state => state.profile)
-
-  return (
-    <>
-      <Primary >
-          <div className='grid '>
-            <aside className='bg-custom-tertiary'></aside>
-            <div>
-              <section className='grid grid-cols-1 grid-flow-row max-w-[800px] gap-5'>
-                <h1>My Profile</h1>
-                <SubSection>
-                    <div className='flex justify-between items-center '>
-                        <div className='flex gap-2 text-pure-greys-50 '>
-                          <img src={user.image} className='rounded-full w-[50px] h-[50px]'/>
-                          <div className='flex flex-col justify-center'>
-                            <p className='font-bold'>{user.firstName + " " + user.lastName}</p>
-                            <p className='text-pure-greys-200'>  {user.email}</p>
-                          </div>
-                        </div>
-
-
-                        <button className=' rounded-md bg-yellow-25 text-black text-center w-max px-3 py-2 font-bold'>Edit <span></span></button>
-                    </div>  
-
-                </SubSection>
-                <SubSection></SubSection>
-                <SubSection></SubSection>
-              </section>
+  const { user, loading: profileLoading } = useSelector(state => state.profile)
+  const { loading: authLoading } = useSelector(state => state.auth)
+  const [nav , setNav ] =useState(false)
+  if (authLoading || profileLoading) {
+    return <div>Loading...</div>
+  }
+  else {
+    window.addEventListener("resize" , e => { 
+      if(window.innerWidth > 638 && nav == true) { 
+        setNav(false)
+      }
+    })
+    return (
+      <>
+        <Primary >
+          <div className='grid grid-rows-1 grid-flow-col min-h-screen relative'>
+            <ConfirmationModalProvider>
+              <Sidebar />
+              <button onClick={() => setNav(true)} className='max-sm:block hidden text-white w-7 h-7 cursor-pointer absolute top-1 left-3'>
+                <FiMenu className='w-full h-full' />
+              </button>
+              { 
+                nav && <MobileDashboard handleNav ={()=> setNav(!nav)}/>
+              }
+            </ConfirmationModalProvider>
+            <div className='grid col-span-7 px-2 py-2'>
+              <Outlet />
             </div>
           </div>
-      </Primary>
-    </>
-  )
+        </Primary>
+      </>
+    )
+  }
 }
