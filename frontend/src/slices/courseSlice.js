@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItemFromLocalStorage } from "../utils/localStorage";
 
 const initialState = { 
-    courseList : { type :null , payload : []}
+    loading : false, 
 }
 const courseSlice = createSlice({ 
     name : "Course", 
     initialState , 
     reducers : { 
-        setCourseList  : (state , action) =>{ 
-            state.courseList = action.payload
-        }
+         setLoading : (state , action) => { 
+            state.loading   = action.payload
+        },  
     }
 })
 
-
+export const {setLoading , setCart , setCourse} = courseSlice.actions
 
 export default courseSlice.reducer

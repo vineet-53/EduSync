@@ -1,10 +1,10 @@
-import { setLoading, setProfile, setUser, setUserImage } from "../../slices/profileSlice"
+import { setEnrolledCourses, setLoading, setProfile, setUser, setUserImage } from "../../slices/profileSlice"
 import { profileEndpoints } from "../endpointsAPI"
 import apiConnector from "../apiConnector"
 import { toast } from "react-hot-toast"
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/localStorage"
 import axios from "axios"
-export const getAndSetUserDetails = (token) => async (dispatch) => {
+export const getAndSetUserDetails = (token, navigate) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
         const response = await apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API, null, {
@@ -19,7 +19,6 @@ export const getAndSetUserDetails = (token) => async (dispatch) => {
     }
     dispatch(setLoading(false))
 }
-
 export const updateProfile = (token, data) => async (dispatch) => {
     dispatch(setLoading(true))
     const toastId = toast.loading("Fetching user details")
@@ -28,13 +27,12 @@ export const updateProfile = (token, data) => async (dispatch) => {
             "Authorization": `Bearer ${token}`
         })
         console.log(response)
-
-        dispatch(setProfile(response.data.updatedProfileDetails))
+        // dispatch(setProfile(response.data.updatedProfileDetails))
+        // not need to dispatch setprofile cause user is setting using useeffect
         toast.success("Updated Profile Details ")
     } catch (err) {
         console.log(err)
         toast.error("Error Updating User Profile")
-
     }
     toast.dismiss(toastId)
     dispatch(setLoading(false))
@@ -82,3 +80,21 @@ export const changePassword = (password, confirmPassword, token, navigate) => as
 }
 
 
+export const getEnrolledCourses = (token, navigate) => async dispatch => {
+    dispatch(setLoading(true))
+    try {
+        const response = await apiConnector("GET", profileEndpoints.GET_ENROLLED_COURSES_API, null, {
+            Authorization: "Bearer " + token
+        })
+        console.log(response)
+        dispatch(setEnrolledCourses(response.data.enrolledCourses))
+        setItemToLocalStorage("user", {
+            ...getItemFromLocalStorage("user"), courses: response.data.enrolledCourses
+        })
+        console.log("SUCCESSFULLY FETCHED AND SET COURSES ")
+    } catch (err) {
+        console.log("Error fetching courses ", err)
+        navigate('/404-not-found')
+    }
+    dispatch(setLoading(false))
+}

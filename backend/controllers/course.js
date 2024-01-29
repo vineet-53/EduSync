@@ -312,14 +312,14 @@ exports.getEnrolledCourses = async( req ,res )=> {
         if(!userId) { 
             throw new Error('user not valid')
         }
-        const user = await User.findById(userId); 
+        const user = await User.findById(userId).populate('courses').exec();
         if(!user){ 
             throw new Error("user not exist")
         }
         return res.status(200).json({ 
             success : true, 
             message  : "fetched enrolled courses",
-            allCourses : user.courses, 
+            enrolledCourses : user.courses, 
         })
     }catch(err) { 
         return res.status(401).json( { 

@@ -1,19 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItemFromLocalStorage } from "../utils/localStorage";
 
-const initialState ={  
-    loading : false ,
+const initialState = {
+    loading: false,
+    cart: getItemFromLocalStorage("cart") || [],
 }
-
-
-const cartSlice = createSlice({ 
-    name : "Cart",  
-    initialState,  
-    reducers : { 
-        setLoading : (state ,action) =>{ 
+const cartSlice = createSlice({
+    name: "Cart",
+    initialState,
+    reducers: {
+        setLoading: (state, action) => {
             state.loading = action.payload
+        },
+        setItem: (state, action) => {
+            state.cart = [...state.cart, action.payload]
+        },
+        removeItem: (state, action) => {
+            state.cart = state.cart.filter(id => id !== action.payload)
         }
     }
 })
 
-export const  {}  = cartSlice.actions; 
+export const { setLoading, setItem, removeItem } = cartSlice.actions;
 export default cartSlice.reducer

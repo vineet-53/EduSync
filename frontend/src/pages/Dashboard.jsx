@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { Primary } from '../components/common'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/main/Dashboard/Sidebar'
 import ConfirmationModalProvider from "../contexts/ConfirmationModalProvider"
 import { FiMenu } from "react-icons/fi";
 import MobileDashboard from '../components/main/Dashboard/MobileDashboard'
-import { getAndSetUserDetails } from "../services/operations/profile"
+import { getAndSetUserDetails, getEnrolledCourses } from '../services/operations/profile'
 export default function Dashboard() {
-  const { user, loading: profileLoading } = useSelector(state => state.profile)
-  const dispatch = useDispatch()
+  const {  user , loading: profileLoading } = useSelector(state => state.profile)
   const { loading: authLoading } = useSelector(state => state.auth)
   const [nav, setNav] = useState(false)
-
+  const dispatch = useDispatch() 
+  const navigate = useNavigate() 
+  useEffect(() => { 
+    dispatch(getAndSetUserDetails(user.token , navigate))
+    dispatch(getEnrolledCourses(user.token , navigate))
+    
+  } , [])
   if (authLoading || profileLoading) {
     return <div>Loading...</div>
   }

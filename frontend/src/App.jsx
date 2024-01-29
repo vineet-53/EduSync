@@ -13,7 +13,6 @@ import UpdatePassword from './pages/UpdatePassword'
 import Error from "./pages/Error"
 import MyProfile from './components/main/Dashboard/outlets/MyProfile'
 import EnrolledCourses from './components/main/Dashboard/outlets/EnrolledCourses'
-import Wishlist from './components/main/Dashboard/outlets/Wishlist'
 import Cart from './components/main/Dashboard/outlets/Cart'
 import Settings from './components/main/Dashboard/outlets/Settings.jsx'
 import AddCourse from "./components/main/Dashboard/outlets/AddCourse.jsx"
@@ -75,7 +74,6 @@ function App() {
           </PrivateRoute>
         } >
           <Route path='my-profile' element={<MyProfile />} />
-          <Route path='wishlist' element={<Wishlist />} />
           <Route path='settings' element={<Settings />} ></Route>
           {
             user?.accountType === ACCOUNT_TYPE.STUDENT &&

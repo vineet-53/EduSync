@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Section from '../../../common/Section'
-import { useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import IconButton from "../../../common/IconButton"
-import { useNavigate } from 'react-router-dom'
 import PersonalDiv from '../PersonalDiv'
 import Title from '../Title'
 export default function MyProfile() {
   const { user } = useSelector(state => state.profile)
   const { profile } = user;
-  const navigate = useNavigate()
   return (
     <>
       {
         <div className='w-11/12 mx-auto'>
-          <Title> 
-          My Profile
+          <Title>
+            My Profile
           </Title>
           <div className='grid grid-cols-1 grid-flow-row gap-5'>
             <Section>
@@ -29,7 +27,7 @@ export default function MyProfile() {
                   </div>
                 </div>
                 <div className=''>
-                  <IconButton  icon="Edit" isActive={true} onClick={() => {
+                  <IconButton icon="Edit" isActive={true} onClick={() => {
                     navigate("/dashboard/settings")
                   }} >
                     <span className='hidden md:block'>Edit</span>
@@ -44,8 +42,8 @@ export default function MyProfile() {
                 </div>
                 <IconButton icon="Edit" isActive={true} onClick={() => {
                   navigate("/dashboard/settings")
-                }} > 
-                <span className='hidden md:block'>Edit</span>
+                }} >
+                  <span className='hidden md:block'>Edit</span>
                 </IconButton>
               </div>
               <div className='text-pure-greys-200' >
@@ -64,30 +62,30 @@ export default function MyProfile() {
                 </IconButton>
               </div>
               <div className='text-pure-greys-200 grid md:grid-cols-2' >
-                  <PersonalDiv 
-                    label ="First Name"
-                    text = {user?.firstName}
-                  />
-                  <PersonalDiv 
-                    label ="Last Name"
-                    text = {user?.lastName}
-                  />
-                  <PersonalDiv 
-                    label ="Email"
-                    text = {user?.email}
-                  />
-                  <PersonalDiv 
-                    label ="Phone Number"
-                    text = {profile?.contactNumber}
-                  />
-                  <PersonalDiv 
-                    label ="Gender"
-                    text = {profile?.gender}
-                  />
-                  <PersonalDiv 
-                    label ="Date of Birth"
-                    text = {profile?.dob}
-                  />
+                <PersonalDiv
+                  label="First Name"
+                  text={user?.firstName}
+                />
+                <PersonalDiv
+                  label="Last Name"
+                  text={user?.lastName}
+                />
+                <PersonalDiv
+                  label="Email"
+                  text={user?.email}
+                />
+                <PersonalDiv
+                  label="Phone Number"
+                  text={profile?.contactNumber}
+                />
+                <PersonalDiv
+                  label="Gender"
+                  text={profile?.gender}
+                />
+                <PersonalDiv
+                  label="Date of Birth"
+                  text={profile?.dob}
+                />
               </div>
             </Section>
           </div>
