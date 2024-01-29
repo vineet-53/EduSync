@@ -11,7 +11,7 @@ export default function EnrolledCourses() {
     <div className='px-4'>
       <Title>Enrolled Courses</Title>
       {
-        enrolledCourses.length > 0 ? <div className=''>
+        enrolledCourses?.length > 0 ? <div className='flex flex-col gap-3'>
           {
             enrolledCourses.map(course => <EnrolledCourse course={course} key={nanoid()} />
             )

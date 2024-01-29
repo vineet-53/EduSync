@@ -96,9 +96,9 @@ const Navbar = () => {
 
                                 </div>
                                 {/* cart */}
-                                <div>
+                                <Link to ="/dashboard/cart">
                                     <IoCartOutline className='text-white cursor-pointer' size={20}/>
-                                </div>
+                                </Link>
                                 <Link to="/dashboard/my-profile">
                                     <img src={user.image} className='rounded-full w-[30px] cursor-pointer' onClick={handleAccountOptions} />
                                 </Link>

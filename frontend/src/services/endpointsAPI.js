@@ -23,7 +23,11 @@ export const courseEndpoints = {
   CREATE_SUB_SECTION_API: API_VERSION + "/courses/addSubSection",
   UPDATE_SUB_SECTION_API: API_VERSION + "/courses/updateSubSection",
   DELETE_SUB_SECTION_API: API_VERSION + "/courses/deleteSubSection",
-  UPDATE_COURSE_PROGRESS_API: API_VERSION + "/courses/updateCourseProgress"
+  UPDATE_COURSE_PROGRESS_API: API_VERSION + "/courses/updateCourseProgress",
+  // cart
+  ADD_TO_CART : API_VERSION + "/courses/add-to-cart", 
+  GET_FULL_CART_DETAILS_API : API_VERSION + "/courses/getFullCartDetails", 
+  REMOVE_ITEM_FROM_CART_API : API_VERSION + "/courses/removeItemFromCart"
 }
 
 
