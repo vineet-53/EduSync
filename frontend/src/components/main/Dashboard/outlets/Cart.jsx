@@ -15,11 +15,11 @@ export default function Cart() {
   }
   return (
     <>
-      <div>
+      <div className=''>
         <Title>Cart</Title>
         <div className=''>
           {
-            cart?.length > 0 ? cart?.map(cartItem => <CartItem key={nanoid()} cartItem={cartItem} handleRemoveFromCart={handleRemoveFromCart} />) : <div className='grid w-full h-full '>
+            cart?.length > 0 ? cart?.map(cartItem => <CartItem key={nanoid()} cartItem={cartItem} handleRemoveFromCart={handleRemoveFromCart} />) : <div className='grid w-full h-full max-md:place-items-center'>
               <div className="text-2xl font-bold text-white">
                 Cart is Empty
               </div>

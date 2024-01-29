@@ -401,8 +401,6 @@ exports.updateCourseProgress = async (req, res) => {
 //         })
 //     }
 // }
-
-
 exports.addToCart = async (req, res) => {
     try {
         const { courseId } = req.body;

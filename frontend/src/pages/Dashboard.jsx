@@ -31,9 +31,9 @@ export default function Dashboard() {
     return (
       <>
         <Primary >
-          <div className='md:grid grid-rows-1  grid-cols-10  min-h-screen relative'>
+          <div className='sm:grid grid-rows-1  grid-cols-10  min-h-screen relative'>
             <ConfirmationModalProvider>
-              <div className='grid col-span-2'>
+              <div className='grid sm:col-span-3 lg:col-span-2'>
                 <Sidebar />
               </div>
               <button onClick={() => setNav(true)} className='max-sm:block hidden text-white w-7 h-7 cursor-pointer absolute top-1 left-3'>
@@ -43,7 +43,7 @@ export default function Dashboard() {
                 nav && <MobileDashboard handleNav={() => setNav(!nav)} />
               }
             </ConfirmationModalProvider>
-            <div className='grid col-span-8 px-2 py-2'>
+            <div className='grid sm:col-span-7 px-2 py-2 lg:col-span-8'>
               <Outlet />
             </div>
           </div>

@@ -11,17 +11,19 @@ export default function EnrolledCourses() {
     <div className='px-4'>
       <Title>Enrolled Courses</Title>
       {
-        enrolledCourses?.length > 0 ? <div className='flex flex-col gap-3'>
-          {
-            enrolledCourses.map(course => <EnrolledCourse course={course} key={nanoid()} />
-            )
-          }
-        </div> : <div className='grid w-full h-full place-self-center'>
-          <div className="text-2xl font-bold text-white">
-            Courses are not Enrolled
+        enrolledCourses?.length > 0 ?
+          <div className='flex flex-col gap-3'>
+            {
+              enrolledCourses.map(course => <EnrolledCourse course={course} key={nanoid()} />)
+            }
           </div>
+          :
+          <div className='grid w-full h-full place-self-center'>
+            <div className="text-2xl font-bold text-white">
+              Courses are not Enrolled
+            </div>
 
-        </div>
+          </div>
       }
     </div>
   )
