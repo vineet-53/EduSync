@@ -1,10 +1,10 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
 const { uploadToCloudinary } = require('../utilities/imageUploader')
-
 const mongoose = require('mongoose');
 const { deleteCourse } = require('./course');
 const Course = require('../models/Course');
+const { passwordHash } = require('../utilities/password');
 exports.createProfile = async (req, res) => {
     try {
         const { gender, dob = "", contactNumber: phone, about = "" } = req.body;
@@ -112,7 +112,6 @@ exports.getUserDetails = async (req, res) => {
             success: true,
             message: "fetched all user details",
             user,
-            profile: user.profile,
         })
     } catch (err) {
         return res.status(400).json({
@@ -144,7 +143,7 @@ exports.updateProfilePicture = async (req, res) => {
         await user.save()
         return res.status(200).json({
             success: true,
-            message: "updated user profile image", 
+            message: "updated user profile image",
             user
         })
     } catch (err) {
@@ -154,4 +153,41 @@ exports.updateProfilePicture = async (req, res) => {
         })
 
     }
+}
+exports.changePassword = async (req, res) => {
+    try {
+        const { password, confirmPassword } = req.body;
+        // validate if any thing missing 
+        const { email } = req.user
+        if (!email) {
+            throw new Error("user not authorized")
+        }
+        if (!password || !confirmPassword) {
+            throw new Error("Please fill all details")
+        }
+        // validate new password with confirm 
+        if (password !== confirmPassword) {
+            throw new Error("Creadentials not match")
+        }
+        // find the user with email 
+        let user = await User.findOne({ email });
+        if (!user) {
+            throw new Error("user not existed")
+        }
+        // hashing password then save to db 
+        // update the user with new password 
+        user.password = await passwordHash(password, 10)
+        await user.save()
+        return res.status(200).json({
+            success: true,
+            message: "Changed Password Successfully",
+            user
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+
 }

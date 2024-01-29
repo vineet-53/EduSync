@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
-import { useSelector } from "react-redux"
+import React, { useEffect, useState } from 'react'
+import { useSelector , useDispatch } from "react-redux"
 import { Primary } from '../components/common'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/main/Dashboard/Sidebar'
 import ConfirmationModalProvider from "../contexts/ConfirmationModalProvider"
 import { FiMenu } from "react-icons/fi";
 import MobileDashboard from '../components/main/Dashboard/MobileDashboard'
+import {getAndSetUserDetails} from "../services/operations/profile"
 export default function Dashboard() {
   const { user, loading: profileLoading } = useSelector(state => state.profile)
+  const dispatch = useDispatch()
   const { loading: authLoading } = useSelector(state => state.auth)
   const [nav , setNav ] =useState(false)
+  
   if (authLoading || profileLoading) {
     return <div>Loading...</div>
   }

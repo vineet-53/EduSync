@@ -16,14 +16,17 @@ import EnrolledCourses from './components/main/Dashboard/outlets/EnrolledCourses
 import Wishlist from './components/main/Dashboard/outlets/Wishlist'
 import Cart from './components/main/Dashboard/outlets/Cart'
 import Settings from './components/main/Dashboard/outlets/Settings.jsx'
+import { ACCOUNT_TYPE } from './utils/constants.js'
+import { useSelector } from 'react-redux'
 function App() {
+  const { user } = useSelector(state => state.profile)
   return (
     <>
       <Navbar />
       <Routes >
         <Route path={"/"} element={
           <OpenRoute>
-          <Home />
+            <Home />
           </OpenRoute>
         }
         />
@@ -68,11 +71,15 @@ function App() {
           </PrivateRoute>
         } >
           <Route path='my-profile' element={<MyProfile />} />
-          <Route path='enrolled-courses' element={<EnrolledCourses />} />
-          <Route path='cart' element={<Cart />} />
           <Route path='wishlist' element={<Wishlist />} />
           <Route path='settings' element={<Settings />} ></Route>
-          
+          {
+            user?.accountType === ACCOUNT_TYPE.STUDENT &&
+            <>
+              <Route path='enrolled-courses' element={<EnrolledCourses />} />
+              <Route path='cart' element={<Cart />} />
+            </>
+          }
 
         </Route>
         <Route path={"/"} element={
@@ -82,6 +89,7 @@ function App() {
         }
 
         />
+        <Route path ="/404-not-found" element = {<Error />} />
         <Route path='*' element={<Error />} />
 
       </Routes>

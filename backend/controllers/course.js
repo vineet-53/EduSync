@@ -28,7 +28,10 @@ exports.createCourse = async  (req ,res) => {
         const user = await User.findById(userId)
         // validate user 
         if(!user){ 
-            throw new Error ("user not present in db")
+            throw new Error ("user not exist")
+        }
+        if(user.accountType !== "Instructor") { 
+            throw new Error( "user is not authorised and not an instructor")
         }
         // validate the user is not uploading course twice
         let course = await Course.findOne({instructor : userId})

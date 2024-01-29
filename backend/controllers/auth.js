@@ -115,50 +115,6 @@ exports.login = async ( req , res ) => {
         })
     }
 }
-exports.changePassword =async(req ,res) => { 
-    try { 
-        const {oldPassword , newPassword , confirmNewPassword } = req.body; 
-        // validate if any thing missing 
-        const {email} = req.User
-        if(!oldPassword || !newPassword || !confirmNewPassword) { 
-            throw new Error("Please fill all details")
-        }
-        // validate new password with confirm 
-        if(newPassword !== confirmNewPassword) { 
-            throw new Error("Creadentials not match")
-        }
-        if(newPassword === oldPassword)  
-        { 
-            throw new Error("old password connot set again")
-        }
-
-        // find the user with email 
-        let user = await User.findOne({email}); 
-        if(!user) { 
-            throw new Error("user not existed")
-        }
-        // compare with the old passowrd
-        let hashPassword = user.password 
-        await passwordCompare(oldPassword , hashPassword)
-
-        // hashing password then save to db 
-        // update the user with new password 
-        user.password = await passwordHash(newPassword ,10 )
-        await user.save()
-        return res.status(200).json( { 
-            success : true, 
-            message : "Changed Password Successfully",
-            newPassword : user.password , 
-            user
-        })
-    }catch(err) { 
-        return res.status(500).json( { 
-            success : false , 
-            message : err.message
-        })
-    }
-
-}
 exports.sendOTP = async (req, res) => {
     try {
         // input data

@@ -37,12 +37,12 @@ const SignupForm = () => {
             return
         }
         
-        if(/^[0-9]\d{8}[0-9]$/.test(phoneNumber)){ 
+        if(!/\d{10}/.test(phoneNumber)){ 
             toast.error("Phone Number Invalid")
             return
         }
 
-        if(/^[(\w\d\W)+]+@[\w+]+\.[\w+]+$/i.test(email)){ 
+        if(!/.(@gmail.com)$/i.test(email)){ 
             toast.error("Email Invalid")
             return
         }
