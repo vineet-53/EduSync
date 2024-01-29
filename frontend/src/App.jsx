@@ -16,6 +16,10 @@ import EnrolledCourses from './components/main/Dashboard/outlets/EnrolledCourses
 import Wishlist from './components/main/Dashboard/outlets/Wishlist'
 import Cart from './components/main/Dashboard/outlets/Cart'
 import Settings from './components/main/Dashboard/outlets/Settings.jsx'
+import AddCourse from "./components/main/Dashboard/outlets/AddCourse.jsx"
+import MyCourses  from "./components/main/Dashboard/outlets/MyCourses.jsx"
+import Instructor  from "./components/main/Dashboard/outlets/Instructor.jsx"
+
 import { ACCOUNT_TYPE } from './utils/constants.js'
 import { useSelector } from 'react-redux'
 function App() {
@@ -78,6 +82,14 @@ function App() {
             <>
               <Route path='enrolled-courses' element={<EnrolledCourses />} />
               <Route path='cart' element={<Cart />} />
+            </>
+          }
+          {
+            user?.accountType === ACCOUNT_TYPE.INSTRUCTOR &&
+            <>
+              <Route path='add-course' element={<AddCourse />} />
+              <Route path='my-courses' element={<MyCourses />} />
+              <Route path='instructor' element={<Instructor />} />
             </>
           }
 
