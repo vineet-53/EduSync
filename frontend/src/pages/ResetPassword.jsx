@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, SubmitButton } from "../components/common/form"
+import { Input, FormSubmitButton } from "../components/common/form"
 import Template from "../components/main/VerifyEmail/Template"
 import ResetPasswordProvider, { useResetPasswordContext } from "../contexts/ResetPasswordProvider"
 import { resetPasswordToken } from "../services/operations/password"
@@ -22,9 +22,9 @@ const ResetPasswordForm = () => {
                     placeholder="Enter Email"
                     handleEvent={e => setEmail(e.target.value)}
                 />
-                <SubmitButton buttoncss="text-center text-black w-full">
+                <FormSubmitButton buttoncss="text-center text-black w-full">
                     Submit
-                </SubmitButton>
+                </FormSubmitButton>
             </form>
         </Template>)
 }
@@ -43,9 +43,9 @@ const ResendEmailForm = () => {
             email={email}
         >
             <form action="" onSubmit={handleResendMail}>
-                <SubmitButton buttoncss="text-center text-black w-full">
+                <FormSubmitButton buttoncss="text-center text-black w-full">
                     Resend Mail
-                </SubmitButton>
+                </FormSubmitButton>
             </form>
         </Template>
     )

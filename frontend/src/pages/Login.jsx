@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, InputPassword, SubmitButton } from "../components/common/form"
+import { FormSubmitButton } from "../components/common/form"
 import AuthTemplate from "../components/main/Auth/AuthTemplate"
 import { login } from "../services/operations/auth"
 import { useNavigate } from 'react-router-dom'
@@ -43,9 +43,9 @@ const Login = () => {
                         </div>
                         {/* sign button */}
 
-                        <SubmitButton buttoncss="text-center" >
+                        <FormSubmitButton buttoncss="text-center" >
                             Sign In
-                        </SubmitButton>
+                        </FormSubmitButton>
                     </form>
                 </AuthTemplate>
                 :

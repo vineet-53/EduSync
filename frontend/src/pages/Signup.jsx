@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormProvider } from 'react-hook-form'
 import AuthTemplate from "../components/main/Auth/AuthTemplate"
-import { Label, SubmitButton } from "../components/common/form/index"
+import { Label, FormSubmitButton } from "../components/common/form/index"
 import CountryCodes from "../data/countrycode.json"
 import AccountTypeInput from '../components/main/Auth/Signup/AccountTypeInput'
 import { nanoid } from "@reduxjs/toolkit"
@@ -115,9 +115,9 @@ export default function Signup() {
                 <FormPassword name="Confirm Password" value="confirmPassword" id="confirmPassword" placeholder="Enter Confirm Password" />
                 {errors?.confirmPassword && <p className={ErrorInputFieldStyle}>{errors?.confirmPassword.message}</p>}
               </div>
-              <SubmitButton buttoncss="w-full my-2">
+              <FormSubmitButton buttoncss="w-full my-2">
                 Submit
-              </SubmitButton>
+              </FormSubmitButton>
             </div>
           </form>
         </AuthTemplate>

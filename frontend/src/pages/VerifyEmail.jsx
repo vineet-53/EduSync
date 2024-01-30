@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Template from "../components/main/VerifyEmail/Template"
-import { SubmitButton } from '../components/common/form'
+import { FormSubmitButton } from '../components/common/form'
 import OtpInput from "react-otp-input"
 import { useDispatch, useSelector } from 'react-redux'
 import { sendOTP, signup } from '../services/operations/auth'
@@ -52,9 +52,9 @@ export default function VerifyEmail() {
             }}
           />
 
-          <SubmitButton buttoncss="text-black w-full ">
+          <FormSubmitButton buttoncss="text-black w-full ">
             Verify Mail
-          </SubmitButton>
+          </FormSubmitButton>
 
         </form>
         <div className='grid grid-cols-2 grid-rows-1 items-center w-full'>

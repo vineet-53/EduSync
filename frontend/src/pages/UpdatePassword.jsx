@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Input, SubmitButton } from '../components/common/form'
+import { Input, FormSubmitButton } from '../components/common/form'
 import Template from '../components/main/VerifyEmail/Template'
 import toast from 'react-hot-toast'
 import { FaCircleCheck } from "react-icons/fa6";
@@ -81,9 +81,9 @@ export default function UpdatePassword() {
 
                         </div>
                     </div>
-                    <SubmitButton buttoncss="text-center text-black w-full my-3">
+                    <FormSubmitButton buttoncss="text-center text-black w-full my-3">
                         Reset Password
-                    </SubmitButton>
+                    </FormSubmitButton>
 
                 </form>
             </Template>
