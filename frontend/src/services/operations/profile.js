@@ -23,11 +23,12 @@ export const updateProfile = (token, data) => async (dispatch) => {
     dispatch(setLoading(true))
     const toastId = toast.loading("Fetching user details")
     try {
-        const response = await apiConnector("put", profileEndpoints.UPDATE_PROFILE_API, { ...data }, {
-            "Authorization": `Bearer ${token}`
+        const response = await apiConnector("PUT", profileEndpoints.UPDATE_PROFILE_API, { ...data }, {
+            Authorization : `Bearer ${token}`
         })
         console.log(response)
         dispatch(setUser(response.data.user))
+        setItemToLocalStorage("user" , response.data.user)
         toast.success("Updated Profile Details ")
     } catch (err) {
         console.log(err)
@@ -96,4 +97,19 @@ export const getEnrolledCourses = (token, navigate) => async dispatch => {
         navigate('/404-not-found')
     }
     dispatch(setLoading(false))
+}
+
+export const deleteAccount = (token, navigate) => async dispatch => {
+    try {
+        const response = await apiConnector("DELETE", profileEndpoints.DELETE_PROFILE_API, null, {
+            Authorization: "Bearer " + token
+        })
+        console.log(response)
+        toast.success("Delete Account Successfully")
+        localStorage.clear()
+        navigate('/login')
+    } catch (err) {
+        console.log(err)
+        navigate('/404-not-found')
+    }
 }

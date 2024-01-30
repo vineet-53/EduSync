@@ -1,9 +1,9 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
-const { uploadToCloudinary } = require('../utilities/imageUploader')
-const mongoose = require('mongoose');
-const { deleteCourse } = require('./course');
 const Course = require('../models/Course');
+const CourseProgress = require('../models/CourseProgress');
+const RatingAndReview = require('../models/RatingAndReview');
+const { uploadToCloudinary } = require('../utilities/imageUploader')
 const { passwordHash } = require('../utilities/password');
 exports.createProfile = async (req, res) => {
     try {
@@ -39,7 +39,7 @@ exports.createProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        const { firstName, lastName, gender, dob, contactNumber, about } = req.body;
+        const { firstName, lastName, gender, dob, contactNumber , countryCode, about } = req.body;
         const { userId } = req.user
         // validate input details
         if (!firstName || !gender || !dob || !contactNumber || !about) {
@@ -53,7 +53,7 @@ exports.updateProfile = async (req, res) => {
         const profileId = userDetails.profile
         const profileDetails = await Profile.findOneAndUpdate(profileId, {
             $set: {
-                gender, dob, contactNumber, about
+                gender, dob, contactNumber : `${countryCode} ${contactNumber}`, about
             }
         }, { new: true })
         await userDetails.save()
@@ -62,7 +62,7 @@ exports.updateProfile = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            user : userDetails,
+            user: userDetails,
         })
     } catch (err) {
         return res.status(400).json({
@@ -73,7 +73,7 @@ exports.updateProfile = async (req, res) => {
 }
 
 
-exports.deleteProfile = async (req, res) => {
+exports.deleteAccount = async (req, res) => {
 
     try {
         const { userId } = req.user
@@ -82,16 +82,36 @@ exports.deleteProfile = async (req, res) => {
             throw new Error("user not exist ")
         }
         if (user.profile) {
-            await Profile.findByIdAndDelete(user.profile)
+            let profile = await Profile.findByIdAndDelete(user.profile._id, { new: true })
+            console.log("DELETED  USER PROFILE --- ", profile)
+        }
+        if (!user.courses.length) {
+            for (let courseId in user.courses) {
+                const course = await Course.findAndUpdate(
+                    { _id: courseId },
+                    { $pull: { studentEnrolled: userId } },
+                    { new: true }
+                );
+                console.log("DELETED USER FROM COURSE --- ", course)
+                const allRatings = await RatingAndReview.find({ userId }, { new: true })
+                for (let ratingId in allRatings) {
+                    let rating = await RatingAndReview.findByIdAndDelete(ratingId, { new: true })
+                    console.log("DELETED USER FROM RATINGS ---- ", rating)
+                }
+            }
+        }
+        if (!user.courseProgress.length) {
+            let cp = await CourseProgress.findOneAndDelete({ userId })
+            console.log("DELETED USER FROM COURSE PROGRESS ---", cp)
         }
         // courses 
-        await User.findByIdAndDelete(userId)
+        let deletedUser = await User.findByIdAndDelete(userId, { new: true })
+        console.log("DELETD USER ----", deletedUser)
         return res.status(200).json({
             success: true,
-            message: "deleted user"
+            message: "DELETED ACCOUNT SUCCESSFULLY", 
+            deletedUser,
         })
-
-
     } catch (err) {
         return res.status(401).json({
             success: false,

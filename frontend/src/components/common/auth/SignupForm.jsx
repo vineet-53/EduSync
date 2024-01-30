@@ -62,7 +62,7 @@ const SignupForm = () => {
             phoneNumber,
             countryCode,
         }))
-        
+
         dispatch(sendOTP(email, navigate))
 
     }
@@ -129,6 +129,7 @@ const SignupForm = () => {
                                 inputcss="w-full"
                                 id="phone"
                                 handleEvent={e => setPhoneNumber(e.target.value)}
+                                maxLength=  {10}
                             />
                         </div>
                     </div>
