@@ -17,12 +17,6 @@ export default function Template({title , children , subTitle , email }) {
                 <div>
                 {children}
                 </div>
-                <div>
-                    <Link to={"/login"} className='lg:w-2/6 flex items-center'>
-                        <span className='px-1'><FaArrowLeftLong /></span>
-                        Back to login
-                    </Link>
-                </div>
             </div>
 
         </div>

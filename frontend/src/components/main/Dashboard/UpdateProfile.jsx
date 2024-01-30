@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import country_codes from "../../../data/countrycode.json"
 import { updateProfile } from "../../../services/operations/profile"
 import { nanoid } from '@reduxjs/toolkit';
+import { logout } from "../../../services/operations/auth"
 export default function UpdateProfile() {
     const { user } = useSelector(state => state.profile)
     const { profile } = user
@@ -59,7 +60,7 @@ export default function UpdateProfile() {
         {/* gender */}
         <InputTemplate>
             <label htmlFor="gender" className='text-custom-secondary'>Gender</label>
-            <select className='bg-richblack-600 text-white  px-4 py-2 rounded-md' name="" id="gender" {...register("gender", { required: true })}>
+            <select className='bg-richblack-600 text-white  px-4 py-2 rounded-md' id="gender" {...register("gender", { required: true })}>
                 <option value="Male">
                     Male
                 </option>

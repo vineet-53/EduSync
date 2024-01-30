@@ -7,6 +7,7 @@ import Title from '../Title'
 import { useNavigate } from 'react-router-dom'
 export default function MyProfile() {
   const { user } = useSelector(state => state.profile)
+  const { token } = useSelector(state => state.auth)
   const { profile } = user;
   const navigate = useNavigate()
   return (

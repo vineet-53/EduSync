@@ -3,6 +3,7 @@ import { profileEndpoints } from "../endpointsAPI"
 import apiConnector from "../apiConnector"
 import { toast } from "react-hot-toast"
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/localStorage"
+import {logout} from "./auth"
 import axios from "axios"
 export const getAndSetUserDetails = (token, navigate) => async (dispatch) => {
     dispatch(setLoading(true))
@@ -24,11 +25,11 @@ export const updateProfile = (token, data) => async (dispatch) => {
     const toastId = toast.loading("Fetching user details")
     try {
         const response = await apiConnector("PUT", profileEndpoints.UPDATE_PROFILE_API, { ...data }, {
-            Authorization : `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log(response)
         dispatch(setUser(response.data.user))
-        setItemToLocalStorage("user" , response.data.user)
+        setItemToLocalStorage("user", response.data.user)
         toast.success("Updated Profile Details ")
     } catch (err) {
         console.log(err)
@@ -106,8 +107,7 @@ export const deleteAccount = (token, navigate) => async dispatch => {
         })
         console.log(response)
         toast.success("Delete Account Successfully")
-        localStorage.clear()
-        navigate('/login')
+        dispatch(logout(null , navigate))
     } catch (err) {
         console.log(err)
         navigate('/404-not-found')

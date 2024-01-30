@@ -36,7 +36,7 @@ const SignupForm = () => {
             toast.error("Password not matched")
             return
         }
-        if (!email || !password || !confirmPassword || !lastName || !firstName || !phoneNumber) {
+        if (!email || !password || !confirmPassword || !firstName || !phoneNumber) {
             toast.error("Please Fill All Details")
             return
         }
@@ -118,7 +118,7 @@ const SignupForm = () => {
                                 <select onChange={e => setCountryCode(e.target.value)} name="countryCode" className='bg-custom-tertiary rounded-md w-12' value={countryCode}>
                                     {
                                         country_codes.map(code =>
-                                            <option value={code.code}>{code.country}</option>
+                                            <option key={nanoid()} value={code.code}>{code.country}</option>
                                         )
                                     }
                                 </select>

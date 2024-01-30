@@ -9,10 +9,10 @@ const bcrypt = require('bcrypt')
 exports.signup = async (req, res) => {
     try {
         // get all details 
-        const { firstName, lastName, password, confirmPassword, email, accountType, otp, phoneNumber, countryCode } = req.body;
+        const { firstName , lastName = ' ', password, confirmPassword, email, accountType, otp, phoneNumber, countryCode } = req.body;
         console.log(req.body)
         // validate details 
-        if (!firstName || !lastName || !password || !confirmPassword || !email || !accountType || !otp) {
+        if (!firstName || !password || !confirmPassword || !email || !accountType || !otp) {
             throw new Error("missing properties")
         }
         // chech password validation 
@@ -26,6 +26,7 @@ exports.signup = async (req, res) => {
         }
         // check for the latest otp and match it with the given one 
         const recentOtpDoc = await Otp.findOne({ email }).sort({ createdAt: -1 }).limit(1)
+        console.log(recentOtpDoc)
         // if validated otp then hash the password 
         if (otp != recentOtpDoc.otpNumber) {
             throw new Error("otp not matched")

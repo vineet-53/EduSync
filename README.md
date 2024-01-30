@@ -31,4 +31,4 @@
 * one spelling mistake at backend and i am frustated for 30min code is not working which can update profile 
 
 
-
+* I have added resend otp feature after signup form

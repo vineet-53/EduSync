@@ -5,6 +5,7 @@ const CourseProgress = require('../models/CourseProgress');
 const RatingAndReview = require('../models/RatingAndReview');
 const { uploadToCloudinary } = require('../utilities/imageUploader')
 const { passwordHash } = require('../utilities/password');
+const { destroyFromCloudinary } = require('../utilities/imageDestroyer')
 exports.createProfile = async (req, res) => {
     try {
         const { gender, dob = "", contactNumber: phone, about = "" } = req.body;
@@ -39,7 +40,7 @@ exports.createProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        const { firstName, lastName, gender, dob, contactNumber , countryCode, about } = req.body;
+        const { firstName, lastName, gender, dob, contactNumber, countryCode, about } = req.body;
         const { userId } = req.user
         // validate input details
         if (!firstName || !gender || !dob || !contactNumber || !about) {
@@ -53,7 +54,7 @@ exports.updateProfile = async (req, res) => {
         const profileId = userDetails.profile
         const profileDetails = await Profile.findOneAndUpdate(profileId, {
             $set: {
-                gender, dob, contactNumber : `${countryCode} ${contactNumber}`, about
+                gender, dob, contactNumber: `${countryCode} ${contactNumber}`, about
             }
         }, { new: true })
         await userDetails.save()
@@ -104,13 +105,19 @@ exports.deleteAccount = async (req, res) => {
             let cp = await CourseProgress.findOneAndDelete({ userId })
             console.log("DELETED USER FROM COURSE PROGRESS ---", cp)
         }
+        // DELTE USER PROFILE IAMGE 
+        const url = user?.image
+        if (!!url.split('.').find(word => word === 'cloudinary')) {
+            destroyFromCloudinary(url?.split('upload')[1])
+        }
         // courses 
         let deletedUser = await User.findByIdAndDelete(userId, { new: true })
         console.log("DELETD USER ----", deletedUser)
         return res.status(200).json({
             success: true,
-            message: "DELETED ACCOUNT SUCCESSFULLY", 
+            message: "DELETED ACCOUNT SUCCESSFULLY",
             deletedUser,
+            redirectTo : '/login'
         })
     } catch (err) {
         return res.status(401).json({
