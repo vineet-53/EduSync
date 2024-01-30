@@ -1,6 +1,6 @@
 import React from 'react';
-import { Login , Signup , Frame} from "../../../../assets/index"
-import FormTitle from '../../form/Title';
+import { Login , Signup , Frame} from "../../../assets/index"
+import FormTitle from '../../common/form/Title';
 const AuthTemplate = ({ children , login = false , signup = false }) => {
     return (
         <div className='flex  bg-custom-primary min-h-screen pt-10 px-22 lg:justify-evenly'>

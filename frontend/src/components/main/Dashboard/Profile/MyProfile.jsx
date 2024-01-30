@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Section from '../../../common/Section'
-import { useSelector } from 'react-redux'
-import IconButton from "../../../common/IconButton"
-import PersonalDiv from '../PersonalDiv'
-import Title from '../Title'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import {Title , IconButton , Section} from '../../../common'
+import PersonalDiv from '../PersonalDiv'
 export default function MyProfile() {
   const { user } = useSelector(state => state.profile)
-  const { token } = useSelector(state => state.auth)
   const { profile } = user;
   const navigate = useNavigate()
   return (

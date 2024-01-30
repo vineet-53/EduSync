@@ -4,7 +4,7 @@ import apiConnector from "../apiConnector"
 
 
 
-export const contactUs = async (data) => { 
+export const contactus = async (data) => { 
     const toastId = toast.loading("Sending Message...")
     try { 
         const response=  await apiConnector("POST" , rootEndpoints.CONTACT_US , {...data})

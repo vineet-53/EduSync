@@ -1,5 +1,5 @@
 import React from 'react';
-import {Testimonial} from "../../main/index"
+import Testimonial from './Testimonial';
 const ReviewSlider = () => {
     return (
         <div className='flex gap-4'>

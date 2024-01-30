@@ -1,6 +1,6 @@
 import React from 'react';
-import {TypeAnimationBox , Title , SubTitle} from "../index" 
-import {PrimaryButton} from "../../common/index" 
+import { Title , SubTitle , PrimaryButton} from "../../common" 
+import TypeAnimationBox from './TypeAnimationBox';
 const CodeBlock = (props) => {
     const { beforeSpanText, afterSpanText, spanText, subTitle, buttonText1, buttonText2, animationText, animationContainerGradient, backgroundGradient, reverse, titlecss } = props
     return (

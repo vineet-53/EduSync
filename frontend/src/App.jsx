@@ -1,23 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/main/navbar/Navbar.jsx'
 import Home from "./pages/Home"
 import Login from './pages/Login'
 import Signup from "./pages/Signup"
-import { Navbar } from './components/common'
 import About from "./pages/About"
 import VerifyEmail from './pages/VerifyEmail'
-import OpenRoute from "./components/common/auth/OpenRoute"
-import PrivateRoute from "./components/common/auth/PriivateRoute"
+import { OpenRoute, PrivateRoute } from "./components/common"
 import Dashboard from './pages/Dashboard'
 import ResetPassword from './pages/ResetPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import Error from "./pages/Error"
-import MyProfile from './components/main/Dashboard/outlets/MyProfile'
-import EnrolledCourses from './components/main/Dashboard/outlets/EnrolledCourses'
-import Cart from './components/main/Dashboard/outlets/Cart'
-import Settings from './components/main/Dashboard/outlets/Settings.jsx'
-import AddCourse from "./components/main/Dashboard/outlets/AddCourse.jsx"
-import MyCourses  from "./components/main/Dashboard/outlets/MyCourses.jsx"
-import Instructor  from "./components/main/Dashboard/outlets/Instructor.jsx"
+import MyProfile from './components/main/Dashboard/Profile/MyProfile.jsx'
+import EnrolledCourses from './components/main/Dashboard/EnrolledCourses/EnrolledCourses.jsx'
+import Cart from './components/main/Dashboard/Cart/Cart.jsx'
+import Settings from './components/main/Dashboard/Settings/Settings.jsx'
+import { MyCourses, AddCourse, Instructor } from "./components/main/Dashboard/Instructor"
 
 import { ACCOUNT_TYPE } from './utils/constants.js'
 import { useSelector } from 'react-redux'
@@ -99,7 +96,7 @@ function App() {
         }
 
         />
-        <Route path ="/404-not-found" element = {<Error />} />
+        <Route path="/404-not-found" element={<Error />} />
         <Route path='*' element={<Error />} />
 
       </Routes>

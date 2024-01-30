@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { HiOutlineUpload } from "react-icons/hi";
-import IconButton from "../../common/IconButton"
+import {IconButton} from "../../../common"
 import { useForm } from 'react-hook-form';
-import { updateProfilePicture } from '../../../services/operations/profile';
+import { updateProfilePicture } from '../../../../services/operations/profile';
 
 export default function UpdateProfilePicture() {
     const { user } = useSelector(state => state.profile)

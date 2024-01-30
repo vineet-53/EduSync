@@ -1,15 +1,13 @@
 import React from 'react'
-import { Footer, Primary, PrimaryButton, Wrapper } from "../components/common/index"
-import Title from "../components/common/Title"
-import SubTitle from "../components/common/SubTitle"
-import { Image } from "../components/main/index"
+import {  Primary, Wrapper } from "../components/common/containers"
+import {Footer ,PrimaryButton} from "../components/common"
+import {Title , SubTitle} from "../components/common"
+import Image from "../components/main/AboutPage/Image"
 import { Aboutus1, Aboutus2, Aboutus3, FoundingStory } from '../assets'
-import PlanTemplate from '../components/main/AboutPage/PlanTemplate'
-import Achievement from '../components/main/AboutPage/Achievement'
-import LearningCard from '../components/main/AboutPage/LearningCard'
+import { PlanTemplate, Achievement, LearningCard } from '../components/main/AboutPage'
+import ContactForm from '../components/main/AboutPage/ContactusForm'
 import learning_data from '../data/learning_data'
 import { nanoid } from '@reduxjs/toolkit'
-import ContactForm from '../components/main/AboutPage/ContactForm'
 export default function About() {
   return (
     <Primary>
@@ -95,8 +93,8 @@ export default function About() {
           </div>
         </section>
       </Wrapper>
-    <div className='bg-custom-tertiary'>
-      <section className='grid grid-cols-2 grid-rows-2 gap-10 text-center mt-[2rem] py-[2em] lg:py-[3.5em] bg-custom-tertiary lg:grid-cols-4 lg:grid-rows-1 w-11/12 lg:w-4/5 mx-auto'>
+      <div className='bg-custom-tertiary'>
+        <section className='grid grid-cols-2 grid-rows-2 gap-10 text-center mt-[2rem] py-[2em] lg:py-[3.5em] bg-custom-tertiary lg:grid-cols-4 lg:grid-rows-1 w-11/12 lg:w-4/5 mx-auto'>
           <Achievement
             count="5K"
             text="Active Students"
@@ -114,44 +112,44 @@ export default function About() {
             text="Awards"
           />
         </section>
-    </div>
-    <Wrapper>
-      <section className='grid py-[3rem] lg:grid-cols-4 lg:grid-rows-2 lg:py-[5rem] lg:px-[2.5rem] gap-y-5 lg:gap-y-0'>
-        <div className='grid lg:col-span-2 gap-5 py-[1rem] lg:px-[1.8rem] lg:py-[.8rem]'>
-          <Title 
-            beforeSpanText="World-Class Learning for "
-            spanText="Anyone, Anywhere"
-            titlecss="text-white"
-          />
-          <SubTitle
-            subTitle="Studynotion partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide." 
-          />
-          <PrimaryButton isActive ={true} linkto={"/login"}>
-            Learn More
-          </PrimaryButton>
-        </div>
-        {
-          learning_data.map((card ,index) => <LearningCard
-                key ={nanoid()}
-                title ={card.title}
-                body ={card.body}
-                cardcss={ index % 2 ? "bg-custom-secondary" : "bg-custom-tertiary"}
+      </div>
+      <Wrapper>
+        <section className='grid py-[3rem] lg:grid-cols-4 lg:grid-rows-2 lg:py-[5rem] lg:px-[2.5rem] gap-y-5 lg:gap-y-0'>
+          <div className='grid lg:col-span-2 gap-5 py-[1rem] lg:px-[1.8rem] lg:py-[.8rem]'>
+            <Title
+              beforeSpanText="World-Class Learning for "
+              spanText="Anyone, Anywhere"
+              titlecss="text-white"
             />
-          )
-        }
-      </section>
+            <SubTitle
+              subTitle="Studynotion partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide."
+            />
+            <PrimaryButton isActive={true} linkto={"/login"}>
+              Learn More
+            </PrimaryButton>
+          </div>
+          {
+            learning_data.map((card, index) => <LearningCard
+              key={nanoid()}
+              title={card.title}
+              body={card.body}
+              cardcss={index % 2 ? "bg-custom-secondary" : "bg-custom-tertiary"}
+            />
+            )
+          }
+        </section>
 
 
-      <section className='flex justify-center lg:pb-[5rem]'>
-        
-          <ContactForm 
-            title = "Get in Touch"
+        <section className='flex justify-center lg:pb-[5rem]'>
+
+          <ContactForm
+            title="Get in Touch"
             subTitle="We’d love to here for you, Please fill out this form."
           />
 
-      </section>
-    </Wrapper>
-    <Footer />
+        </section>
+      </Wrapper>
+      <Footer />
     </Primary>
   )
 }

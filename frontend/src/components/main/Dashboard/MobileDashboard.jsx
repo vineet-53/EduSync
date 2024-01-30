@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../../services/operations/auth"
 import { VscSettingsGear, VscSignOut } from 'react-icons/vsc';
 import { useConfirmationModalContext } from '../../../contexts/ConfirmationModalProvider';
-import IconButton from "../../common/IconButton"
-import ConfirmationModal from '../../common/ConfirmationModal';
+import { IconButton } from "../../common"
 export default function MobileDashboard({ handleNav }) {
     const { confirmationModal: modalData, setConfirmationModal } = useConfirmationModalContext()
     const dispatch = useDispatch()
@@ -17,9 +16,9 @@ export default function MobileDashboard({ handleNav }) {
     const { user } = useSelector(state => state.profile)
 
     return (
-        <>
+        <div>
             <nav className='absolute w-full bg-custom-tertiary text-custom-secondary backdrop-blur h-full pt-10'>
-                <button onClick={handleNav} className='max-sm:flex text-white hidden w-7 h-7 cursor-pointer absolute top-1 left-3'>
+                <button onClick={handleNav} className='max-sm:flex text-white hidden w-7 h-7 cursor-pointer absolute top-2 right-6 hover:animate-pulse duration-700'>
                     <MdClose className='w-full h-full' />
                 </button>
                 <ul className=''>
@@ -84,6 +83,6 @@ export default function MobileDashboard({ handleNav }) {
                     </div>
                 }
             </nav >
-        </>
+        </div>
     )
 }

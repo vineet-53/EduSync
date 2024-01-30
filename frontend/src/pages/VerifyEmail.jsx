@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Template from "../components/common/templates/verifyEmail/Template"
-import { Primary, Wrapper } from "../components/common/index"
-import { SubmitButton } from '../components/common/index'
-import { nanoid } from '@reduxjs/toolkit'
+import Template from "../components/main/VerifyEmail/Template"
+import { SubmitButton } from '../components/common/form'
 import OtpInput from "react-otp-input"
 import { useDispatch, useSelector } from 'react-redux'
 import { sendOTP, signup } from '../services/operations/auth'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import BackToLogin from "../components/common/templates/verifyEmail/BackToLogin"
+import BackToLogin from "../components/main/VerifyEmail/BackToLogin"
 import { useTimer } from "use-timer"
 export default function VerifyEmail() {
   const [otp, setOtp] = useState(null)

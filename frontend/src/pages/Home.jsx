@@ -1,9 +1,11 @@
 import React from 'react'
-import { Wrapper, Primary, Secondary, PrimaryButton, Footer } from '../components/common/index'
+import {  PrimaryButton, Footer } from '../components/common/index'
+import {Wrapper, Primary, Secondary} from "../components/common/containers"
+ import {Title , SubTitle} from "../components/common"
 import {
-  Title, SubTitle, CodeBlock, FeatureCards, Feature,
+   CodeBlock, FeatureCards, Feature,
   Line, ExpBanner
-} from "../components/main/index.js"
+} from "../components/main/HomePage"
 import { Banner, Logo1, Logo2, Logo3, Logo4, CompareWithOthers as CardImage1, KnowYourProgress as CardImage2, PlanYourLessons as CardImage3, Instructor, TimeLineLogo, } from "../assets/index.js"
 import { Link } from 'react-router-dom'
 import { FaArrowRight } from 'react-icons/fa'

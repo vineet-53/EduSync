@@ -1,18 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux"
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
 import { NavbarLinks } from '../../../data/navbar-links';
 import { fetchALLCatalogs } from "../../../services/operations/course"
 import NavbarButton from './NavbarButton';
 import { LogoFullLight } from "../../../assets/index"
-import { IoCartOutline } from "react-icons/io5";
+import { IoCaretDownCircleSharp, IoCartOutline } from "react-icons/io5";
+import ProfileDropDown from './ProfileDropDown';
+import MobileDashboard from '../Dashboard/MobileDashboard';
 const Navbar = () => {
     const auth = useSelector(state => state.auth)
     const location = useLocation()
     const [catalogs, setCatalogs] = useState([])
     const { user } = useSelector(state => state.profile)
     const [accoutDropDown, setAccountDropDown] = useState(false)
+    const [profileDropDown, setProfileDropDown] = useState(false)
     const matchPath = (path) => {
         return path === location.pathname
     }
@@ -73,7 +76,7 @@ const Navbar = () => {
                             <p className='hidden lg:flex text-white font-bold text-xl'>Logged in Navbar</p>
                         </div>
                     }
-                    <div className='flex  gap-4 items-center '>
+                    <div className='hidden sm:flex  gap-4 items-center  '>
                         {/* login signup button */}
                         {
                             auth.token === null && user === null ? (
@@ -90,7 +93,7 @@ const Navbar = () => {
                             )
                                 :
                                 (
-                                    <>
+                                    <div className='flex justify-evenly items-center gap-2 md:gap-4 relative'>
                                         {/* search */}
                                         <div>
 
@@ -99,14 +102,31 @@ const Navbar = () => {
                                         <Link to="/dashboard/cart">
                                             <IoCartOutline className='text-white cursor-pointer' size={20} />
                                         </Link>
-                                        <Link to="/dashboard/my-profile">
+                                        <div className='flex items-center gap-1'>
                                             <img src={user?.image} className='rounded-full w-[30px] cursor-pointer' onClick={handleAccountOptions} />
-                                        </Link>
+                                            <IoCaretDownCircleSharp className='cursor-pointer text-white' onClick={() => setProfileDropDown(!profileDropDown)} />
+                                        </div>
                                         {/* profile */}
-
-                                    </>
+                                        {
+                                            profileDropDown && <div className='text-white bg-richblack-600 py-2 px-2 z-[99] rounded-md absolute w-full h-20 bg-opacity-90 right-0 top-[105%]'>
+                                                <Link to="/dashboard/my-profile">
+                                                    <li className='list-none hover:text-yellow-200 py-1 px-2 rounded-md bg-opacity-30 font-bold'>
+                                                        Profile
+                                                    </li>
+                                                </Link>
+                                                <Link to="/dashboard/settings">
+                                                    <li className='list-none hover:text-yellow-200 py-1 px-2 rounded-md bg-opacity-30 font-bold'>
+                                                        Settings
+                                                    </li>
+                                                </Link>
+                                            </div>
+                                        }
+                                    </div>
                                 )
                         }
+                    </div>
+                    <div className='max-sm:flex hidden '>
+                        
                     </div>
                 </nav>
             </div>

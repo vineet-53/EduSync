@@ -1,12 +1,13 @@
 import React from 'react'
-import { Template, Input, SubmitButton } from "../components/common/index"
+import { Input, SubmitButton } from "../components/common/form"
+import Template from "../components/main/VerifyEmail/Template"
 import ResetPasswordProvider, { useResetPasswordContext } from "../contexts/ResetPasswordProvider"
 import { resetPasswordToken } from "../services/operations/password"
 const ResetPasswordForm = () => {
     const { email, setEmailSent, setEmail, emailSent } = useResetPasswordContext()
     const handleResetPassword = (e) => {
         e.preventDefault()
-        resetPasswordToken(email , setEmailSent)
+        resetPasswordToken(email, setEmailSent)
 
     }
     return (
@@ -34,7 +35,7 @@ const ResendEmailForm = () => {
     const handleResendMail = e => {
         e.preventDefault()
         // create call to server api 
-        resetPasswordToken(email , setEmailSent)
+        resetPasswordToken(email, setEmailSent)
     }
     return (
         <Template

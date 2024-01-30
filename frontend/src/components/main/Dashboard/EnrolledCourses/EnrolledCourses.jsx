@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import Title from '../Title'
+import {Title} from '../../../common/index.js'
 import { useDispatch, useSelector } from 'react-redux'
-import EnrolledCourse from "../../../common/EnrolledCourse.jsx"
+import EnrolledCourse from "./EnrolledCourse.jsx"
 import { nanoid } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router-dom'
 import { getEnrolledCourses } from "../../../../services/operations/profile.js"

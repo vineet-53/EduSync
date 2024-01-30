@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import { Primary } from '../components/common'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useSelector } from "react-redux"
+import { Primary } from '../components/common/containers'
+import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/main/Dashboard/Sidebar'
 import ConfirmationModalProvider from "../contexts/ConfirmationModalProvider"
 import { FiMenu } from "react-icons/fi";
@@ -27,14 +27,14 @@ export default function Dashboard() {
               <div className='grid sm:col-span-3 lg:col-span-2'>
                 <Sidebar />
               </div>
-              <button onClick={() => setNav(true)} className='max-sm:block hidden text-white w-7 h-7 cursor-pointer absolute top-1 left-3'>
+              <button onClick={() => setNav(true)} className='max-sm:block hidden text-white w-7 h-7 cursor-pointer absolute top-2 left-6'>
                 <FiMenu className='w-full h-full' />
               </button>
               {
                 nav && <MobileDashboard handleNav={() => setNav(!nav)} />
               }
             </ConfirmationModalProvider>
-            <div className='grid sm:col-span-7 px-2 py-2 lg:col-span-8'>
+            <div className='grid sm:col-span-7 px-2 py-2 lg:col-span-8 max-sm:mt-10'>
               <Outlet />
             </div>
           </div>

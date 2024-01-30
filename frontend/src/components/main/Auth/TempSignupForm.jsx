@@ -1,14 +1,15 @@
 import React, { useRef } from 'react'
-import { Button, Input, InputPassword, SubmitButton, AuthTemplate } from '../index'
-import { useFormContext } from '../../../contexts/form/FormProvider'
-import { setSignupData } from "../../../slices/authSlice"
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { nanoid } from '@reduxjs/toolkit'
+import { FaCaretDown } from 'react-icons/fa6'
+import { Input, InputPassword, SubmitButton } from "../../../common/form/index"
+import AuthTemplate from "../AuthTemplate"
+import { useFormContext } from '../../../contexts/SignupFormProvider'
+import { setSignupData } from "../../../slices/authSlice"
 import { toast, Toaster } from "react-hot-toast"
 import { sendOTP } from '../../../services/operations/auth'
-import { useNavigate } from 'react-router-dom'
 import country_codes from "../../../data/countrycode.json"
-import { FaCaretDown } from 'react-icons/fa6'
-import { nanoid } from '@reduxjs/toolkit'
 const SignupForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -129,7 +130,7 @@ const SignupForm = () => {
                                 inputcss="w-full"
                                 id="phone"
                                 handleEvent={e => setPhoneNumber(e.target.value)}
-                                maxLength=  {10}
+                                maxLength={10}
                             />
                         </div>
                     </div>

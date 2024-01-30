@@ -1,6 +1,5 @@
 import React from 'react'
 import { useForm, useFormContext } from 'react-hook-form'
-import { PrimaryButton } from "../../index"
 export default function FormTemplate({handleForm}) {
     const {register,  handleSubmit , formState : {errors}} = useFormContext()
     const LabelCss ='text-pure-greys-100'

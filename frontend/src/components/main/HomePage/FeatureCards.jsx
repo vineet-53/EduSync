@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Card } from "../../main/index"
+import Card from "./Card.jsx"
+import { nanoid } from '@reduxjs/toolkit'
 import { v4 } from "uuid"
 import {HomePageExplore as cardsData} from "../../../data/homepage-explore.js"
 import Tab from "./Tab"
-import { nanoid } from '@reduxjs/toolkit'
 function FeatureCards() {
     const [data, setData] = useState(cardsData[0].courses)
     const [activeTab , setActiveTab] = useState("Free")

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { changePassword } from '../../../services/operations/profile'
+import { changePassword } from '../../../../services/operations/profile'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
-import IconButton from '../../common/IconButton'
+import {IconButton }from '../../../common'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 export default function ChangePassword() {
