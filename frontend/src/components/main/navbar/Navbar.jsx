@@ -81,7 +81,7 @@ const Navbar = () => {
                         {
                             auth.token === null && user === null ? (
                                 <>
-                                    <div className='hidden lg:flex gap-1'>
+                                    <div className='hidden lg:flex gap-3'>
                                         <NavbarButton linkto="/login">
                                             Log In
                                         </NavbarButton>

@@ -4,7 +4,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import Label from "./Label"
 import { FormInputFieldStyle } from '../../../styles/constantsStyles'
 export default function FormPassword(props) {
-    const { value, name, id, placeholder, errorMsg } = props
+    const { value, name, id, placeholder, errorMsg , inputcss } = props
     const [showPassword, setShowPassword] = useState(false)
     const { register, formState: { errors } } = useFormContext()
     return (
@@ -12,7 +12,7 @@ export default function FormPassword(props) {
             <Label htmlFor={id} >
                 {name}
             </Label>
-            <input className={FormInputFieldStyle} type={showPassword ? "text" : "password"} id={id} placeholder={placeholder} {...register
+            <input className={FormInputFieldStyle + ` ${inputcss}`} type={showPassword ? "text" : "password"} id={id} placeholder={placeholder} {...register
                 (value, { required: `Please Enter ${name}` })} />
             < div className='w-6 h-6 absolute right-2 top-[50%] '>
                 {

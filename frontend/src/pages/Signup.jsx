@@ -7,11 +7,12 @@ import { Label, SubmitButton } from "../components/common/form/index"
 import CountryCodes from "../data/countrycode.json"
 import AccountTypeInput from '../components/main/Auth/Signup/AccountTypeInput'
 import { nanoid } from "@reduxjs/toolkit"
-import InputField, { InputFieldStyle } from '../components/main/Auth/Signup/InputField'
+import FormInputField from '../components/common/form/FormInputField'
+import { FormInputFieldStyle } from '../styles/constantsStyles'
 import FormPassword from "../components/common/form/FormPassword"
 import { ErrorInputFieldStyle } from '../styles/constantsStyles'
-import {setSignupData} from "../slices/authSlice"
-import {sendOTP} from "../services/operations/auth"
+import { setSignupData } from "../slices/authSlice"
+import { sendOTP } from "../services/operations/auth"
 export default function Signup() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -60,7 +61,7 @@ export default function Signup() {
                 <Label htmlFor="firstname" >
                   First Name
                 </Label>
-                <InputField type="text" value="firstName" errorMsg="First Name" placeholder="Enter First Name" />
+                <FormInputField type="text" value="firstName" errorMsg="First Name" placeholder="Enter First Name" />
                 {errors?.firstName && <p className={ErrorInputFieldStyle}>{errors?.firstName.message}</p>}
 
               </div>
@@ -68,7 +69,7 @@ export default function Signup() {
                 <Label htmlFor="lastname" >
                   Last Name
                 </Label>
-                <InputField type="text" value="lastname" placeholder="Enter Last Name" />
+                <FormInputField type="text" value="lastname" placeholder="Enter Last Name" />
 
                 {errors?.lastName && <p className={ErrorInputFieldStyle}>{errors?.lastName.message}</p>}
               </div>
@@ -77,7 +78,7 @@ export default function Signup() {
               <Label htmlFor="lastname" >
                 Email Address
               </Label>
-              <InputField type="email" value="email" errorMsg="Email Address" pattern={{
+              <FormInputField type="email" value="email" errorMsg="Email Address" pattern={{
                 value: /.(@gmail.com)$/,
                 message: "Enter Valid Email"
               }} placeholder="Enter Email Address" />
@@ -89,7 +90,7 @@ export default function Signup() {
               </Label>
               <div>
                 <div className='flex flex-row gap-2 w-full'>
-                  <select id="countryCode" className={InputFieldStyle + " w-2/6 sm:w-1/6 text-center"} defaultValue={getValues("countryCode")}>
+                  <select id="countryCode" className={FormInputFieldStyle + " w-2/6 sm:w-1/6 text-center"} defaultValue={getValues("countryCode")}>
                     {
                       CountryCodes?.map(code => {
                         return (
@@ -98,7 +99,7 @@ export default function Signup() {
                       })
                     }
                   </select>
-                  <input type="text" className={InputFieldStyle} placeholder='Enter Contact Number' maxLength={10} {...register("contactNumber", {
+                  <input type="text" className={FormInputFieldStyle} placeholder='Enter Contact Number' maxLength={10} {...register("contactNumber", {
                     required: "Please Enter Contact Number",
                     pattern: {
                       value: /\d{10}/,

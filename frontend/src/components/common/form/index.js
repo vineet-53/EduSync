@@ -3,7 +3,7 @@ import Button from "./Button.jsx"
 import Input from "./Input.jsx"
 import InputPassword from "./InputPassword.jsx"
 import Label from "./Label.jsx"
-import SubmitButton from "./SubmitButton.jsx"
+import FormSubmitButton from "./FormSubmitButton.jsx"
 import Title from "./Title.jsx"
 
 export {
@@ -11,6 +11,6 @@ export {
     , Input
     , InputPassword
     , Label
-    , SubmitButton
+    , FormSubmitButton
     , Title
 }

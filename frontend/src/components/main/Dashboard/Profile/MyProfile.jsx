@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import {Title , IconButton , Section} from '../../../common'
-import PersonalDiv from '../PersonalDiv'
+import { Title, IconButton, Section } from '../../../common'
+import PersonalDiv from './PersonalDiv'
+import { ActiveIconButtonStyle, EditIconButtonStyle, EditIconStyle } from '../../../../styles/constantsStyles'
+import { FaEdit } from 'react-icons/fa'
 export default function MyProfile() {
   const { user } = useSelector(state => state.profile)
   const { profile } = user;
@@ -27,11 +29,12 @@ export default function MyProfile() {
                   </div>
                 </div>
                 <div className=''>
-                  <IconButton icon="Edit" isActive={true} onClick={() => {
+                  <button className={ActiveIconButtonStyle} onClick={() => {
                     navigate("/dashboard/settings")
                   }} >
-                    <span className='hidden md:block'>Edit</span>
-                  </IconButton>
+                    <span className={EditIconButtonStyle}>Edit</span>
+                    <span><FaEdit className={EditIconStyle} /></span>
+                  </button>
                 </div>
               </div>
             </Section>
@@ -40,11 +43,12 @@ export default function MyProfile() {
                 <div className='font-semibold text-xl text-white'>
                   About
                 </div>
-                <IconButton icon="Edit" isActive={true} onClick={() => {
+                <button className={ActiveIconButtonStyle} onClick={() => {
                   navigate("/dashboard/settings")
                 }} >
-                  <span className='hidden md:block'>Edit</span>
-                </IconButton>
+                  <span className={EditIconButtonStyle}>Edit</span>
+                  <span><FaEdit className={EditIconStyle} /></span>
+                </button>
               </div>
               <div className='text-pure-greys-200' >
                 {profile?.about == "" ? <p>"Write something about Yourself"</p> : profile?.about}
@@ -55,11 +59,12 @@ export default function MyProfile() {
                 <div className='font-semibold text-xl text-white'>
                   Personal Details
                 </div>
-                <IconButton icon="Edit" isActive={true} onClick={() => {
+                <button className={ActiveIconButtonStyle} onClick={() => {
                   navigate("/dashboard/settings")
                 }} >
-                  <span className='hidden md:block'>Edit</span>
-                </IconButton>
+                  <span className={EditIconButtonStyle}>Edit</span>
+                  <span><FaEdit className={EditIconStyle} /></span>
+                </button>
               </div>
               <div className='text-pure-greys-200 grid md:grid-cols-2' >
                 <PersonalDiv
