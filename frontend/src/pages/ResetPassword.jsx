@@ -8,7 +8,6 @@ const ResetPasswordForm = () => {
     const handleResetPassword = (e) => {
         e.preventDefault()
         resetPasswordToken(email, setEmailSent)
-
     }
     return (
         <Template
