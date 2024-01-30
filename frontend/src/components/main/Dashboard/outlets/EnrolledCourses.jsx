@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Title from '../Title'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import EnrolledCourse from "../../../common/EnrolledCourse.jsx"
 import { nanoid } from '@reduxjs/toolkit'
+import { useNavigate } from 'react-router-dom'
+import { getEnrolledCourses } from "../../../../services/operations/profile.js"
 
 export default function EnrolledCourses() {
   const { enrolledCourses } = useSelector(state => state.profile)
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  useEffect(() => {
+    let isCancelled = false
+    const getCourses = () => {
+      !isCancelled &&
+        dispatch(getEnrolledCourses(user.token, navigate))
+    }
+    return () => {
+      isCancelled = true
+      getCourses()
+    }
+  })
   return (
     <div className='px-4'>
       <Title>Enrolled Courses</Title>

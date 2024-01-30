@@ -6,19 +6,10 @@ import Sidebar from '../components/main/Dashboard/Sidebar'
 import ConfirmationModalProvider from "../contexts/ConfirmationModalProvider"
 import { FiMenu } from "react-icons/fi";
 import MobileDashboard from '../components/main/Dashboard/MobileDashboard'
-import { getAndSetUserDetails, getEnrolledCourses } from '../services/operations/profile'
-import { getCartFullDetails } from '../services/operations/course'
 export default function Dashboard() {
-  const {  user , loading: profileLoading } = useSelector(state => state.profile)
+  const { loading: profileLoading } = useSelector(state => state.profile)
   const { loading: authLoading } = useSelector(state => state.auth)
   const [nav, setNav] = useState(false)
-  const dispatch = useDispatch() 
-  const navigate = useNavigate() 
-  useEffect(() => { 
-    dispatch(getAndSetUserDetails(user.token , navigate))
-    dispatch(getEnrolledCourses(user.token , navigate))
-    dispatch(getCartFullDetails(user.token ,navigate))
-  } , [])
   if (authLoading || profileLoading) {
     return <div>Loading...</div>
   }

@@ -65,7 +65,6 @@ export const signup = (signupData ,  otp , navigate) => async (dispatch)=> {
     try { 
       // make a call to api to server
       const response = await apiConnector("post" , authEndpoints.SIGN_UP_API , {...signupData , otp} )
-      console.log(response) 
       if(!response.data.success) { 
         throw new Error(response.data.message) 
       }

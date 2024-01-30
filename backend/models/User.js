@@ -43,10 +43,10 @@ const userSchema = mongoose.Schema({
     ref: "Profile"
   },
 
-  courseProgress: {
+  courseProgress: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "CourseProgress",
-  },
+  }],
   token: {
     type: String,
     expires: 5 * 60,
@@ -60,6 +60,7 @@ const userSchema = mongoose.Schema({
     enum: ["Instructor", "Student", "Admin"],
     required: true,
   },
+
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Title from '../Title'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from "../../../common/CartItem"
 import { nanoid } from '@reduxjs/toolkit'
 import { removeItemFromCart } from '../../../../services/operations/course'
 import { useNavigate } from 'react-router-dom'
+import { getCartFullDetails } from '../../../../services/operations/course'
+
 export default function Cart() {
   const { cart } = useSelector(state => state.cart)
   const { token } = useSelector(state => state.auth)
@@ -13,6 +15,18 @@ export default function Cart() {
   const handleRemoveFromCart = (id) => {
     dispatch(removeItemFromCart(id, token, navigate))
   }
+  useEffect(() => {
+    let isCancelled = false
+    const getCartDetails = () => {
+      !isCancelled &&
+        dispatch(getCartFullDetails(token, navigate))
+
+    }
+    return () => {
+      isCancelled = true
+      getCartDetails()
+    }
+  })
   return (
     <>
       <div className=''>

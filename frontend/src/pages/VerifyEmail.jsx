@@ -12,12 +12,13 @@ import toast from 'react-hot-toast'
 export default function VerifyEmail() {
   const [otp, setOtp] = useState(null)
   const { signupData } = useSelector(state => state.auth)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleVerifyAndSignup = (e) => {
-
     e.preventDefault()
     // send the data to operation
+    console.log(signupData)
     if(!otp  || otp.length <= 5) { 
       toast.error("OTP not filled properly")
       return

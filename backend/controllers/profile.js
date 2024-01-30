@@ -45,13 +45,12 @@ exports.updateProfile = async (req, res) => {
         if (!firstName || !gender || !dob || !contactNumber || !about) {
             throw new Error("missing input details")
         }
-        const userDetails = await User.findById(userId)
+        let userDetails = await User.findById(userId)
         userDetails.firstName = firstName
         if (lastName != ' ') {
             userDetails.lastName = lastName
         }
         const profileId = userDetails.profile
-
         const profileDetails = await Profile.findOneAndUpdate(profileId, {
             $set: {
                 gender, dob, contactNumber, about
@@ -59,10 +58,11 @@ exports.updateProfile = async (req, res) => {
         }, { new: true })
         await userDetails.save()
         console.log(profileDetails)
+        userDetails = await User.findById(userId).populate('profile').exec()
         return res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            updatedProfileDetails: profileDetails,
+            user : userDetails,
         })
     } catch (err) {
         return res.status(400).json({

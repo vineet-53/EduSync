@@ -3,7 +3,7 @@ import { getItemFromLocalStorage } from "../utils/localStorage"
 const initialState = {
     loading: false,
     user: getItemFromLocalStorage("user"),
-    enrolledCourses : getItemFromLocalStorage("user").courses ||  []
+    enrolledCourses : getItemFromLocalStorage("user")?.courses ||  []
 }
 
 const profileSlice = createSlice({

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import IconButton from '../../common/IconButton';
 import InputTemplate from "./form/Input"
@@ -12,7 +12,7 @@ export default function UpdateProfile() {
     const dispatch = useDispatch()
     const methods = useForm({
         defaultValues: {
-            firstName: user.firstName,
+            firstName: user?.firstName,
             lastName: user?.lastName,
             contactNumber: profile?.contactNumber,
             about: profile?.about,
@@ -24,6 +24,7 @@ export default function UpdateProfile() {
     const submitProfileForm = (data) => {
         dispatch(updateProfile(user.token, data, navigate))
     }
+
     return (<form onSubmit={handleSubmit(submitProfileForm)} className='w-full flex flex-col gap-2 lg:grid lg:grid-cols-2 lg:grid-flow-row lg:gap-3'>
         <InputTemplate>
             <label htmlFor="firstname" className='text-custom-secondary'>First Name </label>
@@ -39,7 +40,7 @@ export default function UpdateProfile() {
 
         <InputTemplate>
             <label className='text-custom-secondary' htmlFor="dob">Date of Birth</label>
-            <input className='bg-richblack-600 text-white  px-4 py-2 rounded-md ' type="date" id='dob' placeholder='dd/mm/yyyy' {...register("dob", { required: true })} />
+            <input className='bg-richblack-600 text-white  px-4 py-2 rounded-md ' type="date" id='dob' {...register("dob", { required: true })} />
             {errors.dob && <p className='text-yellow-100'>Please Enter Date of Birth</p>}
         </InputTemplate>
         {/* gender */}

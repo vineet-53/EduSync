@@ -8,7 +8,7 @@ export default function FormProvider({children}) {
     const [lastName, setLastName] = useState("");
     const [confirmPassword ,setConfirmPassword]  = useState("")
     const [phoneNumber , setPhoneNumber] = useState("")
-    const [phonePrefix , setPhonePrefix] = useState("91")
+    const [countryCode , setCountryCode] = useState("+91")
 
     const CONTEXT_DATA = { 
         accountType,
@@ -18,7 +18,7 @@ export default function FormProvider({children}) {
         lastName , 
         confirmPassword , 
         phoneNumber ,
-        phonePrefix , 
+        countryCode , 
         setAccountType , 
         setEmail,   
         setPassword , 
@@ -26,7 +26,7 @@ export default function FormProvider({children}) {
         setLastName , 
         setConfirmPassword,
         setPhoneNumber , 
-        setPhonePrefix,
+        setCountryCode,
     }
     return (
         <FormContext.Provider value={CONTEXT_DATA}>
