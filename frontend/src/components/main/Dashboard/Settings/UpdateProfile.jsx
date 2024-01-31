@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from "react-redux"
-import { IconButton } from '../../../common';
 import FormDiv from "../FormDiv"
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import country_codes from "../../../../data/countrycode.json"
 import { updateProfile } from "../../../../services/operations/profile"
+import { ActiveIconButton, InActiveIconButton } from '../../../common';
 export default function UpdateProfile() {
     const { user } = useSelector(state => state.profile)
     const { profile } = user
@@ -88,14 +88,14 @@ export default function UpdateProfile() {
             <input className='bg-richblack-600 text-white  px-4 py-2 rounded-md ' type="text" id='about' placeholder='Write Something...' {...register("about", { required: true })} maxLength={100} />
             {errors.about && <p className='text-yellow-100'>Please Enter About</p>}
         </FormDiv>
-        <div className='grid col-span-2 relative'>
-            <div className='flex gap-2 md:gap-5 w-full flex-row-reverse absolute bottom-[-5em]'>
-                <IconButton isActive={true}>
-                    Save
-                </IconButton>
-                <IconButton onClick={() => navigate('/dashboard/my-profile')} isActive={false}>
-                    Cancel
-                </IconButton>
+        <div className='grid col-span-2 py-2'>
+            <div className='flex gap-2 flex-row-reverse w-full'>
+                <ActiveIconButton>
+                    <span>Save</span>
+                </ActiveIconButton>
+                <InActiveIconButton navigateTo="/dashboard/my-profile">
+                    <span>Cancel</span>
+                </InActiveIconButton>
             </div>
         </div>
     </form>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../../services/operations/auth"
 import { VscSettingsGear, VscSignOut } from 'react-icons/vsc';
 import { useConfirmationModalContext } from '../../../contexts/ConfirmationModalProvider';
-import { IconButton } from "../../common"
+import ConfirmationModalButtons from '../../common/ConfirmationModalButtons';
 export default function MobileDashboard({ handleNav }) {
     const { confirmationModal: modalData, setConfirmationModal } = useConfirmationModalContext()
     const dispatch = useDispatch()
@@ -70,14 +70,7 @@ export default function MobileDashboard({ handleNav }) {
                                 <p className=' text-base text-pure-greys-200 font-semibold'> {modalData.text2}</p>
                             </div>
                             <div className='flex gap-4'>
-                                <IconButton onClick={modalData.button1Handler} isActive={true} >
-                                    {modalData.button1Text}
-                                </IconButton>
-
-                                <IconButton onClick={modalData.button2Handler} isActive={false}>
-                                    {modalData.button2Text}
-                                </IconButton>
-
+                                <ConfirmationModalButtons modalData={modalData} />
                             </div>
                         </div>
                     </div>

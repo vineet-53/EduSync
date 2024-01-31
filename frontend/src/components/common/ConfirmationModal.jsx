@@ -1,6 +1,6 @@
 import React from 'react'
 import { useConfirmationModalContext } from '../../contexts/ConfirmationModalProvider'
-import { ActiveIconButtonStyle, EditIconButtonStyle, InActiveIconButtonStyles } from '../../styles/constantsStyles'
+import ConfirmationModalButtons from './ConfirmationModalButtons'
 export default function ConfirmationModal() {
     const { confirmationModal: modalData, setConfirmationModal } = useConfirmationModalContext()
     return (
@@ -11,13 +11,7 @@ export default function ConfirmationModal() {
                     <p className='mt-2 text-xl text-pure-greys-200 font-semibold'> {modalData.text2}</p>
                 </div>
                 <div className='flex gap-4'>
-                    <button onClick={modalData.button1Handler} className={ActiveIconButtonStyle}>
-                        <span>{modalData.button1Text}</span>
-                    </button>
-                    <button onClick={modalData.button2Handler} className={InActiveIconButtonStyles}>
-                        <span>{modalData.button2Text}</span>
-                    </button>
-
+                    <ConfirmationModalButtons modalData={modalData} />
                 </div>
             </div>
         </div>

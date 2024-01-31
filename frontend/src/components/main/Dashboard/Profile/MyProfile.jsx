@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Title, IconButton, Section } from '../../../common'
+import { Title, Section } from '../../../common'
 import PersonalDiv from './PersonalDiv'
 import { ActiveIconButtonStyle, EditIconButtonStyle, EditIconStyle } from '../../../../styles/constantsStyles'
 import { FaEdit } from 'react-icons/fa'
@@ -38,8 +38,8 @@ export default function MyProfile() {
                 </div>
               </div>
             </Section>
-            <Section>
-              <div className='flex justify-between  items-center '>
+            <Section sectioncss="flex flex-col">
+              <div className='flex justify-between items-center '>
                 <div className='font-semibold text-xl text-white'>
                   About
                 </div>
@@ -50,7 +50,7 @@ export default function MyProfile() {
                   <span><FaEdit className={EditIconStyle} /></span>
                 </button>
               </div>
-              <div className='text-pure-greys-200' >
+              <div className='text-pure-greys-200 mt-3' >
                 {profile?.about == "" ? <p>"Write something about Yourself"</p> : profile?.about}
               </div>
             </Section>

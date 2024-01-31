@@ -34,7 +34,7 @@ export default function UpdateProfilePicture() {
                     </label>
                     <button className={ActiveIconButtonStyle} type='submit'>
                         <span className={`${EditIconButtonStyle} font-bold`}>Upload</span>
-                        <span className={`${EditIconStyle} font-bold`}><FaFileUpload /></span>
+                        <span className={`${EditIconStyle} flex items-center justify-center font-semibold`}><FaFileUpload /></span>
                     </button>
                 </form>
             </div>
