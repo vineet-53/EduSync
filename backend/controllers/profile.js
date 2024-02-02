@@ -117,7 +117,7 @@ exports.deleteAccount = async (req, res) => {
             success: true,
             message: "DELETED ACCOUNT SUCCESSFULLY",
             deletedUser,
-            redirectTo : '/login'
+            redirectTo: '/login'
         })
     } catch (err) {
         return res.status(401).json({
@@ -217,4 +217,29 @@ exports.changePassword = async (req, res) => {
         })
     }
 
+}
+
+
+exports.removeProfilePicture = async (req, res) => {
+    try {
+        const { userId } = req.user
+        if (!userId) {
+            throw new Error("User IS not authorized")
+        }
+        const resetImageUrl = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}`
+        const user = await User.findById(userId)
+        user.image = resetImageUrl
+        await user.save()
+        return res.status(200).json({
+            success: true,
+            message: "Removed User Profile picture",
+            user
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
 }

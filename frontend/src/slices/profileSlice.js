@@ -5,7 +5,6 @@ const initialState = {
     user: getItemFromLocalStorage("user"),
     enrolledCourses : getItemFromLocalStorage("user")?.courses ||  []
 }
-
 const profileSlice = createSlice({
     name: "Profile",
     initialState,

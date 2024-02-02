@@ -55,6 +55,9 @@ const courseSchema  = new Schema( {
         type : mongoose.Schema.Types.ObjectId, 
         ref : "Category"
     },
+    courseDuration : { 
+        type : String, 
+    },
     createdAt:  { 
         type :  Date , 
         default : Date.now()

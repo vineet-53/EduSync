@@ -18,7 +18,7 @@ export default function UpdatePassword() {
     const checkPasswordStrength = (newPassword) => {
         setHasSpecialChar(/[!@#$%^&*]{1,}/.test(newPassword))
         setHasNumber(/\d{1,}/.test(newPassword))
-        setHasChar(/\w{8,}/.test(newPassword))
+        setHasChar(/.{8,}./.test(newPassword))
         setHasUpper(/[A-Z]{1,}/.test(newPassword))
         setHasLower(/[a-z]{1,}/.test(newPassword))
     }

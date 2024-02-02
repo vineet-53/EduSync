@@ -15,8 +15,6 @@ export default function ChangePassword() {
         }
     })
     const { handleSubmit, setError, formState: { errors } } = methods
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
     const onSubmit = (data) => {
         const { password, confirmPassword } = data
@@ -27,7 +25,7 @@ export default function ChangePassword() {
                 message: 'Passwords do not match',
             });
         } else {
-            dispatch(changePassword(password, confirmPassword, token, navigate))
+            changePassword(password, confirmPassword, token)
         }
     }
     return (

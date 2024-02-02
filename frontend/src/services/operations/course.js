@@ -2,25 +2,36 @@ import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/loca
 import apiConnector from "../apiConnector"
 import { courseEndpoints } from "../endpointsAPI"
 import { setCart } from "../../slices/cartSlice"
+import {toast}from "react-hot-toast"
 export const fetchALLCatalogs = async () => {
     try {
-        return await apiConnector("GET", courseEndpoints.GET_ALL_CATEGORY_API)
+        const response =  await apiConnector("GET", courseEndpoints.GET_ALL_CATEGORY_API)
+        if(!response.data.success) { 
+            throw new Error("Error Fetching Course Catalogs") 
+        }
+        return  response
     } catch (err) {
         console.log(err)
     }
 }
 
 export const addToCart = (courseId, token, navigate) => async dispatch => {
+    const toastId = toast.loading("Adding To Cart ....")
     try {
         const response = await apiConnector("POST", courseEndpoints.ADD_TO_CART, {
             courseId
         }, {
             Authorization: "Bearer " + token
         })
-
+        if(!response.data.success) { 
+            throw new Error("Error Adding To Cart")
+        }
+        toast.success("Added To cart Succesfully!") 
+        navigate("/dashboard/cart")
     } catch (err) {
         console.log(err)
     }
+    toast.dismiss(toastId) 
 }
 
 export const getCartFullDetails = (token, navigate) => async dispatch => {
@@ -40,7 +51,7 @@ export const removeItemFromCart = (courseId, token, navigate) => async dispatch 
             Authorization: "Bearer " + token
         })
         dispatch(setCart(response.data.cart))
-        setItemToLocalStorage("cart", response.data.cart)
+        setItemToLocalStorage("cart", response.data?.cart)
     } catch (err) {
         console.log(err)
         navigate("/404-not-found")

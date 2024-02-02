@@ -4,6 +4,7 @@ import { getItemFromLocalStorage } from "../utils/localStorage";
 const initialState = {
     loading: false,
     cart: getItemFromLocalStorage("cart") || [],
+    cartTotal : 0,  
 }
 const cartSlice = createSlice({
     name: "Cart",
@@ -20,6 +21,9 @@ const cartSlice = createSlice({
         },
         removeItem: (state, action) => {
             state.cart = state.cart.filter(id => id !== action.payload)
+        }, 
+        setCartTotal : (state , action) => { 
+            state.cartTotal  = action.payload
         }
     }
 })

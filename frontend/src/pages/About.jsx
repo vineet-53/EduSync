@@ -1,7 +1,7 @@
 import React from 'react'
-import {  Primary, Wrapper } from "../components/common/containers"
-import {Footer ,PrimaryButton} from "../components/common"
-import {Title , SubTitle} from "../components/common"
+import { Primary, Wrapper } from "../components/common/containers"
+import { Footer, PrimaryButton } from "../components/common"
+import { Title, SubTitle } from "../components/common"
 import Image from "../components/main/AboutPage/Image"
 import { Aboutus1, Aboutus2, Aboutus3, FoundingStory } from '../assets'
 import { PlanTemplate, Achievement, LearningCard } from '../components/main/AboutPage'
@@ -141,12 +141,18 @@ export default function About() {
 
 
         <section className='flex justify-center lg:pb-[5rem]'>
+          <div className='flex flex-col gap-8 lg:w-2/5'>
 
-          <ContactForm
-            title="Get in Touch"
-            subTitle="We’d love to here for you, Please fill out this form."
-          />
-
+            <ContactForm
+              details={
+                {
+                  title: "Get in Touch",
+                  subTitle:"We’d love to here for you, Please fill out this form.",  
+                  titlecss : "text-center"
+                }
+              }
+            />
+          </div>
         </section>
       </Wrapper>
       <Footer />

@@ -11,11 +11,11 @@ import ResetPassword from './pages/ResetPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import Error from "./pages/Error"
 import MyProfile from './components/main/Dashboard/Profile/MyProfile.jsx'
-import EnrolledCourses from './components/main/Dashboard/EnrolledCourses/EnrolledCourses.jsx'
+import EnrolledCourses from './components/main/Dashboard/EnrolledCourses'
 import Cart from './components/main/Dashboard/Cart/Cart.jsx'
 import Settings from './components/main/Dashboard/Settings/Settings.jsx'
+import Contactus from "./pages/Contactus.jsx"
 import { MyCourses, AddCourse, Instructor } from "./components/main/Dashboard/Instructor"
-
 import { ACCOUNT_TYPE } from './utils/constants.js'
 import { useSelector } from 'react-redux'
 function App() {
@@ -30,23 +30,22 @@ function App() {
           </OpenRoute>
         }
         />
-
-
         <Route path={"/login"} element={
           <OpenRoute>
             <Login />
           </OpenRoute>
         } />
         <Route path={"/about"} element={
-          <OpenRoute>
-            <About />
-          </OpenRoute>
+          <About />
         } />
         <Route path={"/signup"} element={
           <OpenRoute>
             <Signup />
           </OpenRoute>
 
+        } />
+        <Route path={"/contact"} element={
+          <Contactus />
         } />
         <Route path={"/verify-email"} element={
           <OpenRoute>
@@ -58,8 +57,6 @@ function App() {
             <ResetPassword />
           </OpenRoute>
         } />
-
-
         <Route path={"/update-password/:token"} element={
           <OpenRoute>
             <UpdatePassword />
@@ -87,14 +84,12 @@ function App() {
               <Route path='instructor' element={<Instructor />} />
             </>
           }
-
         </Route>
         <Route path={"/"} element={
           <OpenRoute>
             <Home />
           </OpenRoute>
         }
-
         />
         <Route path="/404-not-found" element={<Error />} />
         <Route path='*' element={<Error />} />

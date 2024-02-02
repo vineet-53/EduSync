@@ -3,8 +3,9 @@ import { profileEndpoints } from "../endpointsAPI"
 import apiConnector from "../apiConnector"
 import { toast } from "react-hot-toast"
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/localStorage"
-import {logout} from "./auth"
+import { logout } from "./auth"
 import axios from "axios"
+const { REMOVE_PROFILE_PICTURE_API } = profileEndpoints
 export const getAndSetUserDetails = (token, navigate) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
@@ -61,8 +62,7 @@ export const updateProfilePicture = (token, data) => async (dispatch) => {
     dispatch(setLoading(false))
 }
 
-export const changePassword = (password, confirmPassword, token, navigate) => async dispatch => {
-    dispatch(setLoading(true))
+export const changePassword = async (password, confirmPassword, token) => {
     const toastId = toast.loading("Changing Password....")
     try {
         const response = await axios.post(profileEndpoints.CHANGE_PASSWORD_API, { password, confirmPassword }, {
@@ -77,39 +77,53 @@ export const changePassword = (password, confirmPassword, token, navigate) => as
         toast.error("Error Changing Password")
     }
     toast.dismiss(toastId)
-    dispatch(setLoading(false))
 }
-
-
-export const getEnrolledCourses = (token, navigate) => async dispatch => {
-    dispatch(setLoading(true))
+export const fetchEnrolledCourses = async (token) => {
+    let result = []
     try {
         const response = await apiConnector("GET", profileEndpoints.GET_ENROLLED_COURSES_API, null, {
             Authorization: "Bearer " + token
         })
-        console.log(response)
-        dispatch(setEnrolledCourses(response.data.enrolledCourses))
-        setItemToLocalStorage("user", {
-            ...getItemFromLocalStorage("user"), courses: response.data.enrolledCourses
-        })
         console.log("SUCCESSFULLY FETCHED AND SET COURSES ")
+        result = response.data.enrolledCourses
     } catch (err) {
-        console.log("Error fetching courses ", err)
-        navigate('/404-not-found')
+        throw new Error("Error Fetching Enrolled Courses")
     }
-    dispatch(setLoading(false))
+    finally {
+        return result
+    }
 }
 
 export const deleteAccount = (token, navigate) => async dispatch => {
+    const toastId = toast.loading("Deleting Account....")
     try {
         const response = await apiConnector("DELETE", profileEndpoints.DELETE_PROFILE_API, null, {
             Authorization: "Bearer " + token
         })
         console.log(response)
         toast.success("Delete Account Successfully")
-        dispatch(logout(null , navigate))
+        dispatch(logout(null, navigate))
     } catch (err) {
         console.log(err)
         navigate('/404-not-found')
     }
+    toast.dismiss(toastId)
+}
+
+
+export const removeProfilePicture = (token) => async dispatch => {
+    const toastId = toast.loading("Removing Profile Picture....")
+    try {
+        const response = await apiConnector("GET", REMOVE_PROFILE_PICTURE_API, null, {
+            Authorization: "Bearer " + token
+        })
+        if (!response.data.sucess) {
+            throw new Error("RESPONSE ERROR")
+        }
+        toast.success("Removed Profile Picture Successfully!")
+    } catch (err) {
+        console.log('ERROR RMEOVING PROFILE PICTURE', err.message)
+        toast.error("Error Removing profile picture!")
+    }
+    toast.dismiss(toastId)
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import { ActiveIconButtonStyle } from '../../styles/constantsStyles'
 
-export default function ActiveIconButton({ children, icon }) {
+export default function ActiveIconButton({ children , buttoncss }) {
     return (
-        <button className={ActiveIconButtonStyle}>
+        <button className={`${ActiveIconButtonStyle} ${buttoncss}` }>
             {children}
         </button>
     )

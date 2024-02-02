@@ -37,7 +37,7 @@ exports.createCourse = async (req, res) => {
         let course = await Course.findOne({ instructor: userId })
         if (course && course.courseName === courseName) {
             throw new Error("Course already exists ")
-        }dispatch(getCartFullDetails(token , navigate))
+        } dispatch(getCartFullDetails(token, navigate))
         // get category of course
         const category = await Category.findById(categoryId)
         // get link to thumbnail 
@@ -305,6 +305,8 @@ exports.getInstructorCourses = async (req, res) => {
         })
     }
 }
+
+
 exports.getEnrolledCourses = async (req, res) => {
 
     try {

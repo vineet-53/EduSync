@@ -45,8 +45,8 @@ export const profileEndpoints = {
   DELETE_PROFILE_API: API_VERSION + "/profile/deleteAccount",
   CHANGE_PASSWORD_API: API_VERSION + "/profile/change-password",
   GET_ENROLLED_COURSES_API: API_VERSION + "/profile/getEnrolledCourses",
-  GET_INSTRUCTOR_COURSES_API: API_VERSION + "/profile/getInstructorCourses"
-
+  GET_INSTRUCTOR_COURSES_API: API_VERSION + "/profile/getInstructorCourses",
+  REMOVE_PROFILE_PICTURE_API : API_VERSION + "/profile/removeProfilePicture"
 }
 
 

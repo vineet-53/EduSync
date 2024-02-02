@@ -19,11 +19,12 @@ const Navbar = () => {
     const matchPath = (path) => {
         return path === location.pathname
     }
+    const { cartTotal } = useSelector(state => state.cart)
     const getAllCatalog = async () => {
         const data = await fetchALLCatalogs()
         if (!data.data.success)
             return
-        setCatalogs(data.data.categoryDetails)
+        if (data?.data?.categoryDetails) setCatalogs(data.data.categoryDetails)
     }
     const handleAccountOptions = e => {
         setAccountDropDown(!accoutDropDown)
@@ -32,7 +33,7 @@ const Navbar = () => {
         getAllCatalog()
     }, [])
     return (
-        <div className='flex items-center bg-custom-primary border-b-[1px] border-solid border-b-richblack-700  '>
+        <div className='flex items-center bg-custom-primary border-b-[1px] border-solid border-b-richblack-700  h-16'>
             <div className="w-11/12  mx-auto py-4" >
                 <nav className='flex  justify-between items-center'>
                     <Link to="/">
@@ -40,7 +41,7 @@ const Navbar = () => {
 
                     </Link>
                     {
-                        auth.token === null && user === null && <div className='hidden lg:flex lg:gap-4 text-white list-none'>
+                        <div className='hidden lg:flex lg:gap-4 text-white list-none'>
                             {
                                 NavbarLinks.map(navLink => {
                                     return navLink.title !== "Catalog" ? <Link key={nanoid()} to={navLink.path}>
@@ -70,12 +71,6 @@ const Navbar = () => {
                             }
                         </div>
                     }
-
-                    {
-                        auth.token !== null && <div>
-                            <p className='hidden lg:flex text-white font-bold text-xl'>Logged in Navbar</p>
-                        </div>
-                    }
                     <div className='hidden sm:flex  gap-4 items-center  '>
                         {/* login signup button */}
                         {
@@ -99,9 +94,14 @@ const Navbar = () => {
 
                                         </div>
                                         {/* cart */}
-                                        <Link to="/dashboard/cart">
-                                            <IoCartOutline className='text-white cursor-pointer' size={20} />
-                                        </Link>
+                                        <div className='relative'>
+
+                                            <Link to="/dashboard/cart">
+                                                <IoCartOutline className=' text-white cursor-pointer' size={25} >
+                                                </IoCartOutline >
+                                                <span className='text-white text-sm absolute -right-1 -top-2 bg-pink-200 px-1 animate-bounce rounded-full font-bold'>{cartTotal}</span>
+                                            </Link>
+                                        </div>
                                         <div className='flex items-center gap-1'>
                                             <img src={user?.image} className='rounded-full w-[30px] cursor-pointer' onClick={handleAccountOptions} />
                                             <IoCaretDownCircleSharp className='cursor-pointer text-white' onClick={() => setProfileDropDown(!profileDropDown)} />
@@ -126,7 +126,7 @@ const Navbar = () => {
                         }
                     </div>
                     <div className='max-sm:flex hidden '>
-                        
+
                     </div>
                 </nav>
             </div>
