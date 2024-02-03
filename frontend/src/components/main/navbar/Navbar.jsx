@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
 import { NavbarLinks } from '../../../data/navbar-links';
-import {  setAllCatalog } from "../../../services/operations/course"
+import { setAllCatalog } from "../../../services/operations/course"
 import NavbarButton from './NavbarButton';
 import { LogoFullLight } from "../../../assets/index"
 import { IoCaretDownCircleSharp, IoCartOutline } from "react-icons/io5";
@@ -15,7 +15,8 @@ const Navbar = () => {
     const { user } = useSelector(state => state.profile)
     const [accoutDropDown, setAccountDropDown] = useState(false)
     const [profileDropDown, setProfileDropDown] = useState(false)
-    const { categories: catalogs } = useSelector(state => state.course)
+    const { categories } = useSelector(state => state.course)
+    const [catalogs, setCatalogs] = useState([])
     const matchPath = (path) => {
         return path === location.pathname
     }
@@ -25,6 +26,7 @@ const Navbar = () => {
     }
     useEffect(() => {
         dispatch(setAllCatalog())
+        setCatalogs(categories)
     }, [])
     return (
         <div className='flex items-center bg-custom-primary border-b-[1px] border-solid border-b-richblack-700  h-16'>

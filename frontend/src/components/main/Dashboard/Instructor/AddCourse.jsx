@@ -6,8 +6,8 @@ import CourseInfo from './CourseBuilder/Form/CourseInfo'
 export default function AddCourse() {
   const { currentStage ,stages } = useSelector(state => state.course)
   return (
-    <div className='flex w-full gap-3'>
-      <div className='lg:w-[70%] flex flex-col gap-3'>
+    <div className='flex w-full gap-3 px-10'>
+      <div className='lg:w-[55%] flex flex-col gap-3'>
         <div className='flex gap-2 w-full lg:mx-auto lg:my-3'>
           {/* stages */}
           <Stage stage="1" stageText="Course Information" />
@@ -27,7 +27,7 @@ export default function AddCourse() {
           }
         </div>
       </div>
-      <div className='lg:w-[30%]'>
+      <div className='lg:w-[45%]'>
 
       </div>
     </div>
