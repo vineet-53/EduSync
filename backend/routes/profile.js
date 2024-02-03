@@ -8,7 +8,7 @@ router.put('/updateProfile', auth, updateProfile)
 router.get('/getUserDetails', auth, getUserDetails)
 router.delete('/deleteAccount', auth, deleteAccount)
 router.post('/change-password', auth, changePassword)
-router.get('/removeProfilePicture', auth, removeProfilePicture)
+router.delete('/removeProfilePicture', auth, removeProfilePicture)
 router.get('/getEnrolledCourses', auth, getEnrolledCourses)
 router.get('/getInstructorCourses', auth, isInstructor, getInstructorCourses)
 router.get("/", async (req, res) => {

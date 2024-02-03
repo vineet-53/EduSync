@@ -2,19 +2,30 @@ import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/loca
 import apiConnector from "../apiConnector"
 import { courseEndpoints } from "../endpointsAPI"
 import { setCart } from "../../slices/cartSlice"
-import {toast}from "react-hot-toast"
+import { setCategories, setLoading } from "../../slices/courseSlice"
+import { toast } from "react-hot-toast"
 export const fetchALLCatalogs = async () => {
     try {
-        const response =  await apiConnector("GET", courseEndpoints.GET_ALL_CATEGORY_API)
-        if(!response.data.success) { 
-            throw new Error("Error Fetching Course Catalogs") 
+        const response = await apiConnector("GET", courseEndpoints.GET_ALL_CATEGORY_API)
+        if (!response.data.success) {
+            throw new Error("Error Fetching Course Catalogs")
         }
-        return  response
+        return response
     } catch (err) {
-        console.log(err)
+        console.log("ERROR FETCHING CATEGORIES ", err.message)
     }
 }
-
+export const setAllCatalog = () => async dispatch => {
+    dispatch(setLoading(true))
+    try {
+        const response = await fetchALLCatalogs()
+        dispatch(setCategories(response?.data?.categoryDetails))
+        setItemToLocalStorage("categories", response?.data?.categoryDetails)
+    } catch (err) {
+        console.log(err.message)
+    }
+    dispatch(setLoading(false))
+}
 export const addToCart = (courseId, token, navigate) => async dispatch => {
     const toastId = toast.loading("Adding To Cart ....")
     try {
@@ -23,15 +34,15 @@ export const addToCart = (courseId, token, navigate) => async dispatch => {
         }, {
             Authorization: "Bearer " + token
         })
-        if(!response.data.success) { 
+        if (!response.data.success) {
             throw new Error("Error Adding To Cart")
         }
-        toast.success("Added To cart Succesfully!") 
+        toast.success("Added To cart Succesfully!")
         navigate("/dashboard/cart")
     } catch (err) {
         console.log(err)
     }
-    toast.dismiss(toastId) 
+    toast.dismiss(toastId)
 }
 
 export const getCartFullDetails = (token, navigate) => async dispatch => {

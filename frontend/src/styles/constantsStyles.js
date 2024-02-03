@@ -6,7 +6,7 @@ export const ErrorInputFieldStyle = "text-yellow-200 font-semibold py-1"
 
 // settings componenets styles
 export const EditIconButtonStyle = "hidden md:flex text-base items-center"
-export const EditIconStyle = "w-5 h-5 lg:w-7 lg:h-7 "
+export const EditIconStyle = "w-2 h-2 lg:w-7 lg:h-7 "
 const IconButtonStyles = "p-2 rounded-md md:px-4 md:py-2 text-black font-semibold flex items-center gap-2 text-sm lg:text-base"
 export const ActiveIconButtonStyle = `${IconButtonStyles} bg-yellow-100`
 export const InActiveIconButtonStyles = `${IconButtonStyles} bg-custom-secondary`

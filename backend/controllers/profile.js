@@ -224,20 +224,21 @@ exports.removeProfilePicture = async (req, res) => {
     try {
         const { userId } = req.user
         if (!userId) {
-            throw new Error("User IS not authorized")
+            throw new Error("User Is not authorized")
         }
-        const resetImageUrl = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}`
         const user = await User.findById(userId)
+        const resetImageUrl = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}`
+        console.log("REMOVING PROFILE USER PROFILE IMAGE--->", user)
         user.image = resetImageUrl
         await user.save()
         return res.status(200).json({
             success: true,
             message: "Removed User Profile picture",
-            user
+            image : user.image
         })
 
     } catch (err) {
-        return res.status(500).json({
+        return res.status(401).json({
             success: false,
             message: err.message
         })

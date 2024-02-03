@@ -13,6 +13,7 @@ import FormPassword from "../components/common/form/FormPassword"
 import { ErrorInputFieldStyle } from '../styles/constantsStyles'
 import { setSignupData } from "../slices/authSlice"
 import { sendOTP } from "../services/operations/auth"
+import FormPasswordTemplate from '../components/common/form/FormPasswordTemplate'
 export default function Signup() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -99,7 +100,7 @@ export default function Signup() {
                       })
                     }
                   </select>
-                  <input type="text" className={FormInputFieldStyle} placeholder='Enter Contact Number' maxLength={10} {...register("contactNumber", {
+                  <input type="number" className={FormInputFieldStyle} placeholder='Enter Contact Number' maxLength={10} {...register("contactNumber", {
                     required: "Please Enter Contact Number",
                     pattern: {
                       value: /\d{10}/,
@@ -109,12 +110,7 @@ export default function Signup() {
                 </div>
                 {errors?.contactNumber && <p className={ErrorInputFieldStyle}>{errors?.contactNumber.message}</p>}
               </div>
-              <div className='md:flex gap-2 py-2'>
-                <FormPassword name="Password" value="password" id="password" placeholder="Enter Password" />
-                {errors?.password && <p className={ErrorInputFieldStyle}>{errors?.password.message}</p>}
-                <FormPassword name="Confirm Password" value="confirmPassword" id="confirmPassword" placeholder="Enter Confirm Password" />
-                {errors?.confirmPassword && <p className={ErrorInputFieldStyle}>{errors?.confirmPassword.message}</p>}
-              </div>
+              <FormPasswordTemplate />
               <FormSubmitButton buttoncss="w-full my-2">
                 Submit
               </FormSubmitButton>

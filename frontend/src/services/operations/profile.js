@@ -5,7 +5,6 @@ import { toast } from "react-hot-toast"
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../utils/localStorage"
 import { logout } from "./auth"
 import axios from "axios"
-const { REMOVE_PROFILE_PICTURE_API } = profileEndpoints
 export const getAndSetUserDetails = (token, navigate) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
@@ -113,17 +112,21 @@ export const deleteAccount = (token, navigate) => async dispatch => {
 
 export const removeProfilePicture = (token) => async dispatch => {
     const toastId = toast.loading("Removing Profile Picture....")
+    dispatch(setLoading(true))
     try {
-        const response = await apiConnector("GET", REMOVE_PROFILE_PICTURE_API, null, {
+        const response = await apiConnector("DELETE", profileEndpoints.REMOVE_PROFILE_PICTURE_API, null, {
             Authorization: "Bearer " + token
         })
-        if (!response.data.sucess) {
-            throw new Error("RESPONSE ERROR")
-        }
+        console.log(response);
+        dispatch(setUserImage(response.data?.image))
+        setItemToLocalStorage("user", {
+            ...getItemFromLocalStorage("user"), image: response.data?.image
+        })
         toast.success("Removed Profile Picture Successfully!")
     } catch (err) {
         console.log('ERROR RMEOVING PROFILE PICTURE', err.message)
-        toast.error("Error Removing profile picture!")
+        toast.error("Error removing profile picture!")
     }
     toast.dismiss(toastId)
+    dispatch(setLoading(false))
 }

@@ -32,8 +32,8 @@ export default function MyProfile() {
                   <button className={ActiveIconButtonStyle} onClick={() => {
                     navigate("/dashboard/settings")
                   }} >
-                    <span className={EditIconButtonStyle}>Edit</span>
                     <span><FaEdit className={EditIconStyle} /></span>
+                    <span className={EditIconButtonStyle}>Edit</span>
                   </button>
                 </div>
               </div>
@@ -46,8 +46,8 @@ export default function MyProfile() {
                 <button className={ActiveIconButtonStyle} onClick={() => {
                   navigate("/dashboard/settings")
                 }} >
-                  <span className={EditIconButtonStyle}>Edit</span>
                   <span><FaEdit className={EditIconStyle} /></span>
+                  <span className={EditIconButtonStyle}>Edit</span>
                 </button>
               </div>
               <div className='text-pure-greys-200 mt-3' >
@@ -62,8 +62,8 @@ export default function MyProfile() {
                 <button className={ActiveIconButtonStyle} onClick={() => {
                   navigate("/dashboard/settings")
                 }} >
-                  <span className={EditIconButtonStyle}>Edit</span>
                   <span><FaEdit className={EditIconStyle} /></span>
+                  <span className={EditIconButtonStyle}>Edit</span>
                 </button>
               </div>
               <div className='text-pure-greys-200 grid md:grid-cols-2' >

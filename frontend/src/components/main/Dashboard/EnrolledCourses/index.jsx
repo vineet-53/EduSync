@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { fetchEnrolledCourses } from "../../../../services/operations/profile.js"
-import {mockData} from "../../../../data/mockData.js"
+import { mockData } from "../../../../data/mockData.js"
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useNavigate } from 'react-router-dom';
 

@@ -1,36 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
 import { NavbarLinks } from '../../../data/navbar-links';
-import { fetchALLCatalogs } from "../../../services/operations/course"
+import {  setAllCatalog } from "../../../services/operations/course"
 import NavbarButton from './NavbarButton';
 import { LogoFullLight } from "../../../assets/index"
 import { IoCaretDownCircleSharp, IoCartOutline } from "react-icons/io5";
-import ProfileDropDown from './ProfileDropDown';
-import MobileDashboard from '../Dashboard/MobileDashboard';
+import { ACCOUNT_TYPE } from '../../../utils/constants';
 const Navbar = () => {
     const auth = useSelector(state => state.auth)
     const location = useLocation()
-    const [catalogs, setCatalogs] = useState([])
+    const dispatch = useDispatch()
     const { user } = useSelector(state => state.profile)
     const [accoutDropDown, setAccountDropDown] = useState(false)
     const [profileDropDown, setProfileDropDown] = useState(false)
+    const { categories: catalogs } = useSelector(state => state.course)
     const matchPath = (path) => {
         return path === location.pathname
     }
     const { cartTotal } = useSelector(state => state.cart)
-    const getAllCatalog = async () => {
-        const data = await fetchALLCatalogs()
-        if (!data.data.success)
-            return
-        if (data?.data?.categoryDetails) setCatalogs(data.data.categoryDetails)
-    }
     const handleAccountOptions = e => {
         setAccountDropDown(!accoutDropDown)
     }
     useEffect(() => {
-        getAllCatalog()
+        dispatch(setAllCatalog())
     }, [])
     return (
         <div className='flex items-center bg-custom-primary border-b-[1px] border-solid border-b-richblack-700  h-16'>
@@ -93,14 +87,16 @@ const Navbar = () => {
                                         <div>
 
                                         </div>
-                                        {/* cart */}
                                         <div className='relative'>
+                                            {/* cart */}
+                                            {ACCOUNT_TYPE.STUDENT === user.accountType &&
 
-                                            <Link to="/dashboard/cart">
-                                                <IoCartOutline className=' text-white cursor-pointer' size={25} >
-                                                </IoCartOutline >
-                                                <span className='text-white text-sm absolute -right-1 -top-2 bg-pink-200 px-1 animate-bounce rounded-full font-bold'>{cartTotal}</span>
-                                            </Link>
+                                                <Link to="/dashboard/cart">
+                                                    <IoCartOutline className=' text-white cursor-pointer' size={25} >
+                                                    </IoCartOutline >
+                                                    <span className='text-white text-sm absolute -right-1 -top-2 bg-pink-200 px-1 animate-bounce rounded-full font-bold'>{cartTotal}</span>
+                                                </Link>
+                                            }
                                         </div>
                                         <div className='flex items-center gap-1'>
                                             <img src={user?.image} className='rounded-full w-[30px] cursor-pointer' onClick={handleAccountOptions} />

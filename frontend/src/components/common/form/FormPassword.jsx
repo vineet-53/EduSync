@@ -8,7 +8,7 @@ export default function FormPassword(props) {
     const [showPassword, setShowPassword] = useState(false)
     const { register, formState: { errors } } = useFormContext()
     return (
-        <div className='relative'>
+        <div className='relative w-full'>
             <Label htmlFor={id} >
                 {name}
             </Label>
@@ -16,7 +16,7 @@ export default function FormPassword(props) {
                 (value, { required: `Please Enter ${name}` })} />
             < div className='w-6 h-6 absolute right-2 top-[50%] '>
                 {
-                    !showPassword ?
+                    showPassword ?
                         <IoMdEye onClick={() => setShowPassword(!showPassword)} className='w-full h-full text-custom-secondary' />
                         :
                         <IoMdEyeOff onClick={() => setShowPassword(!showPassword)} className='w-full h-full text-custom-secondary' />

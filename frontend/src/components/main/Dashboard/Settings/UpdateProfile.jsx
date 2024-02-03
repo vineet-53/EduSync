@@ -80,8 +80,8 @@ export default function UpdateProfile() {
                     }
                 </select>
                 <input className='bg-richblack-600 text-white grid col-span-4 px-4 py-2 rounded-md ' type="text" id='phoneNumber' placeholder='Enter Phone Number' maxLength={10} {...register("contactNumber", { required: true, pattern: /\d{10}/ })} />
-                {errors.contactNumber && <p className='text-yellow-100'>Please Enter Phone Number</p>}
             </div>
+            {errors.contactNumber && <p className='text-yellow-100'>Please Enter Phone Number</p>}
         </FormDiv>
         <FormDiv>
             <label className='text-custom-secondary' htmlFor="about">About</label>

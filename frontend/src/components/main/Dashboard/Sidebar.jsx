@@ -16,7 +16,7 @@ export default function Sidebar() {
     
     const {confirmationModal , setConfirmationModal} = useConfirmationModalContext()
   return (
-    <aside className='relative hidden sm:grid bg-custom-tertiary text-pure-greys-200 h-full '>
+    <aside className='relative hidden sm:grid bg-richblack-900 text-pure-greys-200 h-full '>
         <ul>
             {
                 sidebarLinks.map(link => {

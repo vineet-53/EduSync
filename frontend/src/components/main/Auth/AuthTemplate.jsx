@@ -11,7 +11,7 @@ const AuthTemplate = ({ children , login = false , signup = false }) => {
         <div className='w-3/6 p-10  hidden lg:block'>
             <div className='relative w-[500px] h-[500px]'>
                 {login && <img src={Login} className='relative z-20 ' />}
-                {signup && <img src={Signup} className='relative z-20 ' />}
+                {signup && <img src={Login} className='relative  z-20 ' />}
                 <img className='absolute top-4 left-4 z-10' src={Frame} alt="" />
             </div>
         </div>
