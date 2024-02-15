@@ -20,14 +20,13 @@ function ThumbnailUpload() {
     }
     //update the value to the use form hook form
     useEffect(()=> { 
-        // update
         setValue("thumbnail" , thumbnailFile)
     }, [thumbnailFile])
 
     return (
         <>
             <Label htmlFor={"thumbnail"}> Thumbnail </Label>
-            <label className='w-full h-max overflow-hidden bg-custom-tertiary rounded-md my-1 grid place-items-center grid-cols-1 text-custom-secondary'>
+            <label className='w-full h-max overflow-hidden bg-custom-tertiary rounded-md my-1 grid place-items-center grid-cols-1 text-custom-secondary p-4'>
                 <input type="file" id='thumbnail' className='hidden w-full h-full' onChange={handleThumbnailUpload} ref={imageInputRef} />
                 {
                     thumbnailImage === "" ? <>
@@ -43,7 +42,7 @@ function ThumbnailUpload() {
                             <li>Recommended size 1024x576</li>
                         </ul>
                     </> : <>
-                        <img src={thumbnailImage} alt="course thumbnail image" className='w-full max-h-[450px]' />
+                        <img src={thumbnailImage} alt="course thumbnail image" className='w-[400px] max-h-[300px] rounded-md ' />
                     </>
                 }
             </label>

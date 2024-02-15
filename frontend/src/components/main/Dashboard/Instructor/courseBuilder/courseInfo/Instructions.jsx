@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form'
 
 function instructions() {
 
-  const {setValue , formState: { errors }, setError } = useFormContext()
+  const {setValue ,register , formState: { errors }, setError } = useFormContext()
   const [instructions, setInstructions] = useState([])
   const [instruction, setInstruction] = useState("")
   const handleRemoveInstruction = (instruction) => {
@@ -36,7 +36,7 @@ function instructions() {
     <>
       {/* input data  */}
       <Label htmlFor={"instructions"}>Requirements/Instructions </Label>
-      <input type="text" onChange={e => setInstruction(e.target.value)} className={FormInputFieldStyle} placeholder='Enter Instructions' />
+      <input type="text" className={FormInputFieldStyle} placeholder='Enter Instructions' />
       {
         instructions?.map(value => {
           return <div key={nanoid()}>
@@ -46,8 +46,7 @@ function instructions() {
       }
       {/* button to add instruction */}
       <button type='button' className="text-yellow-200 font-bold my-1" onClick={() => handleAddInstruction(instruction)}>Add</button>
-      {/* error */}
-      {errors.instructions && <p className={ErrorInputFieldStyle}>{errors.instructions.message}</p>}
+      
     </>
   )
 }

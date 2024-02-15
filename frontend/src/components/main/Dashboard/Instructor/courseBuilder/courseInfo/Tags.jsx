@@ -7,7 +7,6 @@ import { nanoid } from '@reduxjs/toolkit'
 function Tags() {
     const { register, formState: { errors }, setValue } = useFormContext()
     const [tags, setTags] = useState([])
-    const tagInputRef = useRef(null)
     const handleAddTag = async (e) => {
         if (e.key === "Enter") {
             if (e.target.value === "") {
@@ -20,7 +19,7 @@ function Tags() {
                 return
             }
             // push the tag in tag array 
-            await setTags(prev => [...prev , tagInputRef.current.value])
+            await setTags(prev => [...prev , e.target.value])
             e.target.value = ""
         }
     }
@@ -36,7 +35,7 @@ function Tags() {
     return (
         <>
             <Label htmlFor="tags">Tags</Label>
-            <input ref={tagInputRef} type="text" onKeyDown={handleAddTag} className={FormInputFieldStyle} placeholder='Enter Tags' />
+            <input  type="text" onKeyDown={handleAddTag} className={FormInputFieldStyle} placeholder='Enter Tags' />
             {
                 tags?.map((tag, index) => <div key={nanoid()} className='flex gap-2 text-white'>
                     <p>{tag}</p>

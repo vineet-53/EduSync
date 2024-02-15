@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useForm, FormProvider } from "react-hook-form"
 import { FormSubmitButton, Label } from "../../../../../common/form"
 import { ErrorInputFieldStyle, FormInputFieldStyle } from '../../../../../../styles/constantsStyles'
-import { IoCloudUploadSharp } from "react-icons/io5";
 import { FaRupeeSign } from "react-icons/fa";
 import { useSelector } from 'react-redux'
 import { nanoid } from '@reduxjs/toolkit';
@@ -24,26 +23,9 @@ function CourseInformation() {
       thumbnail: "",
     }
   })
-  const { register  , setValue , getValues, handleSubmit, formState: { errors }, setError } = methods;
+  const { register  , setValue , getValues, handleSubmit, formState: { errors } } = methods;
   const onSubmit = (data) => {
-    const {tag , instructions} = data
     console.log(data)
-    if(tag?.length === 0 ) { 
-      setError("tag" , { 
-        type  : "validate" , 
-        message:  "Please Enter tags"
-      })
-      return 
-    }
-    if(instructions?.length === 0 ) { 
-      setError("instructions" , { 
-        type : "validate" , 
-        message: "Please Enter Instructions"
-
-      })
-      return 
-    }
-    console.log("data 2 ---> " , data )
   }
   return (
     <FormProvider {...methods}>
@@ -120,6 +102,7 @@ function CourseInformation() {
         <div>
           {/* Instructions */}
           <Instructions />
+          {errors.instructions && <p className={ErrorInputFieldStyle}>{errors.instructions.message}</p>}
         </div>
         <FormSubmitButton > Next </FormSubmitButton>
       </form>
