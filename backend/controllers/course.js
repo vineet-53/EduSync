@@ -16,6 +16,7 @@ exports.createCourse = async (req, res) => {
             price,
             tag,
             categoryId,
+            instructions, 
         } = req.body
         const thumbnail = req.files.thumbnailImage
         const { userId } = req.user;
@@ -51,7 +52,8 @@ exports.createCourse = async (req, res) => {
             tag,
             instructor: userId,
             thumbnailImage: thumbnailLink,
-            category: categoryId
+            category: categoryId,  
+            instructions,
         })
         // push course in user 
         user.courses.push(courseDetails._id);

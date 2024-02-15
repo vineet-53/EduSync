@@ -43,3 +43,6 @@ html {
     transform: translateY(calc(var(--s, 1)*0.1%));
   }
 }
+textarea { 
+  resize: none;
+}

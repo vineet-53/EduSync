@@ -93,7 +93,6 @@ function App() {
         />
         <Route path="/404-not-found" element={<Error />} />
         <Route path='*' element={<Error />} />
-
       </Routes>
     </>
   )

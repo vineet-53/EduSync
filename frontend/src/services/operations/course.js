@@ -20,6 +20,7 @@ export const setAllCatalog = () => async dispatch => {
     try {
         const response = await fetchALLCatalogs()
         dispatch(setCategories(response?.data?.categoryDetails))
+        if(response?.status === 200)
         setItemToLocalStorage("categories", response?.data?.categoryDetails)
     } catch (err) {
         console.log(err.message)
