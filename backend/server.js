@@ -9,7 +9,6 @@ const profileRoutes = require('./routes/profile.js')
 const rootRoutes = require('./routes/root.js')
 const cloudinary = require('./configs/cloudinary.js')
 const fileUpload = require('express-fileupload')
-const cors = require('cors')
 
 const {setUserToken} = require('./middlewares/auth.js')
 require('dotenv').config() 
@@ -22,11 +21,6 @@ cloudinary.connect()
 app.use(cookieParser())
 app.use(express.json())
 // file upload
-app.use(cors({ 
-    origin : [`${process.env.FRONTEND}`], 
-    methods: ["GET" , "POST" , "DELETE" , "PUT" , "HEAD"],
-    credentials : true,
-}))
 app.use(fileUpload({  
     useTempFiles : true,
     tempFileDir : __dirname  + '/tmp/',
