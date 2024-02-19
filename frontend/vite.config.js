@@ -9,11 +9,11 @@ export default defineConfig({
   server : {
     proxy : { 
       "/api" : { 
-        target : "http://localhost:" + EXPRESS_PORT, 
+        target : "https://study-notion-backend-seven.vercel.app/", 
 
       } , 
       "/api/v1" : { 
-        target : "http://localhost:" + EXPRESS_PORT,
+        target : "https://study-notion-backend-seven.vercel.app/",
       }
     }
   },
