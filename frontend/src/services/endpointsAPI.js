@@ -1,5 +1,5 @@
 const API_VERSION = "/api/v1"
-const API_ENDPOINT = "https://study-notion-backend-rust.vercel.app/"
+const API_ENDPOINT = "https://study-notion-backend-ngon.onrender.com/"
 export const courseEndpoints = {
   // cateogry
   CREATE_CATEGORY_API: API_ENDPOINT + API_VERSION + "/courses/createCategory",
