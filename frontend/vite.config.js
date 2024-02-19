@@ -9,11 +9,11 @@ export default defineConfig({
   server : {
     proxy : { 
       "/api" : { 
-        target : "https://study-notion-backend-seven.vercel.app/", 
+        target : "https://study-notion-backend-ngon.onrender.com/", 
 
       } , 
       "/api/v1" : { 
-        target : "https://study-notion-backend-seven.vercel.app/",
+        target : "https://study-notion-backend-ngon.onrender.com/",
       }
     }
   },
