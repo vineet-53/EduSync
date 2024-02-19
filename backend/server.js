@@ -22,11 +22,6 @@ cloudinary.connect()
 app.use(cookieParser())
 app.use(express.json())
 // file upload
-app.use(cors({ 
-    origin : [process.env.FRONTEND], 
-    optionsSuccessStatus : 204 , 
-    methods: ["GET" , "POST" , "DELETE" , "PUT" , "HEAD"]
-}))
 app.use(fileUpload({  
     useTempFiles : true,
     tempFileDir : __dirname  + '/tmp/',
