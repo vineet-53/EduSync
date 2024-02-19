@@ -43,7 +43,7 @@ app.use("/api/v1/profile" , profileRoutes)
 
 
 app.get('/'  , (req , res)=> { 
-    res.send("STUDY NOTION - server is running")
+    res.json("STUDY NOTION - server is running")
 })
 app.listen(PORT , (err) => { 
     if (!err) console.log("Server is running on port " , PORT)
