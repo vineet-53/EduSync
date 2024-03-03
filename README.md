@@ -1,5 +1,5 @@
 # Study Notion
-study notion app for learning purpose
+- study notion app for learning purpose
 ---
 ## Features
 * app in which instructor upload their courses 
