@@ -1,43 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import Template from "../components/main/VerifyEmail/Template"
-import { FormSubmitButton } from '../components/common/form'
-import OtpInput from "react-otp-input"
-import { useDispatch, useSelector } from 'react-redux'
-import { sendOTP, signup } from '../services/operations/auth'
-import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
-import BackToLogin from "../components/main/VerifyEmail/BackToLogin"
-import { useTimer } from "use-timer"
+import React, { useEffect, useState } from "react";
+import Template from "../components/main/VerifyEmail/Template";
+import { FormSubmitButton } from "../components/common/form";
+import OtpInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
+import { sendOTP, signup } from "../services/operations/auth";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import BackToLogin from "../components/main/VerifyEmail/BackToLogin";
+import { useTimer } from "use-timer";
 export default function VerifyEmail() {
-  const [otp, setOtp] = useState(null)
-  const { signupData } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [otp, setOtp] = useState(null);
+  const { signupData } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleVerifyAndSignup = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // send the data to operation
     if (!/\d{6}/.test(otp)) {
-      toast.error("OTP not filled properly")
-      return
+      toast.error("OTP not filled properly");
+      return;
     }
-
-    dispatch(signup(signupData, otp, navigate))
-  }
+    dispatch(signup(signupData, otp, navigate));
+  };
   const { time, start, reset, status } = useTimer({
     initialTime: 60,
     endTime: 0,
-    timerType: 'DECREMENTAL',
-  })
+    timerType: "DECREMENTAL",
+  });
   useEffect(() => {
-    start()
-  }, [])
+    start();
+  }, []);
   return (
     <>
       <Template
         title="Verify Email"
         subTitle="A verification code has been sent to you. Enter the code below"
       >
-        <form onSubmit={handleVerifyAndSignup} className=' flex flex-col gap-1 items-center'>
+        <form
+          onSubmit={handleVerifyAndSignup}
+          className=" flex flex-col gap-1 items-center"
+        >
           <OtpInput
             value={otp}
             onChange={setOtp}
@@ -48,31 +50,34 @@ export default function VerifyEmail() {
             inputStyle="border-0 focus:outline-yellow-100 focus:outline-2 focus:outline-solid max-sm:w-[2em] max-sm:h-[2em] rounded-lg  sm:w-[60px] sm:h-[60px] bg-custom-tertiary text-xl  text-white caret-yellow-50 text-center "
             focusStyle={{
               border: "1px solid #CFD3DB",
-              outline: "none"
+              outline: "none",
             }}
           />
 
           <FormSubmitButton buttoncss="text-black w-full ">
             Verify Mail
           </FormSubmitButton>
-
         </form>
-        <div className='grid grid-cols-2 grid-rows-1 items-center w-full'>
+        <div className="grid grid-cols-2 grid-rows-1 items-center w-full">
           <BackToLogin />
-          <div className='w-full flex justify-end'  >
-            {
-              status !== "RUNNING" ? <button onClick={() => {
-                dispatch(sendOTP(signupData.email, navigate))
-                reset()
-                start()
-              }} className='hover:underline text-blue-200 font-bold'>
+          <div className="w-full flex justify-end">
+            {status !== "RUNNING" ? (
+              <button
+                onClick={() => {
+                  dispatch(sendOTP(signupData.email, navigate));
+                  reset();
+                  start();
+                }}
+                className="hover:underline text-blue-200 font-bold"
+              >
                 Resend Otp
-              </button> : <div>{time}</div>
-            }
+              </button>
+            ) : (
+              <div>{time}</div>
+            )}
           </div>
         </div>
       </Template>
     </>
-
-  )
+  );
 }

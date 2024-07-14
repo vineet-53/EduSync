@@ -9,7 +9,6 @@ const profileRoutes = require('./routes/profile.js')
 const rootRoutes = require('./routes/root.js')
 const cloudinary = require('./configs/cloudinary.js')
 const fileUpload = require('express-fileupload')
-
 const {setUserToken} = require('./middlewares/auth.js')
 require('dotenv').config() 
 const PORT = process.env.PORT || 8000
@@ -37,7 +36,7 @@ app.use("/api/v1/profile" , profileRoutes)
 
 
 app.get('/'  , (req , res)=> { 
-    res.json("STUDY NOTION - server is running")
+    res.send("STUDY NOTION - server is running")
 })
 app.listen(PORT , (err) => { 
     if (!err) console.log("Server is running on port " , PORT)

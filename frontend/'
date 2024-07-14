@@ -1,0 +1,16 @@
+import CountryCodes from "../../data/countrycode.json";
+import { useState } from "react";
+import Select from "react-select";
+import { FormInputFieldStyle } from "../../styles/constantsStyles";
+export default function CountryCodeOptions() {
+  const options = CountryCodes;
+  const [selectedOption, setSelectedOption] = useState(null);
+  return (
+    <Select
+      defaultValue={selectedOption}
+      onChange={setSelectedOption}
+      options={options}
+      className={FormInputFieldStyle + " w-2/6 sm:w-1/6 text-center"}
+    />
+  );
+}
