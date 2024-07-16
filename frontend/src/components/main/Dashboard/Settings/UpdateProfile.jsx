@@ -1,37 +1,42 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import FormDiv from "../FormDiv";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import country_codes from "../../../../data/countrycode.json";
+import countryCodes from "../../../../data/countrycode.json";
+import FormDiv from "../FormDiv";
 import { updateProfile } from "../../../../services/operations/profile";
 import { ActiveIconButton, InActiveIconButton } from "../../../common";
 export default function UpdateProfile() {
-  const { user } = useSelector((state) => state.profile);
-  const { profile } = user;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.profile);
+  const { token } = useSelector((state) => state.auth);
+  const profile = user?.profile;
   const methods = useForm({
     defaultValues: {
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      contactNumber: "",
-      countryCode: "",
-      about: profile?.about,
-      gender: profile?.gender,
-      dob: profile?.dob,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      contactNumber: user?.contactNumber || "",
+      countryCode: profile?.countryCode
+        ? profile?.countryCode
+        : countryCodes[0].value,
+      about: profile?.about || "",
+      gender: profile?.gender || null,
+      dob: profile?.dob || "",
     },
   });
   const {
     register,
     setValue,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = methods;
   const submitProfileForm = (data) => {
+    console.log("Submitted Profile form");
     console.log(data);
-    dispatch(updateProfile(user.token, data, navigate));
+    dispatch(updateProfile(token, data));
   };
   useEffect(() => {
     // Set default values after form initialization
@@ -103,6 +108,11 @@ export default function UpdateProfile() {
           id="gender"
           {...register("gender", { required: true })}
         >
+          {profile?.gender == null && (
+            <option className={"text-custom-secondary"} disabled value="">
+              Select your gender
+            </option>
+          )}
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Other">Other</option>
@@ -112,20 +122,22 @@ export default function UpdateProfile() {
         <label className="text-custom-secondary" htmlFor="phoneNumber">
           Contact Number
         </label>
-        <div className="flex flex-col sm:grid grid-cols-5 gap-2">
+        <div className="flex items-center gap-2">
           <select
-            className="bg-richblack-600 text-white grid col-span-1  items-center rounded-md max-sm:py-2 px-2"
+            className="bg-richblack-600 text-white w-14 lg:w-1/6  pl-3 py-2 h-full rounded-md "
             {...register("countryCode", { required: true })}
-            defaultValue={register("countryCode")}
+            defaultValue={getValues("countryCode")}
           >
-            {country_codes.map((code) => (
-              <option key={nanoid()} value={code.code}>
-                {code.country}
-              </option>
-            ))}
+            {countryCodes.map((field) => {
+              return (
+                <option key={nanoid()} value={field?.value}>
+                  {field?.value}
+                </option>
+              );
+            })}
           </select>
           <input
-            className="bg-richblack-600 text-white grid col-span-4 px-4 py-2 rounded-md "
+            className="bg-richblack-600 text-white w-full grid col-span-4 px-4 py-2 rounded-md "
             type="text"
             id="phoneNumber"
             placeholder="Enter Phone Number"

@@ -140,6 +140,12 @@ exports.login = async (req, res) => {
     user.token = token;
     user.active = true;
     user.email = email;
+    // find the profile
+    const profileId = user?.profile || null;
+    if (profileId == null) {
+      throw new Error("Could Not Fetch User Profile Details");
+    }
+    const profile = await Profile.findById(profileId);
     await user.save();
     // save in cookie
     return res.status(200).json({
@@ -148,6 +154,7 @@ exports.login = async (req, res) => {
       response: {
         token,
         user,
+        profile,
       },
     });
   } catch (err) {

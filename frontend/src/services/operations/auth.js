@@ -2,7 +2,7 @@ import apiConnector from "../apiConnector";
 import { authEndpoints } from "../endpointsAPI";
 import { ToastBar, toast } from "react-hot-toast";
 import { setLoading, setToken } from "../../slices/authSlice";
-import { setUser } from "../../slices/profileSlice";
+import { setProfile, setUser } from "../../slices/profileSlice";
 import { setItemToLocalStorage } from "../../utils/localStorage";
 
 export const getLocalUser = async (token) => {
@@ -45,10 +45,13 @@ export const login = (email, password, navigate) => async (dispatch) => {
       setUser({
         ...response?.data?.response?.user,
       }),
+      setProfile(response?.data?.response?.profile),
     );
     setItemToLocalStorage("token", response?.data?.response?.token);
-    setItemToLocalStorage("user", response?.data?.response?.user);
-
+    setItemToLocalStorage("user", {
+      ...response?.data?.response?.user,
+      profile: response?.data?.response?.profile,
+    });
     navigate("/dashboard/my-profile");
   } catch (error) {
     console.log("LOGIN API ERROR............", error);

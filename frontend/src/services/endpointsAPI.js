@@ -1,32 +1,31 @@
 const API_VERSION = "/api/v1";
 export const courseEndpoints = {
   // cateogry
-  CREATE_CATEGORY_API: API_VERSION + "/courses/createCategory",
-  UPDATE_CATEGORY_API: API_VERSION + "/courses/updateCategoryPageDetails",
-  GET_ALL_CATEGORY_API: API_VERSION + "/courses/showAllCategories",
-  GET_CATEGORY_PAGE_DETAILS_API:
-    API_VERSION + "/courses/getCategoryPageDetails",
+  CREATE_CATEGORY_API: API_VERSION + "/course/createCategory",
+  UPDATE_CATEGORY_API: API_VERSION + "/course/updateCategoryPageDetails",
+  GET_ALL_CATEGORY_API: API_VERSION + "/course/showAllCategories",
+  GET_CATEGORY_PAGE_DETAILS_API: API_VERSION + "/course/getCategoryPageDetails",
   // course
-  CREATE_COURSE_API: API_VERSION + "/courses/createCourse",
-  GET_ALL_COURSE_API: API_VERSION + "/courses/getAllCourses",
-  GET_FULL_COURSE_DETAILS_API: API_VERSION + "/courses/getFullCourseDetails",
-  UPDATE_COURSE_API: API_VERSION + "/courses/editCourse",
-  DELETE_COURSE_API: API_VERSION + "/courses/deleteCourse",
-  GET_COURSE_DETAILS_API: API_VERSION + "/courses/getCourseDetails",
+  CREATE_COURSE_API: API_VERSION + "/course/createCourse",
+  GET_ALL_COURSE_API: API_VERSION + "/course/getAllCourses",
+  GET_FULL_COURSE_DETAILS_API: API_VERSION + "/course/getFullCourseDetails",
+  UPDATE_COURSE_API: API_VERSION + "/course/editCourse",
+  DELETE_COURSE_API: API_VERSION + "/course/deleteCourse",
+  GET_COURSE_DETAILS_API: API_VERSION + "/course/getCourseDetails",
   // section
-  CREATE_SECTION_API: API_VERSION + "/courses/addSection",
-  UPDATE_SECTION_API: API_VERSION + "/courses/updateSection",
-  DELETE_SECTION_API: API_VERSION + "/courses/deleteSection",
+  CREATE_SECTION_API: API_VERSION + "/course/addSection",
+  UPDATE_SECTION_API: API_VERSION + "/course/updateSection",
+  DELETE_SECTION_API: API_VERSION + "/course/deleteSection",
 
   //SUB SECTION
-  CREATE_SUB_SECTION_API: API_VERSION + "/courses/addSubSection",
-  UPDATE_SUB_SECTION_API: API_VERSION + "/courses/updateSubSection",
-  DELETE_SUB_SECTION_API: API_VERSION + "/courses/deleteSubSection",
-  UPDATE_COURSE_PROGRESS_API: API_VERSION + "/courses/updateCourseProgress",
+  CREATE_SUB_SECTION_API: API_VERSION + "/course/addSubSection",
+  UPDATE_SUB_SECTION_API: API_VERSION + "/course/updateSubSection",
+  DELETE_SUB_SECTION_API: API_VERSION + "/course/deleteSubSection",
+  UPDATE_COURSE_PROGRESS_API: API_VERSION + "/course/updateCourseProgress",
   // cart
-  ADD_TO_CART: API_VERSION + "/courses/add-to-cart",
-  GET_FULL_CART_DETAILS_API: API_VERSION + "/courses/getFullCartDetails",
-  REMOVE_ITEM_FROM_CART_API: API_VERSION + "/courses/removeItemFromCart",
+  ADD_TO_CART: API_VERSION + "/course/add-to-cart",
+  GET_FULL_CART_DETAILS_API: API_VERSION + "/course/getFullCartDetails",
+  REMOVE_ITEM_FROM_CART_API: API_VERSION + "/course/removeItemFromCart",
 };
 
 export const authEndpoints = {
@@ -53,4 +52,3 @@ export const rootEndpoints = {
   UPDATE_PASSWORD: API_VERSION + "/update-password",
   CONTACT_US: API_VERSION + "/contact-us",
 };
-

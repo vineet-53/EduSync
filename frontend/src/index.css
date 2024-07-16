@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number'] {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
     -webkit-appearance: none;
     margin: 0;
     -moz-appearance: textfield !important;
@@ -17,32 +16,35 @@ html {
   overflow-x: hidden;
 }
 
+textarea {
+  resize: none;
+}
+/* // loader */
 /* HTML: <div class="loader"></div> */
 .loader {
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 30px;
-  display: inline-grid;
+  width: 150px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 5px solid #0000;
+  border-radius: 50%;
+  border-right-color: lightcoral;
+  animation: l15 2s infinite linear;
 }
-
-.loader:before,
-.loader:after {
-  content: "Loading...";
+.loader::before,
+.loader::after {
+  content: "";
   grid-area: 1/1;
-  -webkit-mask: linear-gradient(90deg, #000 50%, #0000 0) 0 50%/2ch 100%;
-  animation: l11 1s infinite cubic-bezier(0.5, 220, 0.5, -220);
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: l15 2s infinite;
 }
-
-.loader:after {
-  -webkit-mask-position: 1ch 50%;
-  --s: -1;
+.loader::after {
+  margin: 8px;
+  animation-duration: 3s;
 }
-
-@keyframes l11 {
+@keyframes l15 {
   100% {
-    transform: translateY(calc(var(--s, 1)*0.1%));
+    transform: rotate(1turn);
   }
-}
-textarea { 
-  resize: none;
 }

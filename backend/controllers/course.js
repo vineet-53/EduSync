@@ -17,7 +17,11 @@ exports.createCourse = async (req, res) => {
       categoryId,
       instructions,
     } = req.body;
-    const thumbnail = req.files.thumbnailImage;
+    if (!req.files || Object.keys(req.files).length === 0) {
+      throw new Error("No files were uploaded.");
+    }
+    console.log(req.files.test);
+    const thumbnail = req.files.thumbnail;
     const { userId } = req.user;
     // validate data
     if (
@@ -43,12 +47,12 @@ exports.createCourse = async (req, res) => {
     if (course && course.courseName === courseName) {
       throw new Error("Course already exists ");
     }
-    dispatch(getCartFullDetails(token, navigate));
+    const thumbnailFilePath = __dirname + "/tmp/" + thumbnail.name;
     // get category of course
     const category = await Category.findById(categoryId);
     // get link to thumbnail
     const thumbnailLink = await uploadToCloudinary(
-      thumbnail.tempFilePath,
+      thumbnailFilePath,
       process.env.CLOUD_FOLDER,
     );
     //create course
@@ -500,4 +504,3 @@ exports.removeItemFromCart = async (req, res) => {
     });
   }
 };
-

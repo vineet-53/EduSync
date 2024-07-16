@@ -16,7 +16,6 @@ const Navbar = () => {
   const [accoutDropDown, setAccountDropDown] = useState(false);
   const [profileDropDown, setProfileDropDown] = useState(false);
   const { categories } = useSelector((state) => state.course);
-  const [catalogs, setCatalogs] = useState([]);
   const matchPath = (path) => {
     return path === location.pathname;
   };
@@ -25,9 +24,8 @@ const Navbar = () => {
     setAccountDropDown(!accoutDropDown);
   };
   useEffect(() => {
-    // dispatch(setAllCatalog())
-    setCatalogs(categories);
-  }, []);
+    dispatch(setAllCatalog());
+  }, [dispatch]);
   return (
     <div className="flex items-center bg-custom-primary border-b-[1px] border-solid border-b-richblack-700  h-16">
       <div className="w-11/12  mx-auto py-4">
@@ -54,8 +52,8 @@ const Navbar = () => {
                   <div key={nanoid()} className="group relative cursor-pointer">
                     {navLink.title}
                     <div className="hidden group-hover:block p-4 rounded-md absolute bottom-0 translate-y-[105%] -translate-x-52 bg-white z-20 w-[280px] h-max">
-                      {catalogs.length > 0 ? (
-                        catalogs.map((catalog) => (
+                      {categories.length > 0 ? (
+                        categories.map((catalog) => (
                           <Link key={nanoid()} to={"/catalog/" + catalog._id}>
                             <div className="text-base px-2 py-5 rounded-md hover:bg-richblack-100 text-custom-tertiary ">
                               {catalog.name}
@@ -70,7 +68,7 @@ const Navbar = () => {
                         </>
                       )}
                     </div>
-                    {catalogs.length > 0 && (
+                    {categories.length > 0 && (
                       <div className="hidden group-hover:block  bg-white w-[50px] h-[50px] absolute top-8 rotate-45 z-10 left-0 "></div>
                     )}
                   </div>

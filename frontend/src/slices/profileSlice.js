@@ -35,4 +35,3 @@ export const {
   setUserImage,
 } = profileSlice.actions;
 export default profileSlice.reducer;
-

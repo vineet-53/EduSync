@@ -78,4 +78,3 @@ exports.isInstructor = async (req, res, next) => {
     });
   }
 };
-

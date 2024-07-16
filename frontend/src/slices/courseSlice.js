@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItemFromLocalStorage } from "../utils/localStorage";
 const initialState = {
   loading: false,
+  courses: getItemFromLocalStorage("courses")
+    ? getItemFromLocalStorage("courses")
+    : [],
   currentStep: 1,
-  categories:
-    localStorage.getItem("categories") != undefined
-      ? JSON.parse(localStorage.getItem("categories"))
-      : [],
+  categories: getItemFromLocalStorage("courses")
+    ? getItemFromLocalStorage("courses")
+    : [],
 };
 const courseSlice = createSlice({
   name: "Course",
@@ -20,11 +23,13 @@ const courseSlice = createSlice({
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
+    setCourses: (state, action) => {
+      state.courses = action.payload;
+    },
   },
 });
 
-export const { setLoading, setCourse, setCategories, setCurrentStep } =
+export const { setLoading, setCourses, setCategories, setCurrentStep } =
   courseSlice.actions;
 
 export default courseSlice.reducer;
-

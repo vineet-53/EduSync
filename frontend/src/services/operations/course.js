@@ -2,9 +2,14 @@ import { setItemToLocalStorage } from "../../utils/localStorage";
 import apiConnector from "../apiConnector";
 import { courseEndpoints } from "../endpointsAPI";
 import { setCart } from "../../slices/cartSlice";
-import { setCategories, setLoading } from "../../slices/courseSlice";
+import {
+  setCategories,
+  setCurrentStep,
+  setLoading,
+} from "../../slices/courseSlice";
 import { toast } from "react-hot-toast";
-export const fetchALLCatalogs = async () => {
+export const setAllCatalog = () => async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const response = await apiConnector(
       "GET",
@@ -13,18 +18,8 @@ export const fetchALLCatalogs = async () => {
     if (!response.data.success) {
       throw new Error("Error Fetching Course Catalogs");
     }
-    return response;
-  } catch (err) {
-    console.log("ERROR FETCHING CATEGORIES ", err.message);
-  }
-};
-export const setAllCatalog = () => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    const response = await fetchALLCatalogs();
-    dispatch(setCategories(response?.data?.categoryDetails));
-    if (response?.status === 200)
-      setItemToLocalStorage("categories", response?.data?.categoryDetails);
+    dispatch(setCategories(response?.data?.response));
+    setItemToLocalStorage("categories", response?.data?.response);
   } catch (err) {
     console.log(err.message);
   }
@@ -89,3 +84,22 @@ export const removeItemFromCart =
     }
   };
 
+export const createCourse = (data, token) => async (dispatch) => {
+  const toastId = toast.loading("Creating New Course");
+  try {
+    const response = await apiConnector(
+      "POST",
+      courseEndpoints.CREATE_COURSE_API,
+      data,
+      {
+        Authorization: "Bearer " + token,
+      },
+    );
+    console.log(response);
+    dispatch(setCurrentStep(2));
+  } catch (err) {
+    console.log(err);
+    toast.error(err?.response?.data?.message);
+  }
+  toast.dismiss(toastId);
+};

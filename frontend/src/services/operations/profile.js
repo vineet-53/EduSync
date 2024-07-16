@@ -41,8 +41,8 @@ export const updateProfile = (token, data) => async (dispatch) => {
       },
     );
     console.log(response);
-    dispatch(setUser(response.data.user));
-    setItemToLocalStorage("user", response.data.user);
+    dispatch(setUser(response?.data?.response?.user));
+    setItemToLocalStorage("user", response?.data?.response?.user);
     toast.success("Updated Profile Details ");
   } catch (err) {
     console.log(err);
@@ -165,4 +165,3 @@ export const removeProfilePicture = (token) => async (dispatch) => {
   toast.dismiss(toastId);
   dispatch(setLoading(false));
 };
-

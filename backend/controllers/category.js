@@ -6,6 +6,10 @@ exports.createCategory = async (req, res) => {
     if (!name || !description) {
       throw "missing Properties";
     }
+    const category = await Category.findOne({ name });
+    if (category) {
+      throw new Error("Category Already Existed");
+    }
     const CategoryDetails = await Category.create({ name, description });
 
     return res.status(200).json({
@@ -59,11 +63,11 @@ exports.showAllCategories = async (req, res) => {
       {},
       { name: true, description: true },
     );
-
+    console.log("Backend :- categorydetails", categoryDetails);
     return res.status(200).json({
       success: true,
       message: "fetched all Categorys successfully",
-      response: categoryDetails,
+      response: !categoryDetails ? [] : categoryDetails,
     });
   } catch (err) {
     return res.status(401).json({
@@ -99,4 +103,3 @@ exports.getCategoryPageDetails = async (req, res) => {
     });
   }
 };
-

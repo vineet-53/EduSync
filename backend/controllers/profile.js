@@ -1,5 +1,5 @@
-const Profile = require("../models/Profile");
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const Course = require("../models/Course");
 const CourseProgress = require("../models/CourseProgress");
 const RatingAndReview = require("../models/RatingAndReview");
@@ -54,9 +54,8 @@ exports.updateProfile = async (req, res) => {
     }
     let userDetails = await User.findById(userId);
     userDetails.firstName = firstName;
-    if (lastName != " ") {
-      userDetails.lastName = lastName;
-    }
+    userDetails.lastName = lastName;
+
     const profileId = userDetails.profile;
     const profileDetails = await Profile.findOneAndUpdate(
       profileId,
@@ -64,6 +63,7 @@ exports.updateProfile = async (req, res) => {
         $set: {
           gender,
           dob,
+          countryCode: countryCode,
           contactNumber: `${countryCode} ${contactNumber}`,
           about,
         },
@@ -76,7 +76,9 @@ exports.updateProfile = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Profile updated successfully",
-      response: userDetails,
+      response: {
+        user: userDetails,
+      },
     });
   } catch (err) {
     return res.status(400).json({

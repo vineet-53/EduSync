@@ -1,54 +1,81 @@
-import React, { useEffect, useState } from 'react'
-import { Label } from '../../../../../common/form'
-import { ActiveIconButtonStyle, ErrorInputFieldStyle, FormInputFieldStyle } from '../../../../../../styles/constantsStyles'
-import { nanoid } from '@reduxjs/toolkit'
-import { useFormContext } from 'react-hook-form'
+import { useEffect, useRef, useState } from "react";
+import { Label } from "../../../../../common/form";
+import { useFormContext } from "react-hook-form";
+import {
+  // ActiveIconButtonStyle,
+  // ErrorInputFieldStyle,
+  FormInputFieldStyle,
+} from "../../../../../../styles/constantsStyles";
+import { nanoid } from "@reduxjs/toolkit";
 
-function instructions() {
-
-  const {setValue ,register , formState: { errors }, setError } = useFormContext()
-  const [instructions, setInstructions] = useState([])
-  const [instruction, setInstruction] = useState("")
-  const handleRemoveInstruction = (instruction) => {
-    if (instruction === "") {
-      console.log("invalid input")
-      return
-    }
-    setInstructions(prev => {
-      return prev.filter(value => value !== instruction)
-    })
-  }
-  const handleAddInstruction = async (instruction) => {
-    // check instruction in the prev array
-    const isInstructionPresent = instructions.find(value => value.replace(" "  , 
-  "") === instruction.replace(" ",  ""))
+export default function Instructions() {
+  const { setValue } = useFormContext();
+  const inputRef = useRef(null);
+  const [instructionArray, setInstructionArray] = useState([]);
+  const handleAddInstruction = (instruction) => {
+    // find the instruction is already there
+    const isInstructionPresent = instructionArray.find(
+      (value) => value == instruction,
+    );
     if (isInstructionPresent) {
-      console.log("dublicate instruction")
-      return
+      console.log("InstructionAlready there");
+      inputRef.current.value = "";
+      return;
     }
-    await setInstructions(prev => [...prev, instruction])
-  }
-  // update the value of instructions when instructions changes
-  useEffect(()=> { 
-     setValue("instructions" , instructions)
-  } , [instructions])
+    // add the instruction to  the instructions array
+    setInstructionArray((prev) => [...prev, instruction]);
+    setValue("instructions", instructionArray);
+    //set the input value to empty
+    inputRef.current.value = "";
+  };
+  const handleRemoveInstruction = (ind) => {
+    // find the index of that instruction string
+    const modifiedInstructionArray = instructionArray.filter((value, index) => {
+      if (index != ind) {
+        return value;
+      }
+    });
+    console.log(modifiedInstructionArray);
+    setInstructionArray(modifiedInstructionArray);
+    setValue("instructions", modifiedInstructionArray);
+  };
+  useEffect(() => {
+    setValue("instructions", instructionArray);
+  }, [setValue, instructionArray]);
   return (
     <>
       {/* input data  */}
       <Label htmlFor={"instructions"}>Requirements/Instructions </Label>
-      <input type="text" className={FormInputFieldStyle} placeholder='Enter Instructions' />
-      {
-        instructions?.map(value => {
-          return <div key={nanoid()}>
-            <p className='text-white text-xl'>{value} <span className='text-custom-secondary mx-2 cursor-pointer' onClick={() => handleRemoveInstruction(value)}>clear</span></p>
+      <input
+        type="text"
+        className={FormInputFieldStyle}
+        placeholder="Enter Instructions"
+        ref={inputRef}
+      />
+      {instructionArray?.map((value, index) => {
+        return (
+          <div key={nanoid()}>
+            <p className="text-white text-sm">
+              {value}
+              <span
+                className="text-custom-secondary mx-2 cursor-pointer"
+                onClick={() => handleRemoveInstruction(index)}
+              >
+                clear
+              </span>
+            </p>
           </div>
-        })
-      }
+        );
+      })}
       {/* button to add instruction */}
-      <button type='button' className="text-yellow-200 font-bold my-1" onClick={() => handleAddInstruction(instruction)}>Add</button>
-      
+      <button
+        type="button"
+        className="text-yellow-200 font-bold my-1"
+        onClick={() => handleAddInstruction(inputRef.current.value)}
+      >
+        Add
+      </button>
     </>
-  )
+  );
 }
 
-export default instructions

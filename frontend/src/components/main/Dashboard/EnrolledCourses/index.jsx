@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { fetchEnrolledCourses } from "../../../../services/operations/profile.js"
-import { mockData } from "../../../../data/mockData.js"
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { fetchEnrolledCourses } from "../../../../services/operations/profile.js";
+import { mockData } from "../../../../data/mockData.js";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Loading from "../../../../pages/Loading.jsx";
 
 export default function index() {
-  const { token } = useSelector(state => state.auth)
+  const { token } = useSelector((state) => state.auth);
   // const [enrolledCourses, setEnrolledCourses] = useState([])
 
   // const getEnrolledCourses = async () => {
@@ -17,17 +18,17 @@ export default function index() {
   //     console.error(err.message)
   //   }
   // }
-  const { enrolledCourses } = mockData
-  const navigate = useNavigate()
+  const { enrolledCourses } = mockData;
+  const navigate = useNavigate();
   useEffect(() => {
     // getEnrolledCourses()
-  }, [])
+  }, []);
   return (
     <div>
       <div className="text-3xl text-richblack-50">Enrolled Courses</div>
       {!enrolledCourses ? (
         <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-          <div className="loader"></div>
+          <Loading />
         </div>
       ) : !enrolledCourses.length ? (
         <p className="grid h-[10vh] w-full place-content-center text-richblack-5">
@@ -45,16 +46,17 @@ export default function index() {
           {/* Course Names */}
           {enrolledCourses.map((course, i, arr) => (
             <div
-              className={`flex items-center border border-richblack-700 ${i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
-                }`}
+              className={`flex items-center border border-richblack-700 ${
+                i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
+              }`}
               key={i}
             >
               <div
                 className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
                 onClick={() => {
                   navigate(
-                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
-                  )
+                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`,
+                  );
                 }}
               >
                 <img
@@ -85,6 +87,5 @@ export default function index() {
         </div>
       )}
     </div>
-
-  )
+  );
 }

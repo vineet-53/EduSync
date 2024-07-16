@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
 import {
   updateProfilePicture,
   removeProfilePicture,
@@ -73,9 +72,7 @@ export default function UpdateProfilePicture() {
                 {imageName}
               </label>
               <button className={ActiveIconButtonStyle} type="submit">
-                <span className={`${EditIconButtonStyle} font-semibold`}>
-                  Update
-                </span>
+                <span className={`md:flex text-base items-center`}>Update</span>
               </button>
             </div>
             {errors.image && (
