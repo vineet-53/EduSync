@@ -9,6 +9,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { nanoid } from "@reduxjs/toolkit";
 function Tags() {
   const {
+    register,
     formState: { errors },
     setValue,
   } = useFormContext();
@@ -68,4 +69,3 @@ function Tags() {
 }
 
 export default Tags;
-

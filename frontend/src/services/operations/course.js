@@ -8,6 +8,7 @@ import {
   setLoading,
 } from "../../slices/courseSlice";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 export const setAllCatalog = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
@@ -92,11 +93,13 @@ export const createCourse = (data, token) => async (dispatch) => {
       courseEndpoints.CREATE_COURSE_API,
       data,
       {
+        "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
       },
     );
     console.log(response);
     dispatch(setCurrentStep(2));
+    toast.success("Proceeding to next step...");
   } catch (err) {
     console.log(err);
     toast.error(err?.response?.data?.message);

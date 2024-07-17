@@ -20,18 +20,11 @@ exports.createCourse = async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
       throw new Error("No files were uploaded.");
     }
-    console.log(req.files.test);
     const thumbnail = req.files.thumbnail;
     const { userId } = req.user;
     // validate data
-    if (
-      !courseName ||
-      !courseDescription ||
-      !whatYouWillLearn ||
-      !price ||
-      !tag
-    ) {
-      throw new Error("missing details");
+    if (!courseName || !courseDescription || !whatYouWillLearn || !price) {
+      throw new Error("Missing Fields");
     }
     // find user with user id
     const user = await User.findById(userId);
@@ -47,12 +40,11 @@ exports.createCourse = async (req, res) => {
     if (course && course.courseName === courseName) {
       throw new Error("Course already exists ");
     }
-    const thumbnailFilePath = __dirname + "/tmp/" + thumbnail.name;
     // get category of course
     const category = await Category.findById(categoryId);
     // get link to thumbnail
     const thumbnailLink = await uploadToCloudinary(
-      thumbnailFilePath,
+      thumbnail.tempFilePath,
       process.env.CLOUD_FOLDER,
     );
     //create course

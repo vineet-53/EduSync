@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormSubmitButton, Label } from "../../../../../common/form";
 import {
@@ -34,9 +34,12 @@ function CourseInformation() {
     formState: { errors },
   } = methods;
   const onSubmit = (data) => {
+    const file = data.thumbnail[0];
+    data = { ...data, thumbnail: file };
     console.log(data);
     dispatch(createCourse(data, user.token));
   };
+
   return (
     <FormProvider {...methods}>
       <form
@@ -163,11 +166,18 @@ function CourseInformation() {
           <Instructions {...methods} />
           {errors.instructions && (
             <p className={ErrorInputFieldStyle}>
-              {errors.instructions.message}
+              {errors?.instructions?.message}
             </p>
           )}
         </div>
-        <FormSubmitButton> Next </FormSubmitButton>
+        <button
+          className={
+            "text-center bg-yellow-100 text-black rounded-md w-full h-[40px]"
+          }
+          type="submit"
+        >
+          Next
+        </button>
       </form>
     </FormProvider>
   );

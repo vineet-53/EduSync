@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Label } from "../../../../../common/form";
 import { useFormContext } from "react-hook-form";
-import {
-  // ActiveIconButtonStyle,
-  // ErrorInputFieldStyle,
-  FormInputFieldStyle,
-} from "../../../../../../styles/constantsStyles";
+import { FormInputFieldStyle } from "../../../../../../styles/constantsStyles";
 import { nanoid } from "@reduxjs/toolkit";
 
 export default function Instructions() {
@@ -13,29 +9,26 @@ export default function Instructions() {
   const inputRef = useRef(null);
   const [instructionArray, setInstructionArray] = useState([]);
   const handleAddInstruction = (instruction) => {
-    // find the instruction is already there
+    if (instruction == "") {
+      return;
+    }
     const isInstructionPresent = instructionArray.find(
       (value) => value == instruction,
     );
     if (isInstructionPresent) {
-      console.log("InstructionAlready there");
       inputRef.current.value = "";
       return;
     }
-    // add the instruction to  the instructions array
     setInstructionArray((prev) => [...prev, instruction]);
     setValue("instructions", instructionArray);
-    //set the input value to empty
     inputRef.current.value = "";
   };
   const handleRemoveInstruction = (ind) => {
-    // find the index of that instruction string
     const modifiedInstructionArray = instructionArray.filter((value, index) => {
       if (index != ind) {
         return value;
       }
     });
-    console.log(modifiedInstructionArray);
     setInstructionArray(modifiedInstructionArray);
     setValue("instructions", modifiedInstructionArray);
   };
@@ -78,4 +71,3 @@ export default function Instructions() {
     </>
   );
 }
-
