@@ -22,4 +22,3 @@ exports.sendMail = async (email, subject, html) => {
     console.error(err);
   }
 };
-

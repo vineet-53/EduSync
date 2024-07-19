@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Course = require("../models/Course");
 const { Section, SubSection } = require("../models/Section");
 const { uploadToCloudinary } = require("../utilities/imageUploader");
@@ -20,11 +21,17 @@ exports.addSection = async (req, res) => {
     }
     // update details of course
     courseDetails.sections.push(sectionDetails._id);
-    const updatedCourse = await courseDetails.save();
+    await courseDetails.save();
+    const updatedCourse = await Course.findById(courseId).populate({
+      path: "sections",
+      populate: {
+        path: "subSection",
+      },
+    });
     return res.status(200).json({
       success: true,
       message: "successfully created section",
-      reponse: {
+      response: {
         updatedCourse,
         sectionDetails,
       },
@@ -77,14 +84,23 @@ exports.deleteSection = async (req, res) => {
     if (!courseDetails) {
       throw new Error("course not found");
     }
-    courseDetails.sections = courseDetails.sections.filter(
-      (id) => id.toString() !== sectionId,
-    );
-    const updatedCourse = await courseDetails.save();
+    courseDetails.sections = courseDetails.sections.filter((id) => {
+      const secid = new mongoose.Types.ObjectId(sectionId);
+      if (id !== secid) {
+        return id;
+      }
+    });
+    await courseDetails.save();
+    const updatedCourse = await Course.findById(courseId).populate({
+      path: "sections",
+      populate: {
+        path: "subSection",
+      },
+    });
     return res.status(200).json({
       success: true,
       message: "Successfully deleted section",
-      response: updatedCourse,
+      course: updatedCourse,
     });
   } catch (err) {
     return res.status(400).json({
@@ -96,8 +112,9 @@ exports.deleteSection = async (req, res) => {
 exports.addSubSection = async (req, res) => {
   try {
     const { title, timeDuration, description, sectionId } = req.body;
+    const video = req.files.videoFile;
     // validate
-    if (!title || !timeDuration || !description || !sectionId) {
+    if (!video || !title || !timeDuration || !description || !sectionId) {
       throw new Error("missing details");
     }
     // validate subseciton already exist?
@@ -108,12 +125,9 @@ exports.addSubSection = async (req, res) => {
       throw new Error("sub section already exist");
     }
     // get video from req.body and upload to cloudinary
-    const video = req.files.videoFile;
+    console.log(video);
     //create subsection
-    const videoFile = await uploadToCloudinary(
-      video.tempFilePath,
-      process.env.CLOUD_FOLDER,
-    );
+    const videoFile = await uploadToCloudinary(video, process.env.CLOUD_FOLDER);
     const subSectionDetails = await SubSection.create({
       title,
       timeDuration,
@@ -251,4 +265,3 @@ exports.showAllSubSections = async (req, res) => {
     });
   }
 };
-

@@ -2,7 +2,6 @@ const User = require("../models/User");
 const { uploadToCloudinary } = require("../utilities/imageUploader");
 const Course = require("../models/Course");
 const Category = require("../models/Category");
-const mongoose = require("mongoose");
 const { Section, SubSection } = require("../models/Section");
 const CourseProgress = require("../models/CourseProgress");
 exports.createCourse = async (req, res) => {
@@ -295,7 +294,18 @@ exports.getCourseDetails = async (req, res) => {
       throw new Error("missing params");
     }
 
-    const course = await Course.findById(courseId).populate("instructor");
+    const course = await Course.findById(courseId)
+      .populate("instructor")
+      .populate({
+        path: "sections",
+      })
+      .populate({
+        path: "sections",
+        populate: {
+          path: "subSection",
+        },
+      })
+      .exec();
     if (!course) {
       throw new Error("course not found");
     }

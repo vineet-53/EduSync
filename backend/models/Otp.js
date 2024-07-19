@@ -30,7 +30,7 @@ async function sendVerificationEmail(email, otp) {
       "Verification Email",
       "your otp is  <b>" + otp + "</b>",
     );
-    console.log("Email sent successfully: ", mailResponse.response);
+    console.log("Email sent successfully: ", mailResponse);
   } catch (error) {
     console.log("Error occurred while sending email: ", error);
     throw error;
@@ -49,4 +49,3 @@ otpSchema.pre("save", async function (next) {
 });
 const Otp = mongoose.model("Otp", otpSchema);
 module.exports = Otp;
-

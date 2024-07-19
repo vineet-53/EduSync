@@ -6,6 +6,8 @@ import CourseBuilder from "./CourseBuilder";
 import { nanoid } from "@reduxjs/toolkit";
 function RenderSteps() {
   const { currentStep } = useSelector((state) => state.course);
+  // const currentStep = 2;
+
   const stepsList = [
     {
       title: "Course Information",
@@ -21,9 +23,9 @@ function RenderSteps() {
     },
   ];
   return (
-    <div className="w-full ">
+    <div className="w-full flex justify-center flex-col items-center">
       {/* steps */}
-      <div className={"flex py-10 justify-evenly items-center"}>
+      <div className={"flex py-10 justify-evenly items-center w-10/12"}>
         {stepsList?.map((step) => {
           return (
             <div

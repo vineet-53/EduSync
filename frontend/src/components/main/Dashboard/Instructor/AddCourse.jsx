@@ -1,11 +1,24 @@
-import React from "react";
+import { useEffect } from "react";
 import RenderSteps from "./courseBuilder/RenderSteps";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentStep } from "../../../../slices/courseSlice";
+import { getItemFromLocalStorage } from "../../../../utils/localStorage";
 export default function AddCourse() {
+  const { course } = useSelector((state) => state.course);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (course == null || !course) {
+      if (getItemFromLocalStorage("currentStep")) {
+        localStorage.removeItem("currentStep");
+      }
+      dispatch(setCurrentStep(1));
+    }
+  }, []);
   return (
-    <div className="flex flex-col lg:flex-row gap-2">
+    <div className=" flex flex-col lg:flex-row gap-2">
       <RenderSteps />
       <div className="rounded-md">
-        <div className="h-max text-white p-4 lg:p-5 bg-[#2C333F] rounded-md w-11/12 mx-auto">
+        <div className="sticky top-10 h-max text-white py-5 px-8 bg-[#2C333F] rounded-md w-11/12 mx-auto">
           <h3 className="text-xl font-bold py-2 px-0">
             <span>⚡</span>Course Upload Tips
           </h3>
@@ -28,4 +41,3 @@ export default function AddCourse() {
     </div>
   );
 }
-

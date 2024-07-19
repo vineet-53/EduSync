@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { FormSubmitButton, Label } from "../../../../../common/form";
+import { Label } from "../../../../../common/form";
 import {
   ErrorInputFieldStyle,
   FormInputFieldStyle,
@@ -10,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import Instructions from "./Instructions.jsx";
 import Tags from "./Tags";
-import ThumbnailUpload from "./ThumbnailUpload.jsx";
+import FileUpload from "./FileUpload.jsx";
 import { createCourse } from "../../../../../../services/operations/course.js";
 function CourseInformation() {
   const { categories } = useSelector((state) => state.course);
@@ -50,7 +49,7 @@ function CourseInformation() {
           }
         }}
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-[#161D29] grid gap-4 rounded-md p-4 w-11/12 lg:w-10/12 mx-auto"
+        className="bg-[#161D29] grid gap-4 rounded-md p-4 w-9/12 lg:w-9/12 mx-auto"
       >
         {errors.general && (
           <p className={ErrorInputFieldStyle}>{errors.general.message}</p>
@@ -139,7 +138,8 @@ function CourseInformation() {
           <Tags {...methods} />
         </div>
         <div>
-          <ThumbnailUpload {...methods} />
+          <Label htmlFor={"thumbnail"}> Thumbnail </Label>
+          <FileUpload {...methods} fileField={"thumbnail"} />
           {errors.thumbnail && (
             <p className={ErrorInputFieldStyle}>{errors.thumbnail.message}</p>
           )}

@@ -1,19 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Label } from "../../../../../common/form";
 import { IoCloudUploadSharp } from "react-icons/io5";
-function FileUpload() {
+export default function FileUpload({ fileField }) {
   const { register } = useFormContext();
-  const [thumbnailImage, setThumbnailImage] = useState("");
+  const [File, setFile] = useState("");
   return (
     <>
-      <Label htmlFor={"thumbnail"}> Thumbnail </Label>
       <label className="w-full h-max cursor-pointer overflow-hidden bg-custom-tertiary rounded-md my-1 grid place-items-center grid-cols-1 text-custom-secondary p-4">
         <input
-          name="thumbnail"
+          name={fileField}
           type="file"
           className="hidden w-full h-full "
-          {...register("thumbnail", {
+          {...register(fileField, {
             required: true,
             onChange: (e) => {
               const imageBlob = e.target?.files[0];
@@ -28,12 +27,12 @@ function FileUpload() {
                   console.log("No image url generated reader blob");
                   return;
                 }
-                setThumbnailImage(imageUrl);
+                setFile(imageUrl);
               };
             },
           })}
         />
-        {thumbnailImage == "" ? (
+        {File == "" ? (
           <>
             <div className="w-max h-max p-2 border-2 border-yellow-100 rounded-full">
               <IoCloudUploadSharp className="text-xl text-yellow-100" />
@@ -52,16 +51,10 @@ function FileUpload() {
           </>
         ) : (
           <>
-            <img
-              src={thumbnailImage}
-              alt="course thumbnail image"
-              style={{ aspectRatio: 16 / 9 }}
-            />
+            <img src={File} style={{ aspectRatio: 16 / 9 }} />
           </>
         )}
       </label>
     </>
   );
 }
-
-export default ThumbnailUpload;

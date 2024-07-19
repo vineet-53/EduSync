@@ -47,15 +47,15 @@ courseRouter.get("/getAllCourses", getAllCourses);
 courseRouter.post("/getFullCourseDetails", getFullCourseDetails);
 courseRouter.put("/editCourse", auth, isInstructor, updateCourse);
 courseRouter.delete("/deleteCourse", auth, isInstructor, deleteCourse);
-courseRouter.post("/getCourseDetails", auth, getCourseDetails);
 // section
+courseRouter.post("/getCourseDetails", auth, getCourseDetails);
 courseRouter.post("/addSection", auth, isInstructor, addSection);
 courseRouter.post("/updateSection", auth, isInstructor, updateSection);
-courseRouter.post("/deleteSection", auth, isInstructor, deleteSection);
+courseRouter.delete("/deleteSection", auth, isInstructor, deleteSection);
 // sub section
 courseRouter.post("/addSubSection", auth, isInstructor, addSubSection);
 courseRouter.post("/updateSubSection", auth, isInstructor, updateSubSection);
-courseRouter.post("/deleteSubSection", auth, isInstructor, deleteSubSection);
+courseRouter.delete("/deleteSubSection", auth, isInstructor, deleteSubSection);
 
 courseRouter.post("/updateCourseProgress", auth, updateCourseProgress);
 courseRouter.post("/add-to-cart", auth, addToCart);

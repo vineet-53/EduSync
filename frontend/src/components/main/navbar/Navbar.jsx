@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
@@ -23,6 +23,7 @@ const Navbar = () => {
   const handleAccountOptions = (e) => {
     setAccountDropDown(!accoutDropDown);
   };
+  const profileDropDownRef = useRef(null);
   useEffect(() => {
     dispatch(setAllCatalog());
   }, [dispatch]);
@@ -116,7 +117,10 @@ const Navbar = () => {
                 </div>
                 {/* profile */}
                 {profileDropDown && (
-                  <div className="text-white bg-richblack-600 py-2 px-2 z-[99] rounded-md absolute w-full h-20 bg-opacity-90 right-0 top-[105%]">
+                  <div
+                    ref={profileDropDownRef}
+                    className={`text-white pr-[100px] bg-richblack-600 py-2 px-2 z-[99] rounded-md absolute w-full h-20 bg-opacity-90 right-0 top-[150%] `}
+                  >
                     <Link to="/dashboard/my-profile">
                       <li className="list-none hover:text-yellow-200 py-1 px-2 rounded-md bg-opacity-30 font-bold">
                         Profile
