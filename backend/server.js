@@ -18,7 +18,10 @@ cloudinary.connect();
 // cookie middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND,
+    origin: [
+      process.env.FRONTEND,
+      `http://127.0.0.1:${process.env.FRONTEND_PORT}`,
+    ],
     credentials: true,
   }),
 );
