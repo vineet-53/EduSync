@@ -24,7 +24,8 @@ exports.resetPasswordToken = async (req, res) => {
     if (!updatedUser) {
       throw "Email not register in Study notion";
     }
-    const url = `http://localhost:${process.env.FRONTEND_PORT || 5173}/update-password/${token}`;
+    // const url = `http://localhost:${process.env.FRONTEND_PORT || 5173}/update-password/${token}`;
+    const url = `${process.env.FRONTEND}/update-password/${token}`;
     // send url to the email
     await sendMail(
       email,
@@ -90,4 +91,3 @@ exports.resetPassword = async (req, res) => {
     });
   }
 };
-

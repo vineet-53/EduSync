@@ -3,14 +3,15 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 const EXPRESS_PORT = 4000;
+const BACKEND_URL = "https://study-notion-backend-ngon.onrender.com";
 export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:" + EXPRESS_PORT,
+        target: BACKEND_URL || "http://localhost:" + EXPRESS_PORT,
       },
       "/api/v1": {
-        target: "http://localhost:" + EXPRESS_PORT,
+        target: BACKEND_URL || "http://localhost:" + EXPRESS_PORT,
       },
     },
   },
