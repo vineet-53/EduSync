@@ -9,13 +9,19 @@ const profileRoutes = require("./routes/profile.js");
 const rootRoutes = require("./routes/root.js");
 const cloudinary = require("./configs/cloudinary.js");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 // db
-db.connect();
 // cloudinary
 cloudinary.connect();
 // cookie middleware
+app.use(
+  cors({
+    origin: process.env.FRONTEND,
+    credentials: true,
+  }),
+);
 app.use(cookieParser());
 app.use(express.json());
 // file upload
@@ -37,6 +43,15 @@ app.use("/api/v1/profile", profileRoutes);
 app.get("/", (req, res) => {
   res.send("STUDY NOTION - server is running");
 });
-app.listen(PORT, (err) => {
-  if (!err) console.log("Server is running on port ", PORT);
-});
+function run() {
+  try {
+    app.listen(PORT, (err) => {
+      if (!err) console.log("Server is running on port ", PORT);
+      db.connect();
+    });
+  } catch (err) {
+    console.log(err);
+    process.exit(0);
+  }
+}
+run();
